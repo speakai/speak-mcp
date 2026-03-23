@@ -9,7 +9,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "create_embed",
     "Create an embeddable player/transcript widget for a media file.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
       settings: z.record(z.unknown()).optional().describe("Embed configuration settings"),
     },
     async (body) => {
@@ -31,7 +31,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_embed",
     "Update settings for an existing embed widget.",
     {
-      embedId: z.string().describe("Unique identifier of the embed"),
+      embedId: z.string().min(1).describe("Unique identifier of the embed"),
       settings: z.record(z.unknown()).optional().describe("Updated embed settings"),
     },
     async ({ embedId, ...body }) => {
@@ -53,7 +53,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "check_embed",
     "Check if an embed exists for a media file and retrieve its configuration.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
     },
     async ({ mediaId }) => {
       try {
@@ -74,7 +74,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_embed_iframe_url",
     "Get the iframe URL for embedding a media player/transcript on a webpage.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
     },
     async ({ mediaId }) => {
       try {

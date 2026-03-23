@@ -41,7 +41,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "schedule_meeting_event",
     "Schedule the Speak AI meeting assistant to join and record an upcoming meeting.",
     {
-      meetingUrl: z.string().describe("URL of the meeting to join"),
+      meetingUrl: z.string().min(1).describe("URL of the meeting to join"),
       title: z.string().optional().describe("Display title for the event"),
       scheduledAt: z
         .string()

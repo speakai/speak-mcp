@@ -9,7 +9,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "create_text_note",
     "Create a new text note in Speak AI for analysis. The content will be analyzed for insights, topics, and sentiment.",
     {
-      name: z.string().describe("Title/name for the text note"),
+      name: z.string().min(1).describe("Title/name for the text note"),
       text: z.string().optional().describe("Full text content to analyze"),
       description: z.string().optional().describe("Description for the text note"),
       folderId: z
@@ -27,8 +27,8 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       fields: z
         .array(
           z.object({
-            id: z.string().describe("Custom field ID"),
-            value: z.string().describe("Custom field value"),
+            id: z.string().min(1).describe("Custom field ID"),
+            value: z.string().min(1).describe("Custom field value"),
           })
         )
         .optional()
@@ -55,7 +55,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_text_insight",
     "Retrieve AI-generated insights for a text note, including topics, sentiment, summaries, and action items.",
     {
-      mediaId: z.string().describe("Unique identifier of the text note"),
+      mediaId: z.string().min(1).describe("Unique identifier of the text note"),
     },
     async ({ mediaId }) => {
       try {
@@ -103,7 +103,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_text_note",
     "Update an existing text note's name, content, or metadata. Updating text content will trigger re-analysis.",
     {
-      mediaId: z.string().describe("Unique identifier of the text note"),
+      mediaId: z.string().min(1).describe("Unique identifier of the text note"),
       name: z.string().optional().describe("New name for the text note"),
       text: z
         .string()

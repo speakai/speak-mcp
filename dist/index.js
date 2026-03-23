@@ -135,8 +135,9 @@ speakClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retried) {
-      originalRequest._retried = true;
+    const retryCount = originalRequest._retryCount ?? 0;
+    if (error.response?.status === 401 && retryCount < 2) {
+      originalRequest._retryCount = retryCount + 1;
       tokenExpiresAt = 0;
       await ensureAuthenticated();
       originalRequest.headers["x-speakai-key"] = API_KEY;
@@ -176,7 +177,7 @@ function register(server2, client) {
     "Get a pre-signed S3 URL for direct media file upload. Use this before uploading a file directly to Speak AI storage.",
     {
       isVideo: import_zod.z.boolean().describe("Set true for video files, false for audio files"),
-      filename: import_zod.z.string().describe("Original filename including extension"),
+      filename: import_zod.z.string().min(1).describe("Original filename including extension"),
       mimeType: import_zod.z.string().describe('MIME type of the file, e.g. "audio/mp4" or "video/mp4"')
     },
     async ({ isVideo, filename, mimeType }) => {
@@ -201,7 +202,7 @@ function register(server2, client) {
     "upload_media",
     "Upload a media file to Speak AI by providing a publicly accessible URL. Speak AI will fetch and process the file asynchronously.",
     {
-      name: import_zod.z.string().describe("Display name for the media file"),
+      name: import_zod.z.string().min(1).describe("Display name for the media file"),
       url: import_zod.z.string().describe("Publicly accessible URL of the media file (or pre-signed S3 URL)"),
       mediaType: import_zod.z.enum(["audio", "video"]).describe('Type of media: "audio" or "video"'),
       description: import_zod.z.string().optional().describe("Description of the media file"),
@@ -211,8 +212,8 @@ function register(server2, client) {
       callbackUrl: import_zod.z.string().optional().describe("Webhook callback URL for this specific upload"),
       fields: import_zod.z.array(
         import_zod.z.object({
-          id: import_zod.z.string().describe("Custom field ID"),
-          value: import_zod.z.string().describe("Custom field value")
+          id: import_zod.z.string().min(1).describe("Custom field ID"),
+          value: import_zod.z.string().min(1).describe("Custom field value")
         })
       ).optional().describe("Custom field values to attach to the media")
     },
@@ -267,7 +268,7 @@ function register(server2, client) {
     "get_media_insights",
     "Retrieve AI-generated insights for a media file, including topics, sentiment, action items, and summaries.",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file")
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file")
     },
     async ({ mediaId }) => {
       try {
@@ -289,7 +290,7 @@ function register(server2, client) {
     "get_transcript",
     "Retrieve the full transcript for a media file, including speaker labels and timestamps.",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file")
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file")
     },
     async ({ mediaId }) => {
       try {
@@ -311,11 +312,11 @@ function register(server2, client) {
     "update_transcript_speakers",
     "Update or rename speaker labels in a media transcript.",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file"),
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file"),
       speakers: import_zod.z.array(
         import_zod.z.object({
-          id: import_zod.z.string().describe("Speaker identifier from the transcript"),
-          name: import_zod.z.string().describe("Display name to assign to the speaker")
+          id: import_zod.z.string().min(1).describe("Speaker identifier from the transcript"),
+          name: import_zod.z.string().min(1).describe("Display name to assign to the speaker")
         })
       ).describe("Array of speaker ID to name mappings")
     },
@@ -342,7 +343,7 @@ function register(server2, client) {
     "get_media_status",
     "Check the processing status of a media file (e.g. pending, transcribing, completed, failed).",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file")
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file")
     },
     async ({ mediaId }) => {
       try {
@@ -364,7 +365,7 @@ function register(server2, client) {
     "update_media_metadata",
     "Update metadata fields (name, description, tags, status) for an existing media file.",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file"),
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file"),
       name: import_zod.z.string().optional().describe("New display name for the media"),
       description: import_zod.z.string().optional().describe("Description or notes for the media"),
       folderId: import_zod.z.string().optional().describe("Move media to this folder ID"),
@@ -393,7 +394,7 @@ function register(server2, client) {
     "delete_media",
     "Permanently delete a media file and all associated transcripts and insights.",
     {
-      mediaId: import_zod.z.string().describe("Unique identifier of the media file to delete")
+      mediaId: import_zod.z.string().min(1).describe("Unique identifier of the media file to delete")
     },
     async ({ mediaId }) => {
       try {
@@ -425,7 +426,7 @@ function register2(server2, client) {
     "create_text_note",
     "Create a new text note in Speak AI for analysis. The content will be analyzed for insights, topics, and sentiment.",
     {
-      name: import_zod2.z.string().describe("Title/name for the text note"),
+      name: import_zod2.z.string().min(1).describe("Title/name for the text note"),
       text: import_zod2.z.string().optional().describe("Full text content to analyze"),
       description: import_zod2.z.string().optional().describe("Description for the text note"),
       folderId: import_zod2.z.string().optional().describe("ID of the folder to place the note in"),
@@ -433,8 +434,8 @@ function register2(server2, client) {
       callbackUrl: import_zod2.z.string().optional().describe("Webhook callback URL for completion notification"),
       fields: import_zod2.z.array(
         import_zod2.z.object({
-          id: import_zod2.z.string().describe("Custom field ID"),
-          value: import_zod2.z.string().describe("Custom field value")
+          id: import_zod2.z.string().min(1).describe("Custom field ID"),
+          value: import_zod2.z.string().min(1).describe("Custom field value")
         })
       ).optional().describe("Custom field values to attach to the text note")
     },
@@ -458,7 +459,7 @@ function register2(server2, client) {
     "get_text_insight",
     "Retrieve AI-generated insights for a text note, including topics, sentiment, summaries, and action items.",
     {
-      mediaId: import_zod2.z.string().describe("Unique identifier of the text note")
+      mediaId: import_zod2.z.string().min(1).describe("Unique identifier of the text note")
     },
     async ({ mediaId }) => {
       try {
@@ -502,7 +503,7 @@ function register2(server2, client) {
     "update_text_note",
     "Update an existing text note's name, content, or metadata. Updating text content will trigger re-analysis.",
     {
-      mediaId: import_zod2.z.string().describe("Unique identifier of the text note"),
+      mediaId: import_zod2.z.string().min(1).describe("Unique identifier of the text note"),
       name: import_zod2.z.string().optional().describe("New name for the text note"),
       text: import_zod2.z.string().optional().describe("New text content (will trigger re-analysis)"),
       description: import_zod2.z.string().optional().describe("Updated description"),
@@ -542,7 +543,7 @@ function register3(server2, client) {
     "export_media",
     "Export a media file's transcript or insights in various formats (pdf, docx, srt, vtt, txt, csv, md).",
     {
-      mediaId: import_zod3.z.string().describe("Unique identifier of the media file"),
+      mediaId: import_zod3.z.string().min(1).describe("Unique identifier of the media file"),
       fileType: import_zod3.z.enum(["pdf", "docx", "srt", "vtt", "txt", "csv", "md"]).describe("Desired export format"),
       isSpeakerNames: import_zod3.z.boolean().optional().describe("Include speaker names in export"),
       isSpeakerEmail: import_zod3.z.boolean().optional().describe("Include speaker emails in export"),
@@ -638,7 +639,7 @@ function register4(server2, client) {
     "get_folder_views",
     "Retrieve all saved views for a specific folder.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder")
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder")
     },
     async ({ folderId }) => {
       try {
@@ -660,7 +661,7 @@ function register4(server2, client) {
     "create_folder_view",
     "Create a new saved view for a folder with custom filters and display settings.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder"),
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder"),
       name: import_zod4.z.string().optional().describe("Display name for the view"),
       filters: import_zod4.z.record(import_zod4.z.unknown()).optional().describe("Filter configuration object")
     },
@@ -687,8 +688,8 @@ function register4(server2, client) {
     "update_folder_view",
     "Update an existing saved view's name, filters, or display settings.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder"),
-      viewId: import_zod4.z.string().describe("Unique identifier of the view to update"),
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder"),
+      viewId: import_zod4.z.string().min(1).describe("Unique identifier of the view to update"),
       name: import_zod4.z.string().optional().describe("New display name for the view"),
       filters: import_zod4.z.record(import_zod4.z.unknown()).optional().describe("Updated filter configuration")
     },
@@ -715,7 +716,7 @@ function register4(server2, client) {
     "clone_folder_view",
     "Duplicate an existing folder view.",
     {
-      viewId: import_zod4.z.string().describe("Unique identifier of the view to clone")
+      viewId: import_zod4.z.string().min(1).describe("Unique identifier of the view to clone")
     },
     async (body) => {
       try {
@@ -761,7 +762,7 @@ function register4(server2, client) {
     "get_folder_info",
     "Get detailed information about a specific folder including its contents.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder")
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder")
     },
     async ({ folderId }) => {
       try {
@@ -783,7 +784,7 @@ function register4(server2, client) {
     "create_folder",
     "Create a new folder in the workspace.",
     {
-      name: import_zod4.z.string().describe("Display name for the new folder"),
+      name: import_zod4.z.string().min(1).describe("Display name for the new folder"),
       parentFolderId: import_zod4.z.string().optional().describe("ID of the parent folder for nesting")
     },
     async (body) => {
@@ -806,7 +807,7 @@ function register4(server2, client) {
     "clone_folder",
     "Duplicate an existing folder and all of its contents.",
     {
-      folderId: import_zod4.z.string().describe("ID of the folder to clone")
+      folderId: import_zod4.z.string().min(1).describe("ID of the folder to clone")
     },
     async (body) => {
       try {
@@ -828,7 +829,7 @@ function register4(server2, client) {
     "update_folder",
     "Update a folder's name or other properties.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder"),
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder"),
       name: import_zod4.z.string().optional().describe("New display name for the folder")
     },
     async ({ folderId, ...body }) => {
@@ -851,7 +852,7 @@ function register4(server2, client) {
     "delete_folder",
     "Permanently delete a folder. Media within the folder will be moved, not deleted.",
     {
-      folderId: import_zod4.z.string().describe("Unique identifier of the folder to delete")
+      folderId: import_zod4.z.string().min(1).describe("Unique identifier of the folder to delete")
     },
     async ({ folderId }) => {
       try {
@@ -883,7 +884,7 @@ function register5(server2, client) {
     "check_recorder_status",
     "Check whether a recorder/survey is active and accepting submissions.",
     {
-      token: import_zod5.z.string().describe("Unique token identifying the recorder")
+      token: import_zod5.z.string().min(1).describe("Unique token identifying the recorder")
     },
     async ({ token }) => {
       try {
@@ -947,7 +948,7 @@ function register5(server2, client) {
     "clone_recorder",
     "Duplicate an existing recorder including all its settings and questions.",
     {
-      recorderId: import_zod5.z.string().describe("ID of the recorder to clone")
+      recorderId: import_zod5.z.string().min(1).describe("ID of the recorder to clone")
     },
     async (body) => {
       try {
@@ -967,7 +968,7 @@ function register5(server2, client) {
     "get_recorder_info",
     "Get detailed information about a specific recorder including its settings and questions.",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder")
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder")
     },
     async ({ recorderId }) => {
       try {
@@ -987,7 +988,7 @@ function register5(server2, client) {
     "get_recorder_recordings",
     "List all submissions/recordings collected by a specific recorder.",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder")
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder")
     },
     async ({ recorderId }) => {
       try {
@@ -1007,7 +1008,7 @@ function register5(server2, client) {
     "generate_recorder_url",
     "Generate a shareable public URL for a recorder/survey.",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder")
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder")
     },
     async ({ recorderId }) => {
       try {
@@ -1027,7 +1028,7 @@ function register5(server2, client) {
     "update_recorder_settings",
     "Update configuration settings for a recorder (branding, permissions, etc.).",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder"),
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder"),
       settings: import_zod5.z.record(import_zod5.z.unknown()).describe("Settings object with updated values")
     },
     async ({ recorderId, settings }) => {
@@ -1048,7 +1049,7 @@ function register5(server2, client) {
     "update_recorder_questions",
     "Update the survey questions for a recorder.",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder"),
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder"),
       questions: import_zod5.z.array(import_zod5.z.record(import_zod5.z.unknown())).describe("Array of question objects")
     },
     async ({ recorderId, questions }) => {
@@ -1069,7 +1070,7 @@ function register5(server2, client) {
     "delete_recorder",
     "Permanently delete a recorder/survey. Existing recordings are preserved.",
     {
-      recorderId: import_zod5.z.string().describe("Unique identifier of the recorder to delete")
+      recorderId: import_zod5.z.string().min(1).describe("Unique identifier of the recorder to delete")
     },
     async ({ recorderId }) => {
       try {
@@ -1099,7 +1100,7 @@ function register6(server2, client) {
     "create_embed",
     "Create an embeddable player/transcript widget for a media file.",
     {
-      mediaId: import_zod6.z.string().describe("Unique identifier of the media file"),
+      mediaId: import_zod6.z.string().min(1).describe("Unique identifier of the media file"),
       settings: import_zod6.z.record(import_zod6.z.unknown()).optional().describe("Embed configuration settings")
     },
     async (body) => {
@@ -1120,7 +1121,7 @@ function register6(server2, client) {
     "update_embed",
     "Update settings for an existing embed widget.",
     {
-      embedId: import_zod6.z.string().describe("Unique identifier of the embed"),
+      embedId: import_zod6.z.string().min(1).describe("Unique identifier of the embed"),
       settings: import_zod6.z.record(import_zod6.z.unknown()).optional().describe("Updated embed settings")
     },
     async ({ embedId, ...body }) => {
@@ -1141,7 +1142,7 @@ function register6(server2, client) {
     "check_embed",
     "Check if an embed exists for a media file and retrieve its configuration.",
     {
-      mediaId: import_zod6.z.string().describe("Unique identifier of the media file")
+      mediaId: import_zod6.z.string().min(1).describe("Unique identifier of the media file")
     },
     async ({ mediaId }) => {
       try {
@@ -1161,7 +1162,7 @@ function register6(server2, client) {
     "get_embed_iframe_url",
     "Get the iframe URL for embedding a media player/transcript on a webpage.",
     {
-      mediaId: import_zod6.z.string().describe("Unique identifier of the media file")
+      mediaId: import_zod6.z.string().min(1).describe("Unique identifier of the media file")
     },
     async ({ mediaId }) => {
       try {
@@ -1211,8 +1212,8 @@ function register7(server2, client) {
     "ask_magic_prompt",
     "Ask an AI-powered question about a specific media file using Speak AI's Magic Prompt.",
     {
-      mediaId: import_zod7.z.string().describe("Unique identifier of the media file to query"),
-      prompt: import_zod7.z.string().describe("The question or prompt to ask about the media"),
+      mediaId: import_zod7.z.string().min(1).describe("Unique identifier of the media file to query"),
+      prompt: import_zod7.z.string().min(1).describe("The question or prompt to ask about the media"),
       promptId: import_zod7.z.string().optional().describe("ID of a predefined prompt template to use")
     },
     async (body) => {
@@ -1268,7 +1269,7 @@ function register8(server2, client) {
     "schedule_meeting_event",
     "Schedule the Speak AI meeting assistant to join and record an upcoming meeting.",
     {
-      meetingUrl: import_zod8.z.string().describe("URL of the meeting to join"),
+      meetingUrl: import_zod8.z.string().min(1).describe("URL of the meeting to join"),
       title: import_zod8.z.string().optional().describe("Display title for the event"),
       scheduledAt: import_zod8.z.string().optional().describe("ISO 8601 datetime for when the meeting starts")
     },
@@ -1368,7 +1369,7 @@ function register9(server2, client) {
     "create_field",
     "Create a new custom field for categorizing and tagging media.",
     {
-      name: import_zod9.z.string().describe("Display name for the field"),
+      name: import_zod9.z.string().min(1).describe("Display name for the field"),
       type: import_zod9.z.string().optional().describe("Field type (text, number, select, etc.)"),
       options: import_zod9.z.array(import_zod9.z.string()).optional().describe("Options for select/multi-select field types")
     },
@@ -1410,7 +1411,7 @@ function register9(server2, client) {
     "update_field",
     "Update a specific custom field by ID.",
     {
-      id: import_zod9.z.string().describe("Unique identifier of the field"),
+      id: import_zod9.z.string().min(1).describe("Unique identifier of the field"),
       name: import_zod9.z.string().optional().describe("New display name"),
       type: import_zod9.z.string().optional().describe("New field type"),
       options: import_zod9.z.array(import_zod9.z.string()).optional().describe("Updated options for select types")
@@ -1461,7 +1462,7 @@ function register10(server2, client) {
     "get_automation",
     "Get detailed information about a specific automation rule.",
     {
-      automationId: import_zod10.z.string().describe("Unique identifier of the automation")
+      automationId: import_zod10.z.string().min(1).describe("Unique identifier of the automation")
     },
     async ({ automationId }) => {
       try {
@@ -1504,7 +1505,7 @@ function register10(server2, client) {
     "update_automation",
     "Update an existing automation rule's configuration.",
     {
-      automationId: import_zod10.z.string().describe("Unique identifier of the automation"),
+      automationId: import_zod10.z.string().min(1).describe("Unique identifier of the automation"),
       name: import_zod10.z.string().optional().describe("New display name"),
       trigger: import_zod10.z.record(import_zod10.z.unknown()).optional().describe("Updated trigger configuration"),
       actions: import_zod10.z.array(import_zod10.z.record(import_zod10.z.unknown())).optional().describe("Updated action configurations"),
@@ -1531,7 +1532,7 @@ function register10(server2, client) {
     "toggle_automation_status",
     "Enable or disable an automation rule.",
     {
-      automationId: import_zod10.z.string().describe("Unique identifier of the automation"),
+      automationId: import_zod10.z.string().min(1).describe("Unique identifier of the automation"),
       enabled: import_zod10.z.boolean().describe("Set to true to enable, false to disable")
     },
     async ({ automationId, enabled }) => {
@@ -1604,7 +1605,7 @@ function register11(server2, client) {
     "update_webhook",
     "Update an existing webhook's URL or subscribed events.",
     {
-      webhookId: import_zod11.z.string().describe("Unique identifier of the webhook"),
+      webhookId: import_zod11.z.string().min(1).describe("Unique identifier of the webhook"),
       url: import_zod11.z.string().url().optional().describe("New endpoint URL"),
       events: import_zod11.z.array(import_zod11.z.string()).optional().describe("Updated array of event types")
     },
@@ -1626,7 +1627,7 @@ function register11(server2, client) {
     "delete_webhook",
     "Delete a webhook and stop receiving notifications at its endpoint.",
     {
-      webhookId: import_zod11.z.string().describe("Unique identifier of the webhook to delete")
+      webhookId: import_zod11.z.string().min(1).describe("Unique identifier of the webhook to delete")
     },
     async ({ webhookId }) => {
       try {

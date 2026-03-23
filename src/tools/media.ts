@@ -13,7 +13,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       isVideo: z
         .boolean()
         .describe("Set true for video files, false for audio files"),
-      filename: z.string().describe("Original filename including extension"),
+      filename: z.string().min(1).describe("Original filename including extension"),
       mimeType: z
         .string()
         .describe('MIME type of the file, e.g. "audio/mp4" or "video/mp4"'),
@@ -42,7 +42,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "upload_media",
     "Upload a media file to Speak AI by providing a publicly accessible URL. Speak AI will fetch and process the file asynchronously.",
     {
-      name: z.string().describe("Display name for the media file"),
+      name: z.string().min(1).describe("Display name for the media file"),
       url: z
         .string()
         .describe("Publicly accessible URL of the media file (or pre-signed S3 URL)"),
@@ -69,8 +69,8 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       fields: z
         .array(
           z.object({
-            id: z.string().describe("Custom field ID"),
-            value: z.string().describe("Custom field value"),
+            id: z.string().min(1).describe("Custom field ID"),
+            value: z.string().min(1).describe("Custom field value"),
           })
         )
         .optional()
@@ -166,7 +166,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_media_insights",
     "Retrieve AI-generated insights for a media file, including topics, sentiment, action items, and summaries.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
     },
     async ({ mediaId }) => {
       try {
@@ -190,7 +190,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_transcript",
     "Retrieve the full transcript for a media file, including speaker labels and timestamps.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
     },
     async ({ mediaId }) => {
       try {
@@ -214,12 +214,12 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_transcript_speakers",
     "Update or rename speaker labels in a media transcript.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
       speakers: z
         .array(
           z.object({
-            id: z.string().describe("Speaker identifier from the transcript"),
-            name: z.string().describe("Display name to assign to the speaker"),
+            id: z.string().min(1).describe("Speaker identifier from the transcript"),
+            name: z.string().min(1).describe("Display name to assign to the speaker"),
           })
         )
         .describe("Array of speaker ID to name mappings"),
@@ -249,7 +249,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_media_status",
     "Check the processing status of a media file (e.g. pending, transcribing, completed, failed).",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
     },
     async ({ mediaId }) => {
       try {
@@ -273,7 +273,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_media_metadata",
     "Update metadata fields (name, description, tags, status) for an existing media file.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
       name: z.string().optional().describe("New display name for the media"),
       description: z.string().optional().describe("Description or notes for the media"),
       folderId: z
@@ -319,7 +319,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "delete_media",
     "Permanently delete a media file and all associated transcripts and insights.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file to delete"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file to delete"),
     },
     async ({ mediaId }) => {
       try {

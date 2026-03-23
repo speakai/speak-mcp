@@ -111,16 +111,15 @@ speakClient.interceptors.request.use(
   }
 );
 
-// Interceptor: auto-retry on 401 (token expired mid-flight)
+// Interceptor: auto-retry on 401 (token expired mid-flight), max 2 retries
 speakClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retried
-    ) {
-      originalRequest._retried = true;
+    const retryCount = originalRequest._retryCount ?? 0;
+
+    if (error.response?.status === 401 && retryCount < 2) {
+      originalRequest._retryCount = retryCount + 1;
       tokenExpiresAt = 0; // force re-auth
       await ensureAuthenticated();
       originalRequest.headers["x-speakai-key"] = API_KEY;

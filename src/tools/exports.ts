@@ -9,7 +9,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "export_media",
     "Export a media file's transcript or insights in various formats (pdf, docx, srt, vtt, txt, csv, md).",
     {
-      mediaId: z.string().describe("Unique identifier of the media file"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file"),
       fileType: z
         .enum(["pdf", "docx", "srt", "vtt", "txt", "csv", "md"])
         .describe("Desired export format"),

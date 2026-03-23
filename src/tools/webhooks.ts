@@ -53,7 +53,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_webhook",
     "Update an existing webhook's URL or subscribed events.",
     {
-      webhookId: z.string().describe("Unique identifier of the webhook"),
+      webhookId: z.string().min(1).describe("Unique identifier of the webhook"),
       url: z.string().url().optional().describe("New endpoint URL"),
       events: z
         .array(z.string())
@@ -79,7 +79,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "delete_webhook",
     "Delete a webhook and stop receiving notifications at its endpoint.",
     {
-      webhookId: z.string().describe("Unique identifier of the webhook to delete"),
+      webhookId: z.string().min(1).describe("Unique identifier of the webhook to delete"),
     },
     async ({ webhookId }) => {
       try {

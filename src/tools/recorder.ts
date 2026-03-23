@@ -9,7 +9,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "check_recorder_status",
     "Check whether a recorder/survey is active and accepting submissions.",
     {
-      token: z.string().describe("Unique token identifying the recorder"),
+      token: z.string().min(1).describe("Unique token identifying the recorder"),
     },
     async ({ token }) => {
       try {
@@ -76,7 +76,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "clone_recorder",
     "Duplicate an existing recorder including all its settings and questions.",
     {
-      recorderId: z.string().describe("ID of the recorder to clone"),
+      recorderId: z.string().min(1).describe("ID of the recorder to clone"),
     },
     async (body) => {
       try {
@@ -97,7 +97,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_recorder_info",
     "Get detailed information about a specific recorder including its settings and questions.",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder"),
     },
     async ({ recorderId }) => {
       try {
@@ -118,7 +118,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_recorder_recordings",
     "List all submissions/recordings collected by a specific recorder.",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder"),
     },
     async ({ recorderId }) => {
       try {
@@ -139,7 +139,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "generate_recorder_url",
     "Generate a shareable public URL for a recorder/survey.",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder"),
     },
     async ({ recorderId }) => {
       try {
@@ -160,7 +160,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_recorder_settings",
     "Update configuration settings for a recorder (branding, permissions, etc.).",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder"),
       settings: z.record(z.unknown()).describe("Settings object with updated values"),
     },
     async ({ recorderId, settings }) => {
@@ -182,7 +182,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_recorder_questions",
     "Update the survey questions for a recorder.",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder"),
       questions: z
         .array(z.record(z.unknown()))
         .describe("Array of question objects"),
@@ -206,7 +206,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "delete_recorder",
     "Permanently delete a recorder/survey. Existing recordings are preserved.",
     {
-      recorderId: z.string().describe("Unique identifier of the recorder to delete"),
+      recorderId: z.string().min(1).describe("Unique identifier of the recorder to delete"),
     },
     async ({ recorderId }) => {
       try {

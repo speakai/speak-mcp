@@ -28,8 +28,8 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "ask_magic_prompt",
     "Ask an AI-powered question about a specific media file using Speak AI's Magic Prompt.",
     {
-      mediaId: z.string().describe("Unique identifier of the media file to query"),
-      prompt: z.string().describe("The question or prompt to ask about the media"),
+      mediaId: z.string().min(1).describe("Unique identifier of the media file to query"),
+      prompt: z.string().min(1).describe("The question or prompt to ask about the media"),
       promptId: z
         .string()
         .optional()

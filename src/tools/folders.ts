@@ -31,7 +31,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_folder_views",
     "Retrieve all saved views for a specific folder.",
     {
-      folderId: z.string().describe("Unique identifier of the folder"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder"),
     },
     async ({ folderId }) => {
       try {
@@ -54,7 +54,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "create_folder_view",
     "Create a new saved view for a folder with custom filters and display settings.",
     {
-      folderId: z.string().describe("Unique identifier of the folder"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder"),
       name: z.string().optional().describe("Display name for the view"),
       filters: z
         .record(z.unknown())
@@ -85,8 +85,8 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_folder_view",
     "Update an existing saved view's name, filters, or display settings.",
     {
-      folderId: z.string().describe("Unique identifier of the folder"),
-      viewId: z.string().describe("Unique identifier of the view to update"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder"),
+      viewId: z.string().min(1).describe("Unique identifier of the view to update"),
       name: z.string().optional().describe("New display name for the view"),
       filters: z
         .record(z.unknown())
@@ -117,7 +117,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "clone_folder_view",
     "Duplicate an existing folder view.",
     {
-      viewId: z.string().describe("Unique identifier of the view to clone"),
+      viewId: z.string().min(1).describe("Unique identifier of the view to clone"),
     },
     async (body) => {
       try {
@@ -169,7 +169,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_folder_info",
     "Get detailed information about a specific folder including its contents.",
     {
-      folderId: z.string().describe("Unique identifier of the folder"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder"),
     },
     async ({ folderId }) => {
       try {
@@ -192,7 +192,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "create_folder",
     "Create a new folder in the workspace.",
     {
-      name: z.string().describe("Display name for the new folder"),
+      name: z.string().min(1).describe("Display name for the new folder"),
       parentFolderId: z
         .string()
         .optional()
@@ -219,7 +219,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "clone_folder",
     "Duplicate an existing folder and all of its contents.",
     {
-      folderId: z.string().describe("ID of the folder to clone"),
+      folderId: z.string().min(1).describe("ID of the folder to clone"),
     },
     async (body) => {
       try {
@@ -242,7 +242,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_folder",
     "Update a folder's name or other properties.",
     {
-      folderId: z.string().describe("Unique identifier of the folder"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder"),
       name: z.string().optional().describe("New display name for the folder"),
     },
     async ({ folderId, ...body }) => {
@@ -266,7 +266,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "delete_folder",
     "Permanently delete a folder. Media within the folder will be moved, not deleted.",
     {
-      folderId: z.string().describe("Unique identifier of the folder to delete"),
+      folderId: z.string().min(1).describe("Unique identifier of the folder to delete"),
     },
     async ({ folderId }) => {
       try {

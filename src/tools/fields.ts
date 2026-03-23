@@ -28,7 +28,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "create_field",
     "Create a new custom field for categorizing and tagging media.",
     {
-      name: z.string().describe("Display name for the field"),
+      name: z.string().min(1).describe("Display name for the field"),
       type: z.string().optional().describe("Field type (text, number, select, etc.)"),
       options: z
         .array(z.string())
@@ -77,7 +77,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_field",
     "Update a specific custom field by ID.",
     {
-      id: z.string().describe("Unique identifier of the field"),
+      id: z.string().min(1).describe("Unique identifier of the field"),
       name: z.string().optional().describe("New display name"),
       type: z.string().optional().describe("New field type"),
       options: z

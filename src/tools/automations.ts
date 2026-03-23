@@ -28,7 +28,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "get_automation",
     "Get detailed information about a specific automation rule.",
     {
-      automationId: z.string().describe("Unique identifier of the automation"),
+      automationId: z.string().min(1).describe("Unique identifier of the automation"),
     },
     async ({ automationId }) => {
       try {
@@ -76,7 +76,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "update_automation",
     "Update an existing automation rule's configuration.",
     {
-      automationId: z.string().describe("Unique identifier of the automation"),
+      automationId: z.string().min(1).describe("Unique identifier of the automation"),
       name: z.string().optional().describe("New display name"),
       trigger: z.record(z.unknown()).optional().describe("Updated trigger configuration"),
       actions: z
@@ -107,7 +107,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     "toggle_automation_status",
     "Enable or disable an automation rule.",
     {
-      automationId: z.string().describe("Unique identifier of the automation"),
+      automationId: z.string().min(1).describe("Unique identifier of the automation"),
       enabled: z.boolean().describe("Set to true to enable, false to disable"),
     },
     async ({ automationId, enabled }) => {
