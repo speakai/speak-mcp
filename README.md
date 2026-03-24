@@ -2,11 +2,11 @@
   <img src="assets/logo.png" alt="Speak AI" width="120" />
 </p>
 
-<h1 align="center">Speak AI MCP Server</h1>
+<h1 align="center">Speak AI MCP Server & CLI</h1>
 
 <p align="center">
   Connect Claude, ChatGPT, and other AI assistants to your <a href="https://speakai.co">Speak AI</a> workspace.<br/>
-  Transcribe meetings, analyze media, extract insights — all through natural conversation.
+  Transcribe meetings, analyze media, extract insights — through AI assistants or the command line.
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 
 ## What You Can Do
 
-Ask your AI assistant to work with your Speak AI data:
+**With AI assistants:**
 
 > "Transcribe this audio file and give me the key takeaways"
 
@@ -27,9 +27,14 @@ Ask your AI assistant to work with your Speak AI data:
 
 > "Export all Q1 interview transcripts as PDFs with speaker names"
 
-> "Schedule the meeting assistant for my Zoom call at 2pm"
+**From the command line:**
 
-> "Create a folder called Customer Research and move these recordings into it"
+```sh
+speak-mcp upload https://example.com/meeting.mp3 --wait
+speak-mcp transcript abc123 --plain
+speak-mcp ask abc123 "What were the action items?"
+speak-mcp export abc123 -f pdf --speakers
+```
 
 ---
 
@@ -43,37 +48,82 @@ Ask your AI assistant to work with your Speak AI data:
 
 That's it — the server handles access token management automatically.
 
-### 2. Connect to Your AI Assistant
-
-There are two ways to connect — choose the one that fits your setup:
+### 2. Choose How to Use It
 
 ---
 
-## Option A: Claude Web / ChatGPT (Remote Connector)
+## CLI (Command Line)
 
-For **Claude on the web** (claude.ai) and **ChatGPT**, use the hosted endpoint. No installation required.
+Install globally and configure your API key once:
 
-**Claude (claude.ai):**
+```sh
+npm install -g @speakai/mcp-server
+speak-mcp config set-key
+```
 
-1. Go to **Settings > Connectors > Add Connector**
-2. Enter the URL: `https://api.speakai.co/v1/mcp`
-3. Add your authentication headers
-4. Start chatting with your Speak AI data
+Or run without installing:
 
-**ChatGPT:**
+```sh
+npx @speakai/mcp-server config set-key
+```
 
-1. Go to **Settings > Connectors > Create**
-2. Enter the MCP URL: `https://api.speakai.co/v1/mcp`
-3. Configure authentication with your API key
-4. Done — your GPT can now access Speak AI
+Then use any command:
+
+```sh
+speak-mcp ls                                    # List all media
+speak-mcp upload https://example.com/call.mp3   # Upload media
+speak-mcp transcript <id>                       # Get transcript
+speak-mcp insights <id>                         # Get AI insights
+speak-mcp ask <id> "Summarize this meeting"     # Ask AI questions
+speak-mcp export <id> -f pdf --speakers         # Export transcript
+speak-mcp schedule-meeting <zoom-url>           # Join a meeting
+```
+
+### All CLI Commands
+
+| Command | Description |
+|---|---|
+| `config set-key [key]` | Set your API key (interactive if no key given) |
+| `config show` | Show current configuration |
+| `config set-url <url>` | Set custom API base URL |
+| `list-media` / `ls` | List media files with filtering and pagination |
+| `get-transcript` / `transcript <id>` | Get transcript (formatted, `--plain`, or `--json`) |
+| `get-insights` / `insights <id>` | Get AI insights (topics, sentiment, keywords) |
+| `upload <url>` | Upload media from URL (`--wait` to poll until done) |
+| `export <id>` | Export transcript (`-f pdf\|docx\|srt\|vtt\|txt\|csv\|md`) |
+| `status <id>` | Check media processing status |
+| `create-text <name>` | Create text note (`--text` or pipe via stdin) |
+| `list-folders` / `folders` | List all folders |
+| `ask <id> <prompt>` | Ask AI a question about a media file |
+| `schedule-meeting <url>` | Schedule meeting assistant to join a call |
+
+### CLI Options
+
+Every command supports:
+- `--json` — output raw JSON (for scripting and piping)
+- `--help` — show command-specific help
+
+```sh
+# Pipe transcript to a file
+speak-mcp transcript abc123 --plain > meeting.txt
+
+# Upload and wait for processing
+speak-mcp upload https://example.com/interview.mp3 -n "Q1 Interview" --wait
+
+# Create text note from stdin
+cat notes.txt | speak-mcp create-text "Meeting Notes"
+
+# List only video files as JSON
+speak-mcp ls --type video --json | jq '.mediaList[].name'
+```
 
 ---
 
-## Option B: Claude Desktop / Claude Code (Local Server)
+## MCP Server (AI Assistants)
 
-For **Claude Desktop** and **Claude Code**, the server runs locally on your machine via npm.
+### Claude Desktop
 
-**Claude Desktop** — add to your config file:
+Add to your config file:
 
 macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 Windows: `%APPDATA%\Claude\claude_desktop_config.json`
@@ -92,16 +142,23 @@ Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 }
 ```
 
-**Claude Code (CLI):**
+### Claude Code
 
 ```sh
 export SPEAK_API_KEY="your-api-key"
-
 claude mcp add speak-ai -- npx -y @speakai/mcp-server
-claude
 ```
 
-**Any STDIO-compatible MCP client:**
+### Claude Web (claude.ai)
+
+1. Go to **Settings > Connectors > Add Connector**
+2. Enter the URL: `https://api.speakai.co/v1/mcp`
+3. Add your `x-speakai-key` and `x-access-token` headers
+4. Start chatting with your Speak AI data
+
+### Any MCP Client
+
+Any STDIO-compatible client can connect:
 
 ```sh
 SPEAK_API_KEY=your-key npx @speakai/mcp-server
