@@ -6,7 +6,7 @@
 
 <p align="center">
   Connect Claude, Cursor, Windsurf, and other AI assistants to your <a href="https://speakai.co">Speak AI</a> workspace.<br/>
-  80 tools, 5 resources, 3 prompts, 26 CLI commands — transcribe, analyze, search, and manage media at scale.
+  81 tools, 5 resources, 3 prompts, 26 CLI commands — transcribe, analyze, search, and manage media at scale.
 </p>
 
 <p align="center">
@@ -160,7 +160,7 @@ SPEAK_API_KEY=your-key npx @speakai/mcp-server
 
 ---
 
-## MCP Tools (80)
+## MCP Tools (81)
 
 <details>
 <summary>Media (14 tools)</summary>
@@ -205,7 +205,7 @@ SPEAK_API_KEY=your-key npx @speakai/mcp-server
 </details>
 
 <details>
-<summary>Folders & Views (12 tools)</summary>
+<summary>Folders & Views (11 tools)</summary>
 
 | Tool | Description |
 |---|---|
