@@ -6,7 +6,7 @@
 
 <p align="center">
   Connect Claude, Cursor, Windsurf, and other AI assistants to your <a href="https://speakai.co">Speak AI</a> workspace.<br/>
-  82 tools, 5 resources, 3 prompts, 28 CLI commands — transcribe, analyze, search, and manage media at scale.
+  83 tools, 5 resources, 3 prompts, 28 CLI commands — transcribe, analyze, search, and manage media at scale.
 </p>
 
 <p align="center">
@@ -160,10 +160,10 @@ SPEAK_API_KEY=your-key npx @speakai/mcp-server
 
 ---
 
-## MCP Tools (82)
+## MCP Tools (83)
 
 <details>
-<summary>Media (15 tools)</summary>
+<summary>Media (16 tools)</summary>
 
 | Tool | Description |
 |---|---|
@@ -171,11 +171,12 @@ SPEAK_API_KEY=your-key npx @speakai/mcp-server
 | `upload_media` | Upload media from a public URL for transcription |
 | `upload_local_file` | Upload a local file directly from disk |
 | `upload_and_analyze` | Upload, wait for processing, return transcript + insights in one call |
-| `list_media` | List and search media files with filters and pagination |
+| `list_media` | List and search media files with filters, pagination, and optional inline data (transcripts, speakers, keywords) via `include` param |
 | `get_media_insights` | Get AI insights — topics, sentiment, summaries, action items |
 | `get_transcript` | Get full transcript with speaker labels and timestamps |
 | `get_captions` | Get subtitle-formatted captions for a media file |
 | `update_transcript_speakers` | Rename speaker labels in a transcript |
+| `bulk_update_transcript_speakers` | Rename speaker labels across multiple media files in one call (max 500) |
 | `get_media_status` | Check processing status (pending -> processed) |
 | `update_media_metadata` | Update name, description, tags, or folder |
 | `delete_media` | Permanently delete a media file |
@@ -658,6 +659,8 @@ curl -X POST https://api.speakai.co/v1/auth/refreshToken \
 - Use `export_multiple_media` over individual exports for batch operations
 - Use `upload_and_analyze` instead of manual upload + poll + fetch loops
 - Use `bulk_move_media` to move multiple items at once instead of updating one by one
+- Use `bulk_update_transcript_speakers` to rename speakers across many files instead of calling `update_transcript_speakers` per file
+- Use `list_media` with `include: ["transcription"]` to fetch media with transcripts inline, avoiding N+1 calls to `get_transcript`
 
 ### Error Format
 

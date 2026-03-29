@@ -762,3 +762,170 @@ describe("Clips tools — remaining untested endpoints", () => {
     expect(mockPut).toHaveBeenCalledWith("/v1/clips/c1", { title: "Renamed Clip" });
   });
 });
+
+describe("Folder tools", () => {
+  let server: McpServer;
+
+  beforeEach(async () => {
+    vi.resetAllMocks();
+    mockGet.mockResolvedValue({ data: { data: {} } });
+    mockPost.mockResolvedValue({ data: { data: {} } });
+    mockPut.mockResolvedValue({ data: { data: {} } });
+    mockDelete.mockResolvedValue({ data: { data: {} } });
+    server = new McpServer({ name: "test", version: "1.0.0" });
+    const { register } = await import("../src/tools/folders.js");
+    register(server, mockClient);
+  });
+
+  it("get_folder_info calls GET /v1/folder/:folderId", async () => {
+    const cb = getToolCallback(server, "get_folder_info");
+    await cb({ folderId: "f1" });
+    expect(mockGet).toHaveBeenCalledWith("/v1/folder/f1");
+  });
+
+  it("create_folder calls POST /v1/folder", async () => {
+    const cb = getToolCallback(server, "create_folder");
+    await cb({ name: "New Folder", parentFolderId: "parent1" });
+    expect(mockPost).toHaveBeenCalledWith("/v1/folder", {
+      name: "New Folder",
+      parentFolderId: "parent1",
+    });
+  });
+
+  it("clone_folder calls POST /v1/folder/clone", async () => {
+    const cb = getToolCallback(server, "clone_folder");
+    await cb({ folderId: "f1" });
+    expect(mockPost).toHaveBeenCalledWith("/v1/folder/clone", { folderId: "f1" });
+  });
+
+  it("update_folder calls PUT /v1/folder/:folderId", async () => {
+    const cb = getToolCallback(server, "update_folder");
+    await cb({ folderId: "f1", name: "Renamed" });
+    expect(mockPut).toHaveBeenCalledWith("/v1/folder/f1", { name: "Renamed" });
+  });
+
+  it("delete_folder calls DELETE /v1/folder/:folderId", async () => {
+    const cb = getToolCallback(server, "delete_folder");
+    await cb({ folderId: "f1" });
+    expect(mockDelete).toHaveBeenCalledWith("/v1/folder/f1");
+  });
+
+  it("create_folder_view calls POST /v1/folders/:folderId/views", async () => {
+    const cb = getToolCallback(server, "create_folder_view");
+    await cb({ folderId: "f1", name: "My View", filters: { status: "active" } });
+    expect(mockPost).toHaveBeenCalledWith("/v1/folders/f1/views", {
+      name: "My View",
+      filters: { status: "active" },
+    });
+  });
+
+  it("update_folder_view calls PUT /v1/folders/:folderId/views/:viewId", async () => {
+    const cb = getToolCallback(server, "update_folder_view");
+    await cb({ folderId: "f1", viewId: "v1", name: "Updated View" });
+    expect(mockPut).toHaveBeenCalledWith("/v1/folders/f1/views/v1", {
+      name: "Updated View",
+    });
+  });
+
+  it("clone_folder_view calls POST /v1/folders/views/clone", async () => {
+    const cb = getToolCallback(server, "clone_folder_view");
+    await cb({ viewId: "v1" });
+    expect(mockPost).toHaveBeenCalledWith("/v1/folders/views/clone", { viewId: "v1" });
+  });
+
+  it("handles error on get_folder_info", async () => {
+    mockGet.mockRejectedValueOnce(new Error("fail"));
+    const cb = getToolCallback(server, "get_folder_info");
+    const result = await cb({ folderId: "f1" });
+    expect(result.isError).toBe(true);
+  });
+});
+
+describe("Media tools — additional endpoints", () => {
+  let server: McpServer;
+
+  beforeEach(async () => {
+    vi.resetAllMocks();
+    mockGet.mockResolvedValue({ data: { data: {} } });
+    mockPost.mockResolvedValue({ data: { data: {} } });
+    mockPut.mockResolvedValue({ data: { data: {} } });
+    mockDelete.mockResolvedValue({ data: { data: {} } });
+    server = new McpServer({ name: "test", version: "1.0.0" });
+    const { register } = await import("../src/tools/media.js");
+    register(server, mockClient);
+  });
+
+  it("get_signed_upload_url calls GET /v1/media/upload/signedurl with params", async () => {
+    const cb = getToolCallback(server, "get_signed_upload_url");
+    await cb({ isVideo: false, filename: "audio.mp3", mimeType: "audio/mpeg" });
+    expect(mockGet).toHaveBeenCalledWith("/v1/media/upload/signedurl", {
+      params: { isVideo: false, filename: "audio.mp3", mimeType: "audio/mpeg" },
+    });
+  });
+
+  it("update_transcript_speakers calls PUT /v1/media/speakers/:mediaId", async () => {
+    const cb = getToolCallback(server, "update_transcript_speakers");
+    await cb({
+      mediaId: "m1",
+      speakers: [{ id: "s1", name: "Alice" }],
+    });
+    expect(mockPut).toHaveBeenCalledWith("/v1/media/speakers/m1", {
+      speakers: [{ id: "s1", name: "Alice" }],
+    });
+  });
+
+  it("update_media_metadata calls PUT /v1/media/:mediaId", async () => {
+    const cb = getToolCallback(server, "update_media_metadata");
+    await cb({ mediaId: "m1", name: "Renamed Media", tags: ["tag1"] });
+    expect(mockPut).toHaveBeenCalledWith("/v1/media/m1", {
+      name: "Renamed Media",
+      tags: ["tag1"],
+    });
+  });
+
+  it("get_captions calls GET /v1/media/caption/:mediaId", async () => {
+    const cb = getToolCallback(server, "get_captions");
+    await cb({ mediaId: "m1" });
+    expect(mockGet).toHaveBeenCalledWith("/v1/media/caption/m1");
+  });
+
+  it("list_supported_languages calls GET /v1/media/supportedLanguages", async () => {
+    const cb = getToolCallback(server, "list_supported_languages");
+    await cb({});
+    expect(mockGet).toHaveBeenCalledWith("/v1/media/supportedLanguages");
+  });
+
+  it("get_media_statistics calls GET /v1/media/statistics", async () => {
+    const cb = getToolCallback(server, "get_media_statistics");
+    await cb({});
+    expect(mockGet).toHaveBeenCalledWith("/v1/media/statistics");
+  });
+
+  it("toggle_media_favorite calls POST /v1/media/favorites", async () => {
+    const cb = getToolCallback(server, "toggle_media_favorite");
+    await cb({ mediaId: "m1" });
+    expect(mockPost).toHaveBeenCalledWith("/v1/media/favorites", { mediaId: "m1" });
+  });
+
+  it("reanalyze_media calls POST /v1/media/reanalyze/:mediaId", async () => {
+    const cb = getToolCallback(server, "reanalyze_media");
+    await cb({ mediaId: "m1" });
+    expect(mockPost).toHaveBeenCalledWith("/v1/media/reanalyze/m1", {});
+  });
+
+  it("bulk_move_media calls PUT /v1/media/move", async () => {
+    const cb = getToolCallback(server, "bulk_move_media");
+    await cb({ folderId: "f1", mediaIds: ["m1", "m2"] });
+    expect(mockPut).toHaveBeenCalledWith("/v1/media/move", {
+      folderId: "f1",
+      mediaIds: ["m1", "m2"],
+    });
+  });
+
+  it("handles error on get_captions", async () => {
+    mockGet.mockRejectedValueOnce(new Error("fail"));
+    const cb = getToolCallback(server, "get_captions");
+    const result = await cb({ mediaId: "m1" });
+    expect(result.isError).toBe(true);
+  });
+});

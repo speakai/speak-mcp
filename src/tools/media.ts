@@ -97,7 +97,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
   // 3. List media
   server.tool(
     "list_media",
-    "List and search media files in the workspace with filtering, pagination, and sorting. Use filterName for text search, mediaType to filter by audio/video/text, folderId for folder-specific results, and from/to for date ranges. Returns mediaIds you can pass to get_transcript, get_media_insights, or ask_magic_prompt. For deep full-text search across transcripts, use search_media instead.",
+    "List and search media files in the workspace with filtering, pagination, and sorting. Use filterName for text search, mediaType to filter by audio/video/text, folderId for folder-specific results, and from/to for date ranges. Use the include param to embed additional data (transcripts, speakers, keywords) inline with each result, avoiding N+1 API calls. Returns mediaIds you can pass to get_transcript, get_media_insights, or ask_magic_prompt. For deep full-text search across transcripts, use search_media instead.",
     {
       mediaType: z
         .enum([MediaType.AUDIO, MediaType.VIDEO, MediaType.TEXT] as [string, ...string[]])
@@ -145,10 +145,29 @@ export function register(server: McpServer, client?: AxiosInstance): void {
         .boolean()
         .optional()
         .describe("Filter to only show favorited media"),
+      include: z
+        .array(
+          z.enum([
+            "transcription",
+            "keywords",
+            "speakers",
+            "sentiment",
+            "custom",
+            "fields",
+          ] as [string, ...string[]])
+        )
+        .optional()
+        .describe(
+          "Additional data to include with each media item. Without this, only metadata is returned. Use 'transcription' to include full transcripts inline, 'speakers' for speaker details, 'keywords' for extracted keywords, etc. Avoids N+1 API calls when you need data for multiple files."
+        ),
     },
-    async (params) => {
+    async ({ include, ...params }) => {
       try {
-        const result = await api.get("/v1/media", { params });
+        const queryParams: Record<string, unknown> = { ...params };
+        if (include?.length) {
+          queryParams.requestTypes = include.join(",");
+        }
+        const result = await api.get("/v1/media", { params: queryParams });
         return {
           content: [
             { type: "text", text: JSON.stringify(result.data, null, 2) },
@@ -456,7 +475,57 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     }
   );
 
-  // 15. Bulk move media to folder
+  // 15. Bulk update transcript speakers across multiple media
+  server.tool(
+    "bulk_update_transcript_speakers",
+    "Update or rename speaker labels across multiple media files in a single operation. Applies the same speaker mappings to every specified media file. Use this instead of calling update_transcript_speakers repeatedly when renaming speakers across a project or folder.",
+    {
+      mediaIds: z
+        .array(z.string().min(1))
+        .min(1)
+        .max(500)
+        .describe("Array of media IDs to update speakers for (max 500 per call)"),
+      speakers: z
+        .array(
+          z.object({
+            id: z.string().min(1).describe("Speaker identifier from the transcript"),
+            name: z.string().min(1).describe("Display name to assign to the speaker"),
+          })
+        )
+        .describe("Array of speaker ID to name mappings to apply to all specified media files"),
+    },
+    async ({ mediaIds, speakers }) => {
+      const results: { mediaId: string; success: boolean; error?: string }[] = [];
+
+      for (const mediaId of mediaIds) {
+        try {
+          await api.put(`/v1/media/speakers/${mediaId}`, { speakers });
+          results.push({ mediaId, success: true });
+        } catch (err) {
+          results.push({ mediaId, success: false, error: formatAxiosError(err) });
+        }
+      }
+
+      const succeeded = results.filter((r) => r.success).length;
+      const failed = results.filter((r) => !r.success).length;
+
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              { summary: { total: mediaIds.length, succeeded, failed }, results },
+              null,
+              2
+            ),
+          },
+        ],
+        isError: failed === mediaIds.length,
+      };
+    }
+  );
+
+  // 16. Bulk move media to folder
   server.tool(
     "bulk_move_media",
     "Move multiple media files to a folder in a single operation. Use this for batch reorganization instead of updating media one by one.",
