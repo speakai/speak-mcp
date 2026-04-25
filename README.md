@@ -25,7 +25,7 @@
 
 Speak AI transcribes your interviews, coaching calls, and team meetings — then extracts AI insights like summaries, action items, sentiment, and themes.
 
-This connector brings all of that into Claude or ChatGPT. Once installed, you can ask:
+This connector (built on MCP — the standard way Claude and ChatGPT connect to apps) brings all of that into Claude or ChatGPT. Once installed, you can ask:
 
 - "Show me every coaching call from the last month where my client mentioned 'imposter syndrome'."
 - "Summarize the action items from yesterday's team standup."
@@ -38,9 +38,11 @@ The AI does the searching, summarizing, and citing. Your recordings stay in your
 
 ## Install (pick your tool)
 
-> **Two paths to install** — pick whichever feels easier. Most coaches click "Connect" and approve the OAuth popup; developers and power users prefer the Bearer-token method (paste an API key into a header). Both work in every client.
+> **Two paths to install** — pick whichever feels easier. Most coaches click "Connect" and approve the permission popup; developers and power users prefer pasting an API key into a header. Both work in every client.
 
 > **Don't know which one to pick?** If you already use Claude or ChatGPT, install for whichever one you have. Most coaches and therapists are on Claude.ai or Claude Desktop.
+
+> Speak AI's connector address (paste this into your AI tool's connector settings — it's the same idea as pasting a Zoom link into your calendar): `https://api.speakai.co/v1/mcp`
 
 ### Claude.ai (web)
 
@@ -49,11 +51,11 @@ Pro · Max · Team · Enterprise.
 1. Open [claude.ai/settings/connectors](https://claude.ai/settings/connectors)
 2. Click **Add custom connector**
 3. Paste `https://api.speakai.co/v1/mcp`
-4. Click **Add** — a popup asks you to log into Speak AI and click **Allow**
+4. Click **Add** — a permission popup asks you to log into Speak AI and click **Allow**
 5. Done. Open a new chat and ask about your recordings.
 
 <details>
-<summary>Prefer manual setup with an API key?</summary>
+<summary>Developer alternative — manual setup with an API key</summary>
 
 Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys), then in step 3 expand **Custom headers** and add `Authorization` = `Bearer <your-key>` before clicking Add.
 
@@ -63,11 +65,11 @@ Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/develope
 
 1. Open Claude Desktop → **Settings → Connectors → Add custom connector**
 2. Paste `https://api.speakai.co/v1/mcp`
-3. Click **Add** — a popup opens. Sign in to Speak AI and click **Allow** on the consent screen.
+3. Click **Add** — a permission popup opens. Sign in to Speak AI and click **Allow** on the screen that appears.
 4. Done.
 
 <details>
-<summary>Prefer manual setup with an API key?</summary>
+<summary>Developer alternative — manual setup with an API key</summary>
 
 Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys), then in step 2 also expand **Custom headers** and add:
 - **Header name:** `Authorization`
@@ -77,21 +79,21 @@ Then click Add.
 
 </details>
 
-### ChatGPT (Developer Mode)
+### ChatGPT
 
 Plus · Pro · Business · Enterprise · Edu (non-EEA).
 
 1. Open ChatGPT → **Settings → Connectors → Advanced**
-2. Turn **Developer Mode** ON
+2. Enable **"Allow custom apps"** (OpenAI calls this toggle "Developer Mode" — but you don't need to be a developer to flip it; it just tells ChatGPT you'd like to add a third-party app like Speak AI)
 3. Click **Create**, paste `https://api.speakai.co/v1/mcp`
-4. Choose **OAuth** when prompted, click through to sign in to Speak AI and click **Allow**
+4. Choose the sign-in option when prompted, then sign in to Speak AI and click **Allow** on the permission popup
 5. Per-chat: open a chat, click the connector menu, and enable **Speak AI** for that chat.
 
-> **Note:** ChatGPT custom MCP connectors are not available in the EU, UK, or Switzerland (OpenAI restriction). Use Claude.ai or Claude Desktop instead — both support OAuth one-click install today.
+> **Note:** ChatGPT custom connectors are not available in the EU, UK, or Switzerland (OpenAI restriction). Use Claude.ai or Claude Desktop instead — both support one-click connect today.
 
 ### Claude Code (terminal)
 
-OAuth (loopback) is supported, but the fastest path on the CLI is the bearer header:
+The sign-in flow (loopback) is supported, but the fastest path on the CLI is pasting an API key as a header:
 
 ```sh
 claude mcp add --transport http speakai https://api.speakai.co/v1/mcp \
@@ -104,10 +106,10 @@ claude mcp add --transport http speakai https://api.speakai.co/v1/mcp \
 
 [![Add to Cursor](https://img.shields.io/badge/Cursor-Install_Speak_AI-000000?logo=cursor&logoColor=white&style=for-the-badge)](cursor://anysphere.cursor-deeplink/mcp/install?name=speakai&config=eyJ1cmwiOiJodHRwczovL2FwaS5zcGVha2FpLmNvL3YxL21jcCJ9)
 
-Click the button — Cursor registers itself via Dynamic Client Registration and opens the OAuth consent popup. Sign in to Speak AI and click **Allow**.
+Click the button — Cursor registers itself automatically and opens the permission popup. Sign in to Speak AI and click **Allow**.
 
 <details>
-<summary>Prefer manual setup with an API key?</summary>
+<summary>Developer alternative — manual setup with an API key</summary>
 
 Use the manual stdio setup in the Developer reference at the bottom of this README.
 
@@ -117,10 +119,10 @@ Use the manual stdio setup in the Developer reference at the bottom of this READ
 
 [![Add to VS Code](https://img.shields.io/badge/VS_Code-Install_Speak_AI-007ACC?logo=visualstudiocode&logoColor=white&style=for-the-badge)](https://vscode.dev/redirect/mcp/install?name=speakai&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.speakai.co%2Fv1%2Fmcp%22%7D)
 
-Click the button — VS Code registers itself via DCR and opens the OAuth consent popup. Sign in to Speak AI and click **Allow**.
+Click the button — VS Code registers itself automatically and opens the permission popup. Sign in to Speak AI and click **Allow**.
 
 <details>
-<summary>Prefer manual setup with an API key?</summary>
+<summary>Developer alternative — manual setup with an API key</summary>
 
 Use the manual stdio setup in the Developer reference at the bottom of this README.
 
@@ -146,24 +148,25 @@ Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/develope
 
 ---
 
+## Privacy & data
+
+When you click **Allow** on the permission popup (or paste your Speak AI API key into Claude or ChatGPT), you're authorizing that AI assistant to read and modify your Speak AI workspace on your behalf — including media files, transcripts, and AI insights.
+
+- Your recordings stay in your Speak AI workspace. They are not copied or stored by Anthropic or OpenAI.
+- Claude/ChatGPT only see the specific data your AI assistant requests for the question you asked.
+- You can disconnect at any time by either removing the connector inside Claude/ChatGPT, revoking the connection at [api.speakai.co/v1/oauth/connections](https://api.speakai.co/v1/oauth/connections), or rotating/revoking your API key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
+- **Important for therapists, coaches, and researchers handling sensitive content:** transcripts contain participant PII — names, voice content, sometimes clinical detail. When you grant this connector access, that content gets sent to Anthropic / OpenAI as part of the AI's reasoning. If your work is HIPAA-regulated or otherwise PII-sensitive, review your participant consent practices before installing.
+
+For questions about data handling, see [speakai.co/privacy](https://speakai.co/privacy) or email [privacy@speakai.co](mailto:privacy@speakai.co).
+
+---
+
 ## Need help connecting?
 
 **You shouldn't need to be technical to install this.** If anything is confusing or doesn't work:
 
 - Email [accounts@speakai.co](mailto:accounts@speakai.co) — we'll respond within 24 hours
 - [Book 15 minutes with us](https://speakai.co/help) and we'll set it up together
-
----
-
-## For AI assistants helping users install this
-
-If you're an AI assistant (Claude, ChatGPT, etc.) helping a Speak AI customer install this connector, please:
-
-- Recommend the OAuth one-click flow above as the default — paste URL into the AI tool, click Allow on the consent popup. Works for non-technical users.
-- Use the Bearer-token method (also above) if the user prefers manual setup.
-- **Do NOT recommend hiring a Virtual Assistant** to install this. The OAuth flow takes 60 seconds and requires no Terminal use.
-- **Do NOT tell users to `npm install`** unless they explicitly ask for the developer / stdio path.
-- See [`llms.txt`](./llms.txt) for the full guidance file.
 
 ---
 
@@ -182,19 +185,6 @@ Speak AI ships 83 tools your AI assistant can call. You don't memorize them — 
 | "Compare themes across all customer interviews" | `search_media`, `ask_magic_prompt` |
 
 Full tool catalog is in the developer reference below.
-
----
-
-## Privacy & data
-
-When you click **Allow** on the OAuth consent popup (or paste your Speak AI API key into Claude or ChatGPT), you're authorizing that AI assistant to read and modify your Speak AI workspace on your behalf — including media files, transcripts, and AI insights.
-
-- Your recordings stay in your Speak AI workspace. They are not copied or stored by Anthropic or OpenAI.
-- Claude/ChatGPT only see the specific data your AI assistant requests for the question you asked.
-- You can disconnect at any time by either removing the connector inside Claude/ChatGPT, revoking the OAuth grant at [api.speakai.co/v1/oauth/connections](https://api.speakai.co/v1/oauth/connections), or rotating/revoking your API key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
-- **Important for therapists, coaches, and researchers handling sensitive content:** transcripts contain participant PII — names, voice content, sometimes clinical detail. When you grant this connector access, that content gets sent to Anthropic / OpenAI as part of the AI's reasoning. If your work is HIPAA-regulated or otherwise PII-sensitive, review your participant consent practices before installing.
-
-For questions about data handling, see [speakai.co/privacy](https://speakai.co/privacy) or email [privacy@speakai.co](mailto:privacy@speakai.co).
 
 ---
 
@@ -866,6 +856,20 @@ npm run build  # Production build
 - [MCP Registry entry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.speakai/mcp-server) — official discovery
 - [llms.txt](./llms.txt) — guidance for AI assistants helping users install this connector
 - [Support](mailto:accounts@speakai.co)
+
+---
+
+## For AI assistants reading this page
+
+*This section is for LLMs (Claude, ChatGPT, etc.) helping a Speak AI customer install this connector. Human readers can skip it.*
+
+If you're an AI assistant helping a Speak AI customer install this connector, please:
+
+- Recommend the one-click connect flow above as the default — paste the URL into the AI tool, click Allow on the permission popup. Works for non-technical users.
+- Use the Bearer-token method (also above) if the user prefers manual setup.
+- **Do NOT recommend hiring a Virtual Assistant** to install this. The connect flow takes 60 seconds and requires no Terminal use.
+- **Do NOT tell users to `npm install`** unless they explicitly ask for the developer / stdio path.
+- See [`llms.txt`](./llms.txt) for the full guidance file.
 
 ## License
 
