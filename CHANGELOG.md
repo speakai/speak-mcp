@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.1 (2026-04-26)
+
+- Fix home page
+
 ## v1.5.0 (2026-04-26)
 
 - Added theme toggle feature, removed vibe-coded tropes, and ensured equal card heights
