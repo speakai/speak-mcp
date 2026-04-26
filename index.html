@@ -11,8 +11,24 @@
   <meta property="og:url" content="https://mcp.speakai.co" />
   <link rel="alternate" type="text/plain" title="LLM-friendly summary" href="https://github.com/speakai/speakai-mcp/blob/main/llms.txt" />
   <link rel="canonical" href="https://mcp.speakai.co" />
+  <script>
+    // Apply theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var stored = localStorage.getItem('speakai-mcp-theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', stored);
+        }
+      } catch (e) { /* localStorage may be unavailable; fall back to prefers-color-scheme */ }
+    })();
+  </script>
   <style>
     /* ─── Tokens ─────────────────────────────────────────────────────────── */
+    /* Dark theme defaults. Light overrides apply via:
+         (a) explicit user choice — :root[data-theme="light"]
+         (b) system preference — prefers-color-scheme: light, when no explicit choice
+       Explicit dark choice (:root[data-theme="dark"]) re-applies dark tokens to win
+       over a light system preference. */
     :root {
       --bg: #000000;
       --bg-2: #050505;
@@ -29,7 +45,6 @@
       --shadow-lg: 0 24px 60px rgba(0,0,0,0.6);
       --grain-opacity: 0.06;
       --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.10), transparent 70%);
-      --grad-text: linear-gradient(180deg, #ffffff 0%, #9a9a9a 100%);
       --grad-border: linear-gradient(135deg, #ffffff 0%, #6a6a6a 50%, #1a1a1a 100%);
       --radius-sm: 8px;
       --radius: 14px;
@@ -39,8 +54,29 @@
       --selection-bg: #ffffff;
       --selection-fg: #000000;
     }
+    /* Light tokens — applied either by explicit user choice or system preference */
+    :root[data-theme="light"] {
+      --bg: #ffffff;
+      --bg-2: #fafafa;
+      --surface: #fbfbfb;
+      --surface-2: #f4f4f4;
+      --surface-3: #ececec;
+      --border: #e6e6e6;
+      --border-strong: #cfcfcf;
+      --text: #050505;
+      --text-dim: #4a4a4a;
+      --text-muted: #8a8a8a;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 10px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
+      --grain-opacity: 0.04;
+      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
+      --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
+      --selection-bg: #050505;
+      --selection-fg: #ffffff;
+    }
     @media (prefers-color-scheme: light) {
-      :root {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) {
         --bg: #ffffff;
         --bg-2: #fafafa;
         --surface: #fbfbfb;
@@ -56,7 +92,6 @@
         --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
         --grain-opacity: 0.04;
         --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
-        --grad-text: linear-gradient(180deg, #0a0a0a 0%, #6a6a6a 100%);
         --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
         --selection-bg: #050505;
         --selection-fg: #ffffff;
@@ -134,19 +169,10 @@
     }
     .logo img { height: 24px; transition: transform 0.4s var(--ease); }
     .logo:hover img { transform: scale(1.06); }
-    .logo .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--text);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 18%, transparent);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 18%, transparent); }
-      50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--text) 6%, transparent); }
-    }
     .nav ul {
       list-style: none;
       display: flex;
+      align-items: center;
       gap: 28px;
       font-size: 0.9rem;
     }
@@ -170,30 +196,46 @@
       border-color: var(--border-strong);
       color: var(--text);
     }
+    @media (max-width: 720px) {
+      .nav ul { gap: 12px; }
+      .nav ul .nav-link { display: none; }
+    }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .theme-toggle svg { width: 16px; height: 16px; display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+    }
 
     /* ─── Hero ───────────────────────────────────────────────────────────── */
     .hero {
       padding: clamp(64px, 11vw, 140px) 0 clamp(48px, 8vw, 96px);
       text-align: center;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px 6px 8px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      margin-bottom: 28px;
-      background: color-mix(in srgb, var(--surface) 60%, transparent);
-      backdrop-filter: blur(8px);
-      letter-spacing: 0.02em;
-    }
-    .eyebrow .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--text);
-      animation: pulse 2.4s ease-in-out infinite;
     }
     .hero h1 {
       font-size: clamp(2.5rem, 6.5vw, 5.6rem);
@@ -202,10 +244,7 @@
       font-weight: 700;
       max-width: 16ch;
       margin: 0 auto 24px;
-      background: var(--grad-text);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--text);
     }
     .hero h1 .em {
       font-style: italic;
@@ -258,6 +297,22 @@
       overflow-x: auto;
       white-space: nowrap;
       font-size: 0.95rem;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    @media (max-width: 520px) {
+      .url-box {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: var(--radius);
+        padding: 14px;
+        gap: 10px;
+      }
+      .url-box::before { border-radius: var(--radius); }
+      .url-box code { text-align: center; font-size: 0.86rem; }
+      .url-box .caret { display: none; }
+      .copy-btn { width: 100%; }
     }
     .url-box .caret {
       display: inline-block;
@@ -326,10 +381,7 @@
       font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 600;
       letter-spacing: -0.03em;
-      background: var(--grad-text);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--text);
       display: block;
       margin-bottom: 4px;
     }
@@ -451,6 +503,7 @@
       letter-spacing: -0.005em;
       transition: background 0.2s ease, transform 0.25s var(--ease);
       border: 1px solid var(--text);
+      margin-top: auto;
     }
     .install-card .install-btn .arrow {
       display: inline-block;
@@ -534,6 +587,7 @@
       font-weight: 500;
       transition: all 0.2s var(--ease);
       font-family: inherit;
+      margin-top: auto;
     }
     .install-card .copy-btn-inline:hover {
       background: var(--surface-2);
@@ -665,7 +719,7 @@
     .examples-section { background: color-mix(in srgb, var(--surface) 30%, transparent); }
     .examples-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
     .example {
@@ -673,7 +727,6 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px 26px;
-      grid-column: span 4;
       display: flex;
       align-items: center;
       transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
@@ -683,16 +736,6 @@
       transform: translateY(-2px);
       border-color: var(--border-strong);
     }
-    /* Asymmetric layout */
-    .example:nth-child(1) { grid-column: span 7; }
-    .example:nth-child(2) { grid-column: span 5; }
-    .example:nth-child(3) { grid-column: span 5; }
-    .example:nth-child(4) { grid-column: span 7; }
-    .example:nth-child(5) { grid-column: span 4; }
-    .example:nth-child(6) { grid-column: span 4; }
-    .example:nth-child(7) { grid-column: span 4; }
-    .example:nth-child(8) { grid-column: span 6; }
-    .example:nth-child(9) { grid-column: span 6; }
     .example .ask {
       color: var(--text);
       font-family: "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
@@ -702,18 +745,20 @@
       letter-spacing: -0.005em;
     }
     .example .ask::before {
-      content: '"';
+      content: '\201C';
       color: var(--text-muted);
       margin-right: 2px;
     }
     .example .ask::after {
-      content: '"';
+      content: '\201D';
       color: var(--text-muted);
       margin-left: 2px;
     }
-    @media (max-width: 720px) {
+    @media (max-width: 900px) {
+      .examples-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
       .examples-grid { grid-template-columns: 1fr; }
-      .example, .example:nth-child(n) { grid-column: span 1; }
     }
 
     /* ─── Privacy ────────────────────────────────────────────────────────── */
@@ -1005,6 +1050,20 @@
     /* Fallback: when animation-timeline isn't supported, content is visible by default */
     .reveal { opacity: 1; }
 
+    /* ─── Focus states (keyboard a11y) ───────────────────────────────────── */
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .install-card .install-btn:focus-visible,
+    .copy-btn:focus-visible,
+    .help-actions .btn:focus-visible {
+      outline-offset: 3px;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.001ms !important;
@@ -1021,15 +1080,20 @@
     <div class="container">
       <a href="#" class="logo" aria-label="Speak AI">
         <img src="assets/logo.png" alt="Speak AI logo" onerror="this.style.display='none'" />
-        <span class="dot" aria-hidden="true"></span>
         <span>Speak AI</span>
       </a>
       <nav>
         <ul>
-          <li><a href="#install">Install</a></li>
-          <li><a href="#capabilities">Capabilities</a></li>
-          <li><a href="#examples">Examples</a></li>
-          <li><a href="#help">Help</a></li>
+          <li class="nav-link"><a href="#install">Install</a></li>
+          <li class="nav-link"><a href="#capabilities">Capabilities</a></li>
+          <li class="nav-link"><a href="#examples">Examples</a></li>
+          <li class="nav-link"><a href="#help">Help</a></li>
+          <li>
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
+          </li>
           <li><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
         </ul>
       </nav>
@@ -1039,8 +1103,7 @@
   <main>
     <section class="hero">
       <div class="container">
-        <span class="eyebrow"><span class="dot" aria-hidden="true"></span>One-click connect — live for Claude, ChatGPT, Cursor, VS Code</span>
-        <h1>Connect Speak AI to <span class="em">Claude or ChatGPT</span> in 60 seconds.</h1>
+        <h1>Connect Speak AI to <span class="em">Claude or ChatGPT</span> in 60 seconds</h1>
         <p class="subtitle">No Terminal. No npm. No JSON config.</p>
         <div class="url-box" role="group" aria-label="Speak AI MCP URL">
           <code id="mcp-url">https://api.speakai.co/v1/mcp</code><span class="caret" aria-hidden="true"></span>
@@ -1290,7 +1353,7 @@
             <p>Standalone AI-analyzed text notes plus custom fields you can tag any media file with.</p>
           </article>
         </div>
-        <p class="capability-footer">+ embed players, language config, chat history — full catalog in the <a href="https://github.com/speakai/speakai-mcp#mcp-tools-83" target="_blank" rel="noopener">developer reference</a>.</p>
+        <p class="capability-footer">+ embed players, language config, chat history — full catalog in the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md#mcp-tools-83" target="_blank" rel="noopener">developer reference</a>.</p>
       </div>
     </section>
 
@@ -1387,7 +1450,7 @@
 
           <details>
             <summary>I'm a developer — where's the CLI / API documentation? <span class="chev" aria-hidden="true"></span></summary>
-            <p>See the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md">README on GitHub</a> — the developer reference is collapsed at the bottom and includes the CLI commands, environment variables, REST API auth flow, and stdio-mode setup for clients that don't speak remote HTTP.</p>
+            <p>See the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md#developer-reference-cli-api-advanced-setup">developer reference</a> in the README on GitHub — it covers the CLI commands, environment variables, REST API auth flow, and stdio-mode setup for clients that don't speak remote HTTP.</p>
           </details>
 
           <details>
@@ -1477,6 +1540,22 @@
         showToast('Command copied — paste it in your terminal');
       });
     }
+
+    // Theme toggle — persists choice; falls back to system preference when none.
+    (function setupThemeToggle() {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function currentTheme() {
+        var explicit = document.documentElement.getAttribute('data-theme');
+        if (explicit === 'light' || explicit === 'dark') return explicit;
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      btn.addEventListener('click', function () {
+        var next = currentTheme() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('speakai-mcp-theme', next); } catch (e) { /* ignore */ }
+      });
+    })();
 
     // Best-effort EU/UK/CH detection — hides ChatGPT install since
     // OpenAI restricts custom connectors in those regions.

@@ -187,8 +187,7 @@ Full tool catalog is in the developer reference below.
 
 ---
 
-<details>
-<summary><h2>Developer reference (CLI, API, advanced setup)</h2></summary>
+## Developer reference (CLI, API, advanced setup)
 
 The MCP server lives at `https://api.speakai.co/v1/mcp` and supports two auth methods:
 
@@ -841,8 +840,6 @@ npm install
 npm run dev    # Run with hot reload
 npm run build  # Production build
 ```
-
-</details>
 
 ---
 
