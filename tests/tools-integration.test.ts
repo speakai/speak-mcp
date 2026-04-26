@@ -37,6 +37,7 @@ describe("Tools Integration Tests", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useRealTimers();
     server = new McpServer({ name: "speak-ai-test", version: "1.0.0" });
   });
 
@@ -158,6 +159,8 @@ describe("Tools Integration Tests", () => {
 
   describe("Search tools", () => {
     it("search_media calls POST /v1/analytics/search", async () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2026-04-25T12:34:56.789Z"));
       const { register } = await import("../src/tools/analytics.js");
       register(server, mockClient);
 
@@ -167,6 +170,7 @@ describe("Tools Integration Tests", () => {
       expect(mockPost).toHaveBeenCalledWith("/v1/analytics/search", {
         query: "pricing concerns",
         startDate: "2026-01-01",
+        endDate: "2026-04-25T12:34:56.789Z",
       });
     });
   });

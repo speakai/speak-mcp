@@ -3604,6 +3604,14 @@ var analytics_exports = {};
 __export(analytics_exports, {
   register: () => register12
 });
+function withDefaultSearchDateRange(params) {
+  const now = /* @__PURE__ */ new Date();
+  return {
+    ...params,
+    startDate: params.startDate ?? `${now.getUTCFullYear()}-01-01T00:00:00.000Z`,
+    endDate: params.endDate ?? now.toISOString()
+  };
+}
 function register12(server, client) {
   const api = client ?? speakClient;
   server.tool(
@@ -3613,11 +3621,11 @@ function register12(server, client) {
       "Returns matching media with sentiment data, tags, and content excerpts.",
       "Use this to find specific topics, keywords, or themes across your entire library.",
       "For filtering by media type, folder, tags, or speakers, use the filterList parameter.",
-      "Results are scoped by date range \u2014 defaults to current month if not specified."
+      "Results are scoped by date range \u2014 defaults to current year if not specified."
     ].join(" "),
     {
       query: import_zod12.z.string().min(1).describe("Search query \u2014 searches across transcripts, insights, and metadata"),
-      startDate: import_zod12.z.string().optional().describe("Start date for search range (ISO 8601). Defaults to start of current month."),
+      startDate: import_zod12.z.string().optional().describe("Start date for search range (ISO 8601). Defaults to start of current year."),
       endDate: import_zod12.z.string().optional().describe("End date for search range (ISO 8601). Defaults to now."),
       filterList: import_zod12.z.array(
         import_zod12.z.object({
@@ -3637,7 +3645,7 @@ function register12(server, client) {
     },
     async (params) => {
       try {
-        const result = await api.post("/v1/analytics/search", params);
+        const result = await api.post("/v1/analytics/search", withDefaultSearchDateRange(params));
         return {
           content: [{ type: "text", text: JSON.stringify(result.data, null, 2) }]
         };

@@ -42,6 +42,7 @@ describe("Input Validation — Zod Schema Boundary Tests", () => {
   let server: McpServer;
 
   beforeEach(() => {
+    vi.useRealTimers();
     vi.resetAllMocks();
     mockGet.mockResolvedValue({ data: { data: {} } });
     mockPost.mockResolvedValue({ data: { data: {} } });
@@ -335,10 +336,14 @@ describe("Input Validation — Zod Schema Boundary Tests", () => {
     });
 
     it("search_media works with query only", async () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2026-04-25T12:34:56.789Z"));
       const callback = getToolCallback(server, "search_media");
       await callback({ query: "action items" });
       expect(mockPost).toHaveBeenCalledWith("/v1/analytics/search", {
         query: "action items",
+        startDate: "2026-01-01T00:00:00.000Z",
+        endDate: "2026-04-25T12:34:56.789Z",
       });
     });
   });

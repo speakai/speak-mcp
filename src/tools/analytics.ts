@@ -4,6 +4,15 @@ import { z } from "zod";
 import { speakClient, formatAxiosError } from "../client.js";
 import { FilterFieldName, FilterOperator, FilterCondition } from "@speakai/shared";
 
+function withDefaultSearchDateRange<T extends { startDate?: string; endDate?: string }>(params: T): T & { startDate: string; endDate: string } {
+  const now = new Date();
+  return {
+    ...params,
+    startDate: params.startDate ?? `${now.getUTCFullYear()}-01-01T00:00:00.000Z`,
+    endDate: params.endDate ?? now.toISOString(),
+  };
+}
+
 export function register(server: McpServer, client?: AxiosInstance): void {
   const api = client ?? speakClient;
 
@@ -14,14 +23,14 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       "Returns matching media with sentiment data, tags, and content excerpts.",
       "Use this to find specific topics, keywords, or themes across your entire library.",
       "For filtering by media type, folder, tags, or speakers, use the filterList parameter.",
-      "Results are scoped by date range — defaults to current month if not specified.",
+      "Results are scoped by date range — defaults to current year if not specified.",
     ].join(" "),
     {
       query: z.string().min(1).describe("Search query — searches across transcripts, insights, and metadata"),
       startDate: z
         .string()
         .optional()
-        .describe("Start date for search range (ISO 8601). Defaults to start of current month."),
+        .describe("Start date for search range (ISO 8601). Defaults to start of current year."),
       endDate: z
         .string()
         .optional()
@@ -47,7 +56,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
     },
     async (params) => {
       try {
-        const result = await api.post("/v1/analytics/search", params);
+        const result = await api.post("/v1/analytics/search", withDefaultSearchDateRange(params));
         return {
           content: [{ type: "text", text: JSON.stringify(result.data, null, 2) }],
         };
