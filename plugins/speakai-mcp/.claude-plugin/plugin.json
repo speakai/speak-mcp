@@ -15,7 +15,11 @@
     "speak-ai",
     "transcription",
     "media",
-    "insights"
+    "insights",
+    "meetings",
+    "research",
+    "clips",
+    "captions"
   ],
   "mcpServers": "./.mcp.json",
   "userConfig": {

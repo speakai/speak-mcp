@@ -5,7 +5,7 @@
 <h1 align="center">Connect Speak AI to Claude or ChatGPT in 60 seconds</h1>
 
 <p align="center">
-  <strong>For coaches, therapists, and qualitative researchers.</strong><br/>
+  <strong>For researchers, revenue teams, meeting-heavy teams, and media workflows.</strong><br/>
   No Terminal. No npm. No JSON config files.
 </p>
 
@@ -23,14 +23,14 @@
 
 ## What this does
 
-Speak AI transcribes your interviews, coaching calls, and team meetings — then extracts AI insights like summaries, action items, sentiment, and themes.
+Speak AI transcribes your interviews, sales calls, research sessions, webinars, podcasts, and team meetings — then extracts AI insights like summaries, action items, sentiment, and themes.
 
 This connector (built on MCP — the standard way Claude and ChatGPT connect to apps) brings all of that into Claude or ChatGPT. Once installed, you can ask:
 
-- "Show me every coaching call from the last month where my client mentioned 'imposter syndrome'."
-- "Summarize the action items from yesterday's team standup."
-- "What themes have come up across my last 30 customer interviews?"
-- "Pull every quote from Sarah's recordings about pricing."
+- "Find the last 10 customer interviews that mention pricing, group the feedback by theme, and cite the source recordings."
+- "Summarize this week's team meetings into decisions, action items, owners, and unresolved risks."
+- "Pull exact customer quotes about onboarding friction from recent research calls and format them for a product brief."
+- "Find a strong 30-second highlight from the latest webinar, create a clip, and export captions."
 
 The AI does the searching, summarizing, and citing. Your recordings stay in your Speak AI workspace — Claude and ChatGPT just query them through this connector.
 
@@ -169,13 +169,13 @@ Speak AI ships 83 tools your AI assistant can call. You don't memorize them — 
 
 | Ask | Tools used (auto) |
 |---|---|
-| "Find every recording about pricing" | `search_media` |
-| "Summarize this week's standups" | `list_media`, `get_media_insights` |
+| "Find customer interviews about pricing and group the feedback by theme" | `search_media`, `ask_magic_prompt` |
+| "Summarize this week's meetings into decisions, owners, and risks" | `list_media`, `get_media_insights` |
 | "Pull action items from yesterday's call" | `get_media_insights`, `ask_magic_prompt` |
 | "Schedule the AI to join my 2pm Zoom" | `schedule_meeting_event` |
-| "Make a 30-second clip of Sarah's quote" | `create_clip` |
-| "Export the transcript as a PDF" | `export_media` |
-| "Compare themes across all customer interviews" | `search_media`, `ask_magic_prompt` |
+| "Find a 30-second webinar highlight and export captions" | `create_clip`, `export_media` |
+| "Export the transcript as a PDF and captions as SRT" | `export_media` |
+| "Compare Q1 sales calls against Q2 sales calls and summarize changed objections" | `search_media`, `ask_magic_prompt` |
 
 Full tool catalog is in the developer reference below.
 

@@ -12,7 +12,7 @@
     {
       "name": "speakai-mcp",
       "source": "./plugins/speakai-mcp",
-      "description": "Connect Claude Code to Speak AI's MCP server for transcription, insights, and media management.",
+      "description": "Search transcripts, summarize meetings, extract quotes, create clips, and manage Speak AI media through MCP.",
       "version": "1.5.2",
       "author": {
         "name": "Vatsal Shah",

@@ -1,0 +1,20 @@
+{
+  "name": "speakai",
+  "interface": {
+    "displayName": "Speak AI"
+  },
+  "plugins": [
+    {
+      "name": "speakai-mcp",
+      "source": {
+        "source": "local",
+        "path": "./plugins/speakai-mcp"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

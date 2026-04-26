@@ -1,0 +1,45 @@
+{
+  "name": "speakai-mcp",
+  "version": "1.5.2",
+  "description": "Connect Codex to Speak AI for transcription, insights, and media management.",
+  "author": {
+    "name": "Vatsal Shah",
+    "email": "accounts@speakai.co",
+    "url": "https://speakai.co"
+  },
+  "homepage": "https://mcp.speakai.co",
+  "repository": "https://github.com/speakai/speakai-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "speak-ai",
+    "transcription",
+    "media",
+    "insights",
+    "meetings",
+    "research"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Speak AI",
+    "shortDescription": "Search and analyze Speak AI transcripts, recordings, clips, and insights.",
+    "longDescription": "Connect Codex to Speak AI through MCP so it can work with your media library, transcripts, AI insights, clips, captions, folders, exports, automations, webhooks, and meeting assistant workflows.",
+    "developerName": "Vatsal Shah",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://mcp.speakai.co",
+    "privacyPolicyURL": "https://speakai.co/privacy",
+    "defaultPrompt": [
+      "Use Speak AI to find the last 10 customer interviews that mention pricing, group the feedback by theme, and cite the source recordings.",
+      "Use Speak AI to summarize this week's team meetings into decisions, action items, owners, and unresolved risks.",
+      "Use Speak AI to pull exact customer quotes about onboarding friction from recent research calls and format them for a product brief.",
+      "Use Speak AI to analyze the latest sales calls and summarize objections, buying signals, next steps, and open questions.",
+      "Use Speak AI to find a strong 30-second highlight from the latest webinar, create a clip, and export captions."
+    ],
+    "brandColor": "#2563EB"
+  }
+}
