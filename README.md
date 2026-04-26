@@ -38,15 +38,13 @@ The AI does the searching, summarizing, and citing. Your recordings stay in your
 
 ## Install (pick your tool)
 
-> **Two paths to install** — pick whichever feels easier. Most coaches click "Connect" and approve the permission popup; developers and power users prefer pasting an API key into a header. Both work in every client.
+> **Two paths to install** — pick whichever feels easier. The one-click connect path approves access via a permission popup; the manual path pastes an API key into a header.
 
-> **Don't know which one to pick?** If you already use Claude or ChatGPT, install for whichever one you have. Most coaches and therapists are on Claude.ai or Claude Desktop.
+> **Don't know which one to pick?** If you already use Claude or ChatGPT, install for whichever one you have.
 
 > Speak AI's connector address (paste this into your AI tool's connector settings — it's the same idea as pasting a Zoom link into your calendar): `https://api.speakai.co/v1/mcp`
 
 ### Claude.ai (web)
-
-Pro · Max · Team · Enterprise.
 
 1. Open [claude.ai/settings/connectors](https://claude.ai/settings/connectors)
 2. Click **Add custom connector**
@@ -61,7 +59,7 @@ Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/develope
 
 </details>
 
-### Claude Desktop (Mac or Windows app)
+### Claude Desktop
 
 1. Open Claude Desktop → **Settings → Connectors → Add custom connector**
 2. Paste `https://api.speakai.co/v1/mcp`
@@ -81,15 +79,11 @@ Then click Add.
 
 ### ChatGPT
 
-Plus · Pro · Business · Enterprise · Edu (non-EEA).
-
 1. Open ChatGPT → **Settings → Connectors → Advanced**
 2. Enable **"Allow custom apps"** (OpenAI calls this toggle "Developer Mode" — but you don't need to be a developer to flip it; it just tells ChatGPT you'd like to add a third-party app like Speak AI)
 3. Click **Create**, paste `https://api.speakai.co/v1/mcp`
 4. Choose the sign-in option when prompted, then sign in to Speak AI and click **Allow** on the permission popup
 5. Per-chat: open a chat, click the connector menu, and enable **Speak AI** for that chat.
-
-> **Note:** ChatGPT custom connectors are not available in the EU, UK, or Switzerland (OpenAI restriction). Use Claude.ai or Claude Desktop instead — both support one-click connect today.
 
 ### Claude Code (terminal)
 
@@ -191,8 +185,8 @@ Full tool catalog is in the developer reference below.
 
 The MCP server lives at `https://api.speakai.co/v1/mcp` and supports two auth methods:
 
-1. **OAuth 2.1 + Dynamic Client Registration** is live. Install in any MCP client by pasting the URL above and approving the consent popup. Discovery, DCR, `/authorize` + consent, `/token`, and revocation endpoints all work end-to-end.
-2. **Bearer token** (your Speak AI API key — `Authorization: Bearer <key>` header). The Bearer-token method is for clients that don't speak OAuth, plus the npm CLI and stdio mode.
+1. **OAuth 2.1 + Dynamic Client Registration** — install by pasting the URL above into any MCP client and approving the consent popup. Discovery, DCR, `/authorize` + consent, `/token`, and revocation endpoints are all available.
+2. **Bearer token** (your Speak AI API key — `Authorization: Bearer <key>` header). For clients that don't speak OAuth, plus the npm CLI and stdio mode.
 
 Get a Speak AI API key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
 

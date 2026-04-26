@@ -166,9 +166,12 @@
       font-weight: 600;
       font-size: 0.98rem;
       letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s var(--ease);
     }
-    .logo img { height: 24px; transition: transform 0.4s var(--ease); }
-    .logo:hover img { transform: scale(1.06); }
+    .logo:hover { opacity: 0.7; text-decoration: none; }
     .nav ul {
       list-style: none;
       display: flex;
@@ -208,15 +211,15 @@
       height: 34px;
       padding: 0;
       background: transparent;
-      border: 1px solid var(--border);
+      border: 0;
       border-radius: 999px;
       color: var(--text-dim);
       cursor: pointer;
-      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+      transition: color 0.2s var(--ease), background 0.2s var(--ease);
     }
     .theme-toggle:hover {
       color: var(--text);
-      border-color: var(--border-strong);
+      background: color-mix(in srgb, var(--text) 8%, transparent);
     }
     .theme-toggle:focus-visible {
       outline: 2px solid var(--text);
@@ -232,19 +235,108 @@
       :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
     }
 
+    /* ─── Hero actions (single subtle text link) ─────────────────────── */
+    .hero-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 22px;
+      justify-content: center;
+      width: 100%;
+    }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      color: var(--text-dim);
+      font-size: 0.84rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .hero-link:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: color-mix(in srgb, var(--text) 5%, transparent);
+    }
+    .hero-link .arrow { transition: transform 0.2s var(--ease); display: inline-block; }
+    .hero-link:hover .arrow { transform: translateX(3px); }
+
+    /* ─── Hero prompt box (rotating examples) ─────────────────────────── */
+    .prompt-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 22px 14px 16px;
+      background: color-mix(in srgb, var(--surface) 70%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      max-width: min(640px, 92vw);
+      width: 100%;
+      margin: 0 auto;
+      text-align: left;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-md);
+    }
+    .prompt-box .prompt-prefix {
+      flex: none;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 5px 9px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 1px;
+    }
+    .prompt-box .prompt-text {
+      font-family: "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: clamp(0.98rem, 1.3vw, 1.18rem);
+      line-height: 1.45;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      min-height: 1.8em;
+      flex: 1;
+    }
+    /* Caret rides at the end of the text — pseudo-element ensures it follows
+       the typed content as it grows/shrinks during the typewriter animation. */
+    .prompt-box .prompt-text::after {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 1.05em;
+      background: var(--text);
+      vertical-align: -0.1em;
+      margin-left: 3px;
+      animation: blink 1.05s steps(2, start) infinite;
+    }
+    .prompt-caption {
+      display: none;
+    }
+    @media (max-width: 560px) {
+      .prompt-box { flex-direction: column; align-items: stretch; padding: 16px 18px; }
+      .prompt-box .prompt-prefix { align-self: flex-start; }
+    }
+
     /* ─── Hero ───────────────────────────────────────────────────────────── */
     .hero {
-      padding: clamp(64px, 11vw, 140px) 0 clamp(48px, 8vw, 96px);
+      padding: clamp(36px, 5vw, 64px) 0 clamp(28px, 4vw, 48px);
       text-align: center;
     }
     .hero h1 {
-      font-size: clamp(2.5rem, 6.5vw, 5.6rem);
-      line-height: 1.02;
-      letter-spacing: -0.035em;
+      font-size: clamp(1.7rem, 3.4vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
       font-weight: 700;
-      max-width: 16ch;
-      margin: 0 auto 24px;
+      max-width: 32ch;
+      margin: 0 auto 14px;
       color: var(--text);
+      text-wrap: balance;
     }
     .hero h1 .em {
       font-style: italic;
@@ -252,10 +344,10 @@
       letter-spacing: -0.04em;
     }
     .hero .subtitle {
-      font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
       color: var(--text-dim);
-      max-width: 600px;
-      margin: 0 auto 44px;
+      max-width: 520px;
+      margin: 0 auto 32px;
       line-height: 1.55;
     }
     .url-box {
@@ -414,6 +506,38 @@
       line-height: 1.1;
       margin-bottom: 14px;
       max-width: 22ch;
+      position: relative;
+      display: inline-block;
+      cursor: default;
+    }
+    /* Animated dots reveal after H2 on hover — same caret/loading rhythm
+       as the hero typewriter, ties the visual language together. */
+    .section h2::after {
+      content: "";
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 5px;
+      width: 0;
+      margin-left: 0;
+      vertical-align: 0.25em;
+      overflow: hidden;
+      transition: width 0.4s var(--ease), margin-left 0.4s var(--ease);
+    }
+    .section h2:hover::after {
+      content: "···";
+      width: 1.6em;
+      margin-left: 8px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      animation: heading-dots 1.4s var(--ease) infinite;
+    }
+    @keyframes heading-dots {
+      0%, 100% { opacity: 0.35; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-2px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .section h2:hover::after { animation: none; opacity: 0.6; }
     }
     .section .lead {
       color: var(--text-dim);
@@ -423,6 +547,51 @@
     }
 
     /* ─── Install grid ───────────────────────────────────────────────────── */
+    /* ─── Install URL bar ─────────────────────────────────────────────── */
+    .install-url-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px 10px 18px;
+      margin: 0 0 18px 0;
+      background: color-mix(in srgb, var(--surface) 80%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+    .install-url-bar .install-url-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex: none;
+    }
+    .install-url-bar code {
+      flex: 1;
+      min-width: 0;
+      color: var(--text);
+      font-size: 0.92rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      user-select: all;
+    }
+    .install-url-bar .install-url-copy {
+      flex: none;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+    }
+    @media (max-width: 560px) {
+      .install-url-bar {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .install-url-bar code { text-align: center; font-size: 0.85rem; }
+      .install-url-bar .install-url-copy { width: 100%; }
+    }
+
     .install-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -708,6 +877,78 @@
       transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
     }
     .capability-footer a:hover { color: var(--text); border-bottom-color: var(--text); }
+    .cap-tools {
+      margin-top: 2px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      font-size: 0.84rem;
+    }
+    .cap-tools summary {
+      cursor: pointer;
+      color: var(--text-dim);
+      list-style: none;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-weight: 400;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s var(--ease);
+    }
+    .cap-tools summary:hover { color: var(--text); }
+    .cap-tools summary::-webkit-details-marker { display: none; }
+    .cap-tools summary::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg) translate(-1px, -1px);
+      transition: transform 0.2s var(--ease);
+      display: inline-block;
+    }
+    .cap-tools[open] summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
+    .cap-tools .tool-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .cap-tools .tool-pills code {
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
+      font-size: 0.74rem;
+      background: var(--surface-3);
+      color: var(--text);
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      line-height: 1.5;
+      word-break: break-all;
+    }
+    .cap-tools .tool-pills .pills-loading {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-style: italic;
+    }
+    .cap-link {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-dim);
+      font-size: 0.86rem;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+      align-self: flex-start;
+    }
+    .cap-link:hover {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+    .cap-link .arrow { transition: transform 0.25s var(--ease); display: inline-block; }
+    .cap-link:hover .arrow { transform: translateX(3px); }
     @media (max-width: 900px) {
       .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -923,13 +1164,15 @@
     }
 
     /* ─── FAQ ────────────────────────────────────────────────────────────── */
-    .faq-list { max-width: 820px; margin: 0 auto; }
+    .faq-list { max-width: none; }
     details {
       background: transparent;
       border-bottom: 1px solid var(--border);
       padding: 22px 4px;
       transition: background 0.3s var(--ease);
+      border-radius: 8px;
     }
+    details:hover { background: color-mix(in srgb, var(--surface) 35%, transparent); }
     details:first-of-type { border-top: 1px solid var(--border); }
     details[open] { background: color-mix(in srgb, var(--surface) 30%, transparent); }
     details summary {
@@ -1027,14 +1270,6 @@
     }
     #toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ─── EU/UK/CH heads up ─────────────────────────────────────────────── */
-    .chatgpt-eea-warning { display: none; }
-    .chatgpt-eea-redirect { display: none; }
-    body.is-eea .chatgpt-card .chatgpt-eea-warning { display: block; }
-    body.is-eea .chatgpt-card .chatgpt-eea-redirect { display: inline-flex; }
-    body.is-eea .chatgpt-card .chatgpt-default-steps { display: none; }
-    body.is-eea .chatgpt-card .chatgpt-default-btn { display: none; }
-
     /* ─── Scroll-triggered fade-in (progressive) ─────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -1078,14 +1313,14 @@
 <body>
   <header class="nav">
     <div class="container">
-      <a href="#" class="logo" aria-label="Speak AI">
-        <img src="assets/logo.png" alt="Speak AI logo" onerror="this.style.display='none'" />
+      <a href="https://speakai.co/?utm_source=mcp.speakai.co&amp;utm_medium=referral&amp;utm_campaign=mcp_landing" class="logo" rel="noopener" aria-label="Speak AI — visit speakai.co">
         <span>Speak AI</span>
       </a>
       <nav>
         <ul>
           <li class="nav-link"><a href="#install">Install</a></li>
           <li class="nav-link"><a href="#capabilities">Capabilities</a></li>
+          <li class="nav-link"><a href="tools.html">Tools</a></li>
           <li class="nav-link"><a href="#examples">Examples</a></li>
           <li class="nav-link"><a href="#help">Help</a></li>
           <li>
@@ -1105,9 +1340,13 @@
       <div class="container">
         <h1>Connect Speak AI to <span class="em">Claude or ChatGPT</span> in 60 seconds</h1>
         <p class="subtitle">No Terminal. No npm. No JSON config.</p>
-        <div class="url-box" role="group" aria-label="Speak AI MCP URL">
-          <code id="mcp-url">https://api.speakai.co/v1/mcp</code><span class="caret" aria-hidden="true"></span>
-          <button class="copy-btn" onclick="copyUrl()" aria-label="Copy MCP URL to clipboard">Copy URL</button>
+        <div class="prompt-box" role="group" aria-label="Example prompts you can ask once installed">
+          <span class="prompt-prefix" aria-hidden="true">Ask</span>
+          <span class="prompt-text" id="prompt-rotator" aria-live="polite">Show me every coaching call last month where my client mentioned imposter syndrome.</span>
+        </div>
+        <p class="prompt-caption">Things you'll be able to ask Claude or ChatGPT.</p>
+        <div class="hero-actions">
+          <a class="hero-link" href="#install">See install steps <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -1132,19 +1371,24 @@
     <section class="section reveal" id="install">
       <div class="container">
         <p class="section-eyebrow">Install</p>
-        <h2>Pick your tool — both paths are live today.</h2>
+        <h2>Pick your tool.</h2>
         <p class="lead">One-click connect is the easiest install (recommended for coaches and non-developers). Or paste an API key as a header for any client that prefers manual setup.</p>
+
+        <div class="install-url-bar" role="group" aria-label="Speak AI MCP URL">
+          <span class="install-url-label">Connector URL</span>
+          <code id="mcp-url">https://api.speakai.co/v1/mcp</code>
+          <button class="install-url-copy copy-btn" onclick="copyUrl()" aria-label="Copy MCP URL to clipboard">Copy</button>
+        </div>
 
         <div class="install-notice">
           <span class="badge" aria-hidden="true">i</span>
-          <p>Paste the connector URL into your AI tool's connector settings — same idea as pasting a Zoom link into your calendar. For the manual API-key route, generate a key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a> and add it as an <code>Authorization</code> header.</p>
+          <p>Paste the URL above into your AI tool's connector settings — same idea as pasting a Zoom link into your calendar. For the manual API-key route, generate a key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a> and add it as an <code>Authorization</code> header.</p>
         </div>
 
         <div class="install-grid">
 
           <article class="install-card" id="card-claude-web">
             <h3>Claude.ai (web)</h3>
-            <div class="meta">Pro · Max · Team · Enterprise</div>
             <ol>
               <li>Open <a href="https://claude.ai/settings/connectors" target="_blank" rel="noopener">claude.ai/settings/connectors</a></li>
               <li>Click <strong>Add custom connector</strong></li>
@@ -1156,7 +1400,6 @@
 
           <article class="install-card" id="card-claude-desktop">
             <h3>Claude Desktop</h3>
-            <div class="meta">Mac · Windows app</div>
             <ol>
               <li>Open Claude Desktop → Settings → Connectors → <strong>Add custom connector</strong></li>
               <li>Paste the URL from the top of this page</li>
@@ -1166,29 +1409,21 @@
               <summary>Prefer manual setup with an API key?</summary>
               <p>Expand <strong>Custom headers</strong> in the Add Connector dialog and add <code>Authorization</code> = <code>Bearer &lt;your-key&gt;</code>. Generate a key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a>.</p>
             </details>
-            <a class="install-btn" href="https://claude.ai/download" target="_blank" rel="noopener" onclick="copyUrl(true)">Open Claude Desktop <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="install-card chatgpt-card">
+          <article class="install-card">
             <h3>ChatGPT</h3>
-            <div class="meta">Plus · Pro · Business · Enterprise · Edu</div>
-            <div class="chatgpt-eea-warning heads-up">
-              Note: ChatGPT custom connectors are not available in the EU, UK, or Switzerland (OpenAI restriction). Use Claude.ai or Claude Desktop instead — both support one-click connect today.
-            </div>
-            <ol class="chatgpt-default-steps">
+            <ol>
               <li>Open ChatGPT → Settings → Connectors → <strong>Advanced</strong></li>
-              <li>Enable <strong>"Allow custom apps"</strong> (OpenAI calls this toggle "Developer Mode" — but you don't need to be a developer to flip it; it just lets you add a third-party app like Speak AI)</li>
+              <li>Enable the toggle that lets you add custom apps</li>
               <li>Click <strong>Create</strong>, paste the URL above, choose the sign-in option</li>
               <li>Sign in to Speak AI, click <strong>Allow</strong> on the permission popup</li>
               <li><strong>Per-chat:</strong> open a chat, click the connector menu, enable Speak AI for that chat</li>
             </ol>
-            <a class="install-btn chatgpt-default-btn" href="https://chatgpt.com" target="_blank" rel="noopener" onclick="copyUrl(true)">Open ChatGPT <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="install-btn chatgpt-eea-redirect" href="#card-claude-web">Use Claude.ai instead <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="install-card">
             <h3>Cursor</h3>
-            <div class="meta">Editor · one-click connect</div>
             <ol>
               <li>Click the button — Cursor registers and opens the permission popup</li>
               <li>Sign in to Speak AI and click <strong>Allow</strong></li>
@@ -1198,7 +1433,6 @@
 
           <article class="install-card">
             <h3>VS Code</h3>
-            <div class="meta">Editor + GitHub Copilot · one-click connect</div>
             <ol>
               <li>Click the button — VS Code registers and opens the permission popup</li>
               <li>Sign in to Speak AI and click <strong>Allow</strong></li>
@@ -1208,7 +1442,6 @@
 
           <article class="install-card">
             <h3>ChatGPT API / Responses</h3>
-            <div class="meta">Developers · API key in tool config</div>
             <ol>
               <li>Pass your API key in the tool config of your Responses API call:</li>
             </ol>
@@ -1221,7 +1454,6 @@
 
           <article class="install-card">
             <h3>Claude Code</h3>
-            <div class="meta">Terminal CLI · sign-in flow or API key</div>
             <pre><code id="claude-code-cmd">claude mcp add --transport http speakai https://api.speakai.co/v1/mcp --header "Authorization: Bearer $SPEAKAI_KEY"</code></pre>
             <button class="copy-btn-inline" onclick="copyClaudeCode()">Copy command</button>
           </article>
@@ -1233,10 +1465,10 @@
     <section class="section reveal" id="capabilities">
       <div class="container">
         <p class="section-eyebrow">What's inside</p>
-        <h2>83 tools across 13 categories.</h2>
+        <h2>83 tools across 10 categories.</h2>
         <p class="lead">Everything Speak AI can do — exposed for your AI assistant to call. You don't memorize them; the AI picks the right one.</p>
         <div class="capabilities-grid">
-          <article class="capability">
+          <article class="capability" data-cat-id="media">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5a2 2 0 012-2h11a2 2 0 012 2V8l3.5-2v12L18 16v1.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z"/></svg>
@@ -1247,9 +1479,14 @@
               </div>
             </div>
             <p>Upload audio or video, fetch transcripts, get AI insights, organize, favorite, export.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-media">View 16 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="magic-prompt">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 11-3.2-6.6L21 3v5h-5"/><path d="M9 11l1.5 1.5L13 10"/></svg>
@@ -1260,9 +1497,14 @@
               </div>
             </div>
             <p>Run AI prompts across one file, a folder, or your whole workspace. Save favorites.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-magic-prompt">View 12 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="search-analytics">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
@@ -1273,9 +1515,14 @@
               </div>
             </div>
             <p>Full-text search across transcripts, insights, and metadata. Workspace-level stats.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-search-analytics">View 3 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="folders-views">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
@@ -1286,9 +1533,14 @@
               </div>
             </div>
             <p>Create folders, save filtered views, bulk move files, share read-only collections.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-folders-views">View 11 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="recorders-surveys">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0"/><path d="M12 18v3"/></svg>
@@ -1299,9 +1551,14 @@
               </div>
             </div>
             <p>Public recording links for clients, prompted question sets, branded submission pages.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-recorders-surveys">View 10 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="clips-exports">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.5 15.5"/><path d="M20 20L8.5 8.5"/></svg>
@@ -1312,9 +1569,14 @@
               </div>
             </div>
             <p>Highlight clips from any time range. Export PDF, DOCX, SRT, VTT, TXT, CSV.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-clips-exports">View 6 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="meeting-bot">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>
@@ -1325,9 +1587,14 @@
               </div>
             </div>
             <p>Schedule Speak AI to join a Zoom / Google Meet / Teams call and transcribe automatically.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-meeting-bot">View 4 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="automations-webhooks">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
@@ -1338,9 +1605,14 @@
               </div>
             </div>
             <p>Trigger actions on new recordings. Send events to your own backend.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-automations-webhooks">View 9 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
-          <article class="capability">
+          <article class="capability" data-cat-id="text-fields">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12a2 2 0 01-2 2H4z"/><path d="M16 4v4h4"/><path d="M8 14h8M8 18h5"/></svg>
@@ -1351,9 +1623,32 @@
               </div>
             </div>
             <p>Standalone AI-analyzed text notes plus custom fields you can tag any media file with.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-text-fields">View 8 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="capability" data-cat-id="embed-other">
+            <div class="cap-head">
+              <span class="cap-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+              </span>
+              <div>
+                <h3>Embed players</h3>
+                <span class="count">4 tools</span>
+              </div>
+            </div>
+            <p>Embeddable player widgets for media on your own website.</p>
+            <details class="cap-tools">
+              <summary>Show tools</summary>
+              <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
+            </details>
+            <a class="cap-link" href="tools.html#category-embed-other">View 4 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
           </article>
         </div>
-        <p class="capability-footer">+ embed players, language config, chat history — full catalog in the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md#mcp-tools-83" target="_blank" rel="noopener">developer reference</a>.</p>
+        <p class="capability-footer"><a href="tools.html">Browse all 83 tools →</a></p>
       </div>
     </section>
 
@@ -1381,7 +1676,7 @@
         <div class="help-card">
           <p class="section-eyebrow" style="margin-bottom: 18px;">Need a hand?</p>
           <h2>You shouldn't have to be technical to use this.</h2>
-          <p>If anything feels confusing or doesn't work, we'll get you set up. Most coaches click the one-click connect button and approve the permission popup in under a minute. You don't need Terminal, you don't need to install anything on your computer, and you definitely don't need to hire a Virtual Assistant.</p>
+          <p>If anything feels confusing or doesn't work, we'll get you set up. You don't need Terminal, you don't need to install anything on your computer, and you don't need to hire a Virtual Assistant.</p>
           <div class="help-actions">
             <a class="btn primary" href="https://speakai.co/help">Book 15 minutes <span class="arrow" aria-hidden="true">→</span></a>
             <a class="btn" href="mailto:accounts@speakai.co">Email accounts@speakai.co</a>
@@ -1410,7 +1705,7 @@
       <div class="container">
         <p class="section-eyebrow">FAQ</p>
         <h2>Common questions.</h2>
-        <p class="lead">Privacy, permissions, regions, and the developer path.</p>
+        <p class="lead">Privacy, permissions, and the developer path.</p>
         <div class="faq-list">
 
           <details>
@@ -1424,18 +1719,8 @@
           </details>
 
           <details>
-            <summary>I'm a therapist — is this HIPAA-compliant? <span class="chev" aria-hidden="true"></span></summary>
-            <p>This depends on your specific situation, your existing Business Associate Agreements, and the contents of your recordings. When you grant the connector access, transcript content (including participant names and clinical detail) gets sent to Anthropic / OpenAI as part of the AI's reasoning. If your work is HIPAA-regulated, please review your participant consent practices before installing, and check whether your existing BAAs cover this use. Email <a href="mailto:privacy@speakai.co">privacy@speakai.co</a> with specific compliance questions.</p>
-          </details>
-
-          <details>
             <summary>How do I disconnect Claude/ChatGPT from my Speak AI account? <span class="chev" aria-hidden="true"></span></summary>
             <p>Three options, all live today: (1) remove the connector inside Claude/ChatGPT itself, (2) for one-click connect installs, revoke the connection at <a href="https://api.speakai.co/v1/oauth/connections">api.speakai.co/v1/oauth/connections</a>, or (3) for API-key installs, rotate or revoke the key at <a href="https://app.speakai.co/developers/apikeys">app.speakai.co/developers/apikeys</a> — any tool using that key loses access immediately.</p>
-          </details>
-
-          <details>
-            <summary>I'm in the EU, UK, or Switzerland — can I install this? <span class="chev" aria-hidden="true"></span></summary>
-            <p>Yes for Claude (.ai web, Desktop, Code) and Cursor / VS Code — all of those work everywhere. ChatGPT custom connectors are not available in those regions (an OpenAI restriction, not ours). If you want ChatGPT specifically, you'll need to use the API / Responses path with an API key; otherwise we recommend Claude.ai or Claude Desktop, which install with one click.</p>
           </details>
 
           <details>
@@ -1541,6 +1826,57 @@
       });
     }
 
+    // Hero prompt typewriter — cycles through example asks.
+    (function setupPromptRotator() {
+      var el = document.getElementById('prompt-rotator');
+      if (!el) return;
+      var prompts = [
+        'Pull the action items from yesterday’s standup and group them by owner.',
+        'Find every customer interview from the last 30 days that mentioned pricing.',
+        'Summarise the top three objections from this quarter’s sales calls.',
+        'What themes are recurring across my last 20 coaching sessions?',
+        'Draft a follow‑up email from this morning’s discovery call.',
+        'Make a 60‑second highlight clip of the strongest moment in Tuesday’s podcast.',
+        'Compare the feedback in last quarter’s user research vs this quarter’s.',
+        'Pull every quote from Maya’s sessions about burnout.',
+        'Show me the recordings where my client first mentioned wanting to switch careers.',
+        'Turn last week’s product review into a one‑page brief with decisions and open questions.'
+      ];
+      // Respect reduced motion: show first prompt and stop.
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        el.textContent = prompts[0];
+        return;
+      }
+      var i = 0;
+      var charIdx = 0;
+      var typing = true;
+      el.textContent = '';
+      function tick() {
+        var current = prompts[i];
+        if (typing) {
+          charIdx++;
+          el.textContent = current.slice(0, charIdx);
+          if (charIdx >= current.length) {
+            typing = false;
+            return setTimeout(tick, 2400); // hold full sentence
+          }
+          return setTimeout(tick, 24 + Math.random() * 36); // varied typing speed
+        }
+        // erasing
+        charIdx -= 4;
+        if (charIdx <= 0) {
+          charIdx = 0;
+          typing = true;
+          i = (i + 1) % prompts.length;
+          return setTimeout(tick, 320);
+        }
+        el.textContent = current.slice(0, charIdx);
+        return setTimeout(tick, 14);
+      }
+      // Start after a short delay so the page settles first.
+      setTimeout(tick, 500);
+    })();
+
     // Theme toggle — persists choice; falls back to system preference when none.
     (function setupThemeToggle() {
       var btn = document.getElementById('theme-toggle');
@@ -1557,20 +1893,38 @@
       });
     })();
 
-    // Best-effort EU/UK/CH detection — hides ChatGPT install since
-    // OpenAI restricts custom connectors in those regions.
-    (function detectEEA() {
-      const eeaLocales = [
-        'en-GB','en-IE','de-DE','de-AT','de-CH','fr-FR','fr-BE','fr-CH',
-        'it-IT','it-CH','es-ES','pt-PT','nl-NL','nl-BE','sv-SE','no-NO',
-        'da-DK','fi-FI','pl-PL','cs-CZ','hu-HU','ro-RO','el-GR','bg-BG',
-        'sk-SK','sl-SI','lt-LT','lv-LV','et-EE','hr-HR','mt-MT','ga-IE',
-      ];
-      const lang = (navigator.language || '').toLowerCase();
-      if (eeaLocales.some(l => lang.startsWith(l.toLowerCase()))) {
-        document.body.classList.add('is-eea');
+    // Populate capability cards with tool names from tools.json (single source of truth).
+    (function populateCapabilityTools() {
+      var cards = document.querySelectorAll('.capability[data-cat-id]');
+      if (!cards.length) return;
+      function escHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
       }
+      fetch('./tools.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          var byId = {};
+          data.categories.forEach(function (c) { byId[c.id] = c; });
+          cards.forEach(function (card) {
+            var id = card.getAttribute('data-cat-id');
+            var c = byId[id];
+            var pills = card.querySelector('.cap-tools .tool-pills');
+            if (!c || !pills) return;
+            pills.innerHTML = c.tools.map(function (t) {
+              return '<code>' + escHtml(t.name) + '</code>';
+            }).join('');
+          });
+        })
+        .catch(function () {
+          cards.forEach(function (card) {
+            var pills = card.querySelector('.cap-tools .tool-pills');
+            if (pills) pills.innerHTML = '<span class="pills-loading">Tool list unavailable — see <a href="tools.html" style="color:var(--text-dim);border-bottom:1px solid var(--border);">tools.html</a></span>';
+          });
+        });
     })();
+
   </script>
 </body>
 </html>

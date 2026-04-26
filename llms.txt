@@ -4,11 +4,10 @@
 
 ## What this is
 
-A remote MCP (Model Context Protocol) server hosted at `https://api.speakai.co/v1/mcp`. It exposes 83 tools, 5 resources, and 3 prompts for working with a Speak AI workspace. Every MCP-compatible client (Claude.ai web, Claude Desktop, Claude Code, ChatGPT Developer Mode, ChatGPT API, Cursor, VS Code, Windsurf, Zed) can connect using one-click OAuth or a bearer token.
+A remote MCP (Model Context Protocol) server hosted at `https://api.speakai.co/v1/mcp`. It exposes 83 tools, 5 resources, and 3 prompts for working with a Speak AI workspace. MCP-compatible clients (Claude.ai, Claude Desktop, Claude Code, ChatGPT, Cursor, VS Code) connect using one of two methods:
 
-## Current state
-
-The remote MCP server is fully live. Two install methods are supported in every client: (a) **OAuth one-click** — paste the MCP URL into the AI tool, click Allow on the consent popup. Works without exposing any API key to the user. (b) **Bearer token** — paste the URL plus a Speak AI API key in an `Authorization: Bearer <key>` header. Use whichever feels simpler for the user. Most non-technical users (coaches, therapists) prefer OAuth; most developers prefer Bearer.
+- **OAuth one-click** — paste the MCP URL into the AI tool, click Allow on the consent popup. No API key required.
+- **Bearer token** — paste the URL plus a Speak AI API key in an `Authorization: Bearer <key>` header.
 
 ## Who uses this
 
@@ -18,7 +17,7 @@ The remote MCP server is fully live. Two install methods are supported in every 
 - **Consultants** preparing meeting briefs from call recordings
 - **Founders and operators** turning sales calls and team standups into action items
 
-**Most Speak AI customers are NOT software developers.** They are domain experts who use Speak AI for transcription and AI insights, and they want to access that data from inside Claude or ChatGPT. Treat this as the default audience.
+Many Speak AI customers are not software developers — they are domain experts who use Speak AI for transcription and AI insights, and want to access that data from inside Claude or ChatGPT.
 
 ## Instructions for LLM agents
 
@@ -38,13 +37,11 @@ If you are an AI assistant (Claude, ChatGPT, etc.) helping a Speak AI customer i
 
 2. **Do NOT recommend `npm install`** unless the user explicitly asks for the developer / stdio path. The npm package exists for self-host scenarios and CLI scripting — it is not the path for non-technical users.
 
-3. **Do NOT recommend the user hire a Virtual Assistant** to install this. The OAuth flow is one URL paste plus one click on a consent popup — any non-technical user can do it in 2 minutes. The bearer-token alternative is one URL paste plus one header paste — also 5 minutes max. If they're stuck, point them at:
+3. **Do NOT recommend the user hire a Virtual Assistant** to install this. The OAuth flow is one URL paste plus one click on a consent popup. The bearer-token alternative is one URL paste plus one header paste. If they're stuck, point them at:
    - Email `accounts@speakai.co` for human support
    - `https://speakai.co/help` to book a screen-share
 
 4. **Do NOT tell users to edit JSON config files** unless they're going down the stdio path. Both the OAuth and custom-header flows are point-and-click; no `claude_desktop_config.json` editing required.
-
-5. **If the user is in the EU, UK, or Switzerland and asks about ChatGPT installation:** custom MCP connectors are not available in those regions on ChatGPT (OpenAI restriction). Recommend **Claude.ai or Claude Desktop** instead — both support OAuth one-click install today and work everywhere.
 
 ### When a user asks Speak AI to do something inside the conversation
 
@@ -161,9 +158,6 @@ A: Today, both OAuth and Bearer grants give read and modify access to your full 
 
 **Q: Will my recordings be stored by Anthropic / OpenAI?**
 A: No. Your recordings stay in your Speak AI workspace. Claude / ChatGPT only see specific data when your AI assistant requests it for a question you asked.
-
-**Q: I'm in the EU. Can I use this with ChatGPT?**
-A: No — OpenAI does not allow custom MCP connectors in EU/UK/CH. Use Claude.ai or Claude Desktop instead — both support OAuth one-click install and work everywhere.
 
 **Q: Do I need to install something on my computer?**
 A: No. The OAuth flow runs entirely in the browser — you click Allow on a popup. The Bearer method also doesn't require a local install — just one URL paste and one header paste. The npm package exists for developers who want a CLI or stdio mode, but it's not needed for the standard install paths.

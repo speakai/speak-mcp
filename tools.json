@@ -1,0 +1,834 @@
+{
+  "$schema": "https://speakai.co/schemas/tools.v1.json",
+  "version": "1.0",
+  "totalTools": 83,
+  "categories": [
+    {
+      "id": "media",
+      "name": "Media library",
+      "iconKey": "media",
+      "shortDescription": "Upload audio or video, fetch transcripts, get AI insights, organize, favorite, export.",
+      "tools": [
+        {
+          "name": "get_signed_upload_url",
+          "title": "Get Signed Upload URL",
+          "description": "Get a pre-signed S3 URL for direct file upload to Speak AI storage. After getting the URL, PUT your file to it, then call upload_media with the S3 URL. For a simpler workflow, use upload_local_file instead which handles all steps automatically.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "upload_media",
+          "title": "Upload Media from URL",
+          "description": "Upload media from a publicly accessible URL. Processing is asynchronous — after uploading, use get_media_status to poll until state is 'processed' (typically 1-3 minutes for audio under 60 min), then use get_transcript and get_media_insights to retrieve results. For a single call that handles everything, use upload_and_analyze instead. For local files, use upload_local_file.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "upload_local_file",
+          "title": "Upload Local File",
+          "description": "Upload a local file to Speak AI for transcription and analysis. Reads the file from disk, gets a pre-signed S3 URL, uploads the file, then creates the media entry. Works with any audio or video file on the local filesystem. After upload, use get_media_status to poll for completion, then get_transcript and get_media_insights.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "upload_and_analyze",
+          "title": "Upload and Analyze Media",
+          "description": "Upload media and return media_id immediately. After this returns, poll get_media_status until state is 'processed' (typically 1-3 min for under 60min audio), then call get_media_insights for AI summaries. This async pattern is required for remote MCP transports — long blocking calls die at proxy idle timeouts.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_media",
+          "title": "List Media Files",
+          "description": "List and search media files in the workspace with filtering, pagination, and sorting. Use filterName for text search, mediaType to filter by audio/video/text, folderId for folder-specific results, and from/to for date ranges. Use the include param to embed additional data (transcripts, speakers, keywords) inline with each result, avoiding N+1 API calls. Returns mediaIds you can pass to get_transcript, get_media_insights, or ask_magic_prompt. For deep full-text search across transcripts, use search_media instead.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_media_insights",
+          "title": "Get Media Insights",
+          "description": "Retrieve AI-generated insights for a processed media file — topics, sentiment, keywords, action items, summaries, and more. The media must be in 'processed' state (check with get_media_status first). For asking custom questions about a media file, use ask_magic_prompt instead.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_transcript",
+          "title": "Get Transcript",
+          "description": "Retrieve the full transcript for a processed media file with speaker labels and timestamps. The media must be in 'processed' state. Use update_transcript_speakers to rename speaker labels after reviewing. For subtitle-formatted output, use get_captions instead.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_captions",
+          "title": "Get Captions",
+          "description": "Get captions for a media file. Captions are separate from full transcripts and are formatted for display/subtitles.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_transcript_speakers",
+          "title": "Rename Transcript Speakers",
+          "description": "Update or rename speaker labels in a media transcript.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "bulk_update_transcript_speakers",
+          "title": "Bulk Rename Speakers Across Files",
+          "description": "Update or rename speaker labels across multiple media files in a single operation. Applies the same speaker mappings to every specified media file. Use this instead of calling update_transcript_speakers repeatedly when renaming speakers across a project or folder.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_media_status",
+          "title": "Get Media Status",
+          "description": "Check the processing status of a media file. States: pending → transcribing → analyzing → processed (or failed). Poll this after upload_media until state is 'processed', then use get_transcript and get_media_insights to retrieve results.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_media_metadata",
+          "title": "Update Media Metadata",
+          "description": "Update metadata fields (name, description, tags, status) for an existing media file.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_media",
+          "title": "Delete Media File",
+          "description": "Permanently delete a media file and all associated transcripts and insights.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "toggle_media_favorite",
+          "title": "Toggle Media Favorite",
+          "description": "Mark or unmark a media file as a favorite for quick access.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "reanalyze_media",
+          "title": "Re-analyze Media",
+          "description": "Re-run AI analysis on a media file using the latest models. Use this after Speak AI has updated its analysis capabilities or if the original analysis was incomplete.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "bulk_move_media",
+          "title": "Bulk Move Media Files",
+          "description": "Move multiple media files to a folder in a single operation. Use this for batch reorganization instead of updating media one by one.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "magic-prompt",
+      "name": "Ask AI (Magic Prompt)",
+      "iconKey": "magic-prompt",
+      "shortDescription": "Run AI prompts across one file, a folder, or your whole workspace. Save favorites.",
+      "tools": [
+        {
+          "name": "ask_magic_prompt",
+          "title": "Ask AI About Your Recordings",
+          "description": "Ask an AI-powered question about your media using Speak AI's Magic Prompt. Supports querying a single file, multiple files, entire folders, or your whole workspace. Pass mediaIds for specific files, folderIds for entire folders, or omit both to search across all media. Use assistantType to get specialized responses (e.g., 'researcher' for academic analysis, 'sales' for deal insights). To continue a conversation, pass the promptId from a previous response. Returns a promptId — save it to continue the conversation with follow-up questions.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "retry_magic_prompt",
+          "title": "Retry AI Question",
+          "description": "Retry a failed or incomplete Magic Prompt response. Use when a previous ask_magic_prompt call returned an error or incomplete answer.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_chat_history",
+          "title": "Get Chat History",
+          "description": "Get a list of recent Magic Prompt conversations. Returns conversation summaries with promptIds that can be used to continue conversations via ask_magic_prompt or retrieve full messages via get_chat_messages.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_chat_messages",
+          "title": "Get Chat Messages",
+          "description": "Get full message history for conversations. Can filter by promptId for a specific conversation, by media/folder, or search across all chat messages. Returns questions, answers, references, and metadata.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_chat_message",
+          "title": "Delete Chat Message",
+          "description": "Delete a specific chat message from conversation history.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_prompts",
+          "title": "List Prompt Templates",
+          "description": "List all available Magic Prompt templates. Use template IDs with ask_magic_prompt's assistantTemplateId parameter when using assistantType 'custom'.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_favorite_prompts",
+          "title": "Get Favorite Prompts",
+          "description": "Get all prompts and answers that have been marked as favorites. Useful for finding saved insights and important AI-generated analysis.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "toggle_prompt_favorite",
+          "title": "Toggle Prompt Favorite",
+          "description": "Mark or unmark a chat message as a favorite for easy retrieval later.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_chat_title",
+          "title": "Rename Chat",
+          "description": "Update the title of a chat conversation for easier identification in history.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "submit_chat_feedback",
+          "title": "Submit Chat Feedback",
+          "description": "Submit feedback on a chat response (thumbs up/down). Helps improve AI answer quality.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_chat_statistics",
+          "title": "Get Chat Statistics",
+          "description": "Get usage statistics for Magic Prompt / chat. Returns metrics on prompt usage, optionally filtered by date range.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "export_chat_answer",
+          "title": "Export Chat Answer",
+          "description": "Export a Magic Prompt conversation or answer. Useful for saving AI-generated summaries, reports, or analysis results.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "search-analytics",
+      "name": "Search & analytics",
+      "iconKey": "search-analytics",
+      "shortDescription": "Full-text search across transcripts, insights, and metadata. Workspace-level stats.",
+      "tools": [
+        {
+          "name": "search_media",
+          "title": "Search Media Library",
+          "description": "Deep search across all media transcripts, insights, and metadata. Returns matching media with sentiment data, tags, and content excerpts. Use this to find specific topics, keywords, or themes across your entire library. For filtering by media type, folder, tags, or speakers, use the filterList parameter. Results are scoped by date range — defaults to current month if not specified.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_media_statistics",
+          "title": "Get Media Statistics",
+          "description": "Get workspace-level media statistics — total counts, processing status breakdown, storage usage, etc.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_supported_languages",
+          "title": "List Supported Languages",
+          "description": "List all languages supported for transcription. Use the language codes when uploading media with a specific sourceLanguage.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "folders-views",
+      "name": "Folders & views",
+      "iconKey": "folders-views",
+      "shortDescription": "Create folders, save filtered views, bulk move files, share read-only collections.",
+      "tools": [
+        {
+          "name": "list_folders",
+          "title": "List Folders",
+          "description": "List all folders in the workspace with pagination and sorting.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_folder_info",
+          "title": "Get Folder Info",
+          "description": "Get detailed information about a specific folder including its contents.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "create_folder",
+          "title": "Create Folder",
+          "description": "Create a new folder in the workspace.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "clone_folder",
+          "title": "Clone Folder",
+          "description": "Duplicate an existing folder and all of its contents.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_folder",
+          "title": "Update Folder",
+          "description": "Update a folder's name or other properties.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_folder",
+          "title": "Delete Folder",
+          "description": "Permanently delete a folder. Media within the folder will be moved, not deleted.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_all_folder_views",
+          "title": "Get All Folder Views",
+          "description": "Retrieve all saved views across all folders.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_folder_views",
+          "title": "Get Folder Views",
+          "description": "Retrieve all saved views for a specific folder.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "create_folder_view",
+          "title": "Create Folder View",
+          "description": "Create a new saved view for a folder with custom filters and display settings.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_folder_view",
+          "title": "Update Folder View",
+          "description": "Update an existing saved view's name, filters, or display settings.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "clone_folder_view",
+          "title": "Clone Folder View",
+          "description": "Duplicate an existing folder view.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "recorders-surveys",
+      "name": "Recorders & surveys",
+      "iconKey": "recorders-surveys",
+      "shortDescription": "Public recording links for clients, prompted question sets, branded submission pages.",
+      "tools": [
+        {
+          "name": "create_recorder",
+          "title": "Create Recorder",
+          "description": "Create a new recorder or survey for collecting audio/video submissions.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_recorders",
+          "title": "List Recorders",
+          "description": "List all recorders/surveys in the workspace.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_recorder_info",
+          "title": "Get Recorder Info",
+          "description": "Get detailed information about a specific recorder including its settings and questions.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "clone_recorder",
+          "title": "Clone Recorder",
+          "description": "Duplicate an existing recorder including all its settings and questions.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_recorder_recordings",
+          "title": "Get Recorder Submissions",
+          "description": "List all submissions/recordings collected by a specific recorder.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "generate_recorder_url",
+          "title": "Generate Recorder Share URL",
+          "description": "Generate a shareable public URL for a recorder/survey.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_recorder_settings",
+          "title": "Update Recorder Settings",
+          "description": "Update configuration settings for a recorder (branding, permissions, etc.).",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_recorder_questions",
+          "title": "Update Recorder Questions",
+          "description": "Update the survey questions for a recorder.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "check_recorder_status",
+          "title": "Check Recorder Status",
+          "description": "Check whether a recorder/survey is active and accepting submissions.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_recorder",
+          "title": "Delete Recorder",
+          "description": "Permanently delete a recorder/survey. Existing recordings are preserved.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "clips-exports",
+      "name": "Clips & exports",
+      "iconKey": "clips-exports",
+      "shortDescription": "Highlight clips from any time range. Export PDF, DOCX, SRT, VTT, TXT, CSV.",
+      "tools": [
+        {
+          "name": "create_clip",
+          "title": "Create Highlight Clip",
+          "description": "Create a highlight clip from one or more media files by specifying time ranges. Clips are processed asynchronously (states: pending, processing, processed, failed) — use get_clips to check status. Maximum total clip duration is 30 minutes. Use multiple timeRanges to stitch segments from different media files together.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_clips",
+          "title": "List Clips",
+          "description": "List clips, optionally filtered by folder or media files. If clipId is provided, returns a single clip with its download URL (when processed).",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_clip",
+          "title": "Update Clip",
+          "description": "Update a clip's title, description, or tags.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_clip",
+          "title": "Delete Clip",
+          "description": "Permanently delete a clip and its associated media file.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "export_media",
+          "title": "Export Media Transcript",
+          "description": "Export a media file's transcript or insights in various formats (pdf, docx, srt, vtt, txt, csv).",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "export_multiple_media",
+          "title": "Export Multiple Media Files",
+          "description": "Export multiple media files at once, optionally merged into a single file.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "meeting-bot",
+      "name": "Meeting bot",
+      "iconKey": "meeting-bot",
+      "shortDescription": "Schedule Speak AI to join a Zoom / Google Meet / Teams call and transcribe automatically.",
+      "tools": [
+        {
+          "name": "list_meeting_events",
+          "title": "List Meeting Events",
+          "description": "List scheduled or completed meeting assistant events with filtering and pagination.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "schedule_meeting_event",
+          "title": "Schedule AI Meeting Assistant",
+          "description": "Schedule the Speak AI meeting assistant to join and record an upcoming meeting.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "remove_assistant_from_meeting",
+          "title": "Remove Assistant from Meeting",
+          "description": "Remove the Speak AI assistant from an active or scheduled meeting.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_scheduled_assistant",
+          "title": "Cancel Scheduled Meeting Assistant",
+          "description": "Cancel and delete a scheduled meeting assistant event.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "automations-webhooks",
+      "name": "Automations & webhooks",
+      "iconKey": "automations-webhooks",
+      "shortDescription": "Trigger actions on new recordings. Send events to your own backend.",
+      "tools": [
+        {
+          "name": "list_automations",
+          "title": "List Automations",
+          "description": "List all automation rules configured in the workspace.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_automation",
+          "title": "Get Automation Details",
+          "description": "Get detailed information about a specific automation rule.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "create_automation",
+          "title": "Create Automation",
+          "description": "Create a new automation rule for automatic media processing workflows.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_automation",
+          "title": "Update Automation",
+          "description": "Update an existing automation rule's configuration.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "toggle_automation_status",
+          "title": "Enable or Disable Automation",
+          "description": "Enable or disable an automation rule.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "create_webhook",
+          "title": "Create Webhook",
+          "description": "Create a new webhook to receive real-time notifications when events occur in Speak AI.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_webhooks",
+          "title": "List Webhooks",
+          "description": "List all configured webhooks in the workspace.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_webhook",
+          "title": "Update Webhook",
+          "description": "Update an existing webhook's URL or subscribed events.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "delete_webhook",
+          "title": "Delete Webhook",
+          "description": "Delete a webhook and stop receiving notifications at its endpoint.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "text-fields",
+      "name": "Text notes & custom fields",
+      "iconKey": "text-fields",
+      "shortDescription": "Standalone AI-analyzed text notes plus custom fields you can tag any media file with.",
+      "tools": [
+        {
+          "name": "create_text_note",
+          "title": "Create Text Note",
+          "description": "Create a new text note in Speak AI for analysis. The content will be analyzed for insights, topics, and sentiment.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_text_insight",
+          "title": "Get Text Note Insights",
+          "description": "Retrieve AI-generated insights for a text note, including topics, sentiment, summaries, and action items.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "reanalyze_text",
+          "title": "Re-analyze Text Note",
+          "description": "Trigger a re-analysis of an existing text note to regenerate insights with the latest AI models.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_text_note",
+          "title": "Update Text Note",
+          "description": "Update an existing text note's name, content, or metadata. Updating text content will trigger re-analysis.",
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "list_fields",
+          "title": "List Custom Fields",
+          "description": "List all custom fields defined in the workspace.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "create_field",
+          "title": "Create Custom Field",
+          "description": "Create a new custom field for categorizing and tagging media.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_field",
+          "title": "Update Custom Field",
+          "description": "Update a specific custom field by ID.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_multiple_fields",
+          "title": "Bulk Update Custom Fields",
+          "description": "Update multiple custom fields in a single batch operation.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    },
+    {
+      "id": "embed-other",
+      "name": "Embed players",
+      "iconKey": "embed-other",
+      "shortDescription": "Embeddable player widgets for media on your own website.",
+      "tools": [
+        {
+          "name": "create_embed",
+          "title": "Create Embed Widget",
+          "description": "Create an embeddable player/transcript widget for a media file.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        {
+          "name": "update_embed",
+          "title": "Update Embed Widget",
+          "description": "Update settings for an existing embed widget.",
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "check_embed",
+          "title": "Check Embed Exists",
+          "description": "Check if an embed exists for a media file and retrieve its configuration.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        {
+          "name": "get_embed_iframe_url",
+          "title": "Get Embed Iframe URL",
+          "description": "Get the iframe URL for embedding a media player/transcript on a webpage.",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        }
+      ]
+    }
+  ]
+}

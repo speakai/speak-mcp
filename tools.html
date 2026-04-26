@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speak AI MCP — All 83 tools</title>
+  <meta name="description" content="Browse, search, and filter every tool the Speak AI MCP server exposes to your AI assistant. 83 tools across 10 categories." />
+  <meta property="og:title" content="Speak AI MCP — All 83 tools" />
+  <meta property="og:description" content="Search, filter, copy. The full surface of what Speak AI exposes to your AI assistant." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mcp.speakai.co/tools.html" />
+  <link rel="canonical" href="https://mcp.speakai.co/tools.html" />
+  <script>
+    // Apply theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var stored = localStorage.getItem('speakai-mcp-theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.setAttribute('data-theme', stored);
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <style>
+    /* ─── Tokens (mirrors index.html) ────────────────────────────────────── */
+    :root {
+      --bg: #000000;
+      --bg-2: #050505;
+      --surface: #0c0c0c;
+      --surface-2: #161616;
+      --surface-3: #1f1f1f;
+      --border: #222222;
+      --border-strong: #3a3a3a;
+      --text: #ffffff;
+      --text-dim: #b8b8b8;
+      --text-muted: #6e6e6e;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
+      --shadow-lg: 0 24px 60px rgba(0,0,0,0.6);
+      --grain-opacity: 0.06;
+      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.10), transparent 70%);
+      --grad-border: linear-gradient(135deg, #ffffff 0%, #6a6a6a 50%, #1a1a1a 100%);
+      --radius-sm: 8px;
+      --radius: 14px;
+      --radius-lg: 22px;
+      --max-width: 1120px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --selection-bg: #ffffff;
+      --selection-fg: #000000;
+    }
+    :root[data-theme="light"] {
+      --bg: #ffffff;
+      --bg-2: #fafafa;
+      --surface: #fbfbfb;
+      --surface-2: #f4f4f4;
+      --surface-3: #ececec;
+      --border: #e6e6e6;
+      --border-strong: #cfcfcf;
+      --text: #050505;
+      --text-dim: #4a4a4a;
+      --text-muted: #8a8a8a;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 10px 24px rgba(0,0,0,0.06);
+      --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
+      --grain-opacity: 0.04;
+      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
+      --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
+      --selection-bg: #050505;
+      --selection-fg: #ffffff;
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) {
+        --bg: #ffffff;
+        --bg-2: #fafafa;
+        --surface: #fbfbfb;
+        --surface-2: #f4f4f4;
+        --surface-3: #ececec;
+        --border: #e6e6e6;
+        --border-strong: #cfcfcf;
+        --text: #050505;
+        --text-dim: #4a4a4a;
+        --text-muted: #8a8a8a;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+        --shadow-md: 0 10px 24px rgba(0,0,0,0.06);
+        --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
+        --grain-opacity: 0.04;
+        --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
+        --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
+        --selection-bg: #050505;
+        --selection-fg: #ffffff;
+      }
+    }
+
+    /* ─── Resets / base ──────────────────────────────────────────────────── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "SF Pro Text", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--selection-bg); color: var(--selection-fg); }
+    a { color: var(--text); text-decoration: none; }
+    code, pre {
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, "Courier New", monospace;
+      font-size: 0.92em;
+    }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 28px; }
+    section { scroll-margin-top: 160px; position: relative; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      opacity: var(--grain-opacity);
+      mix-blend-mode: overlay;
+    }
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 480px;
+      pointer-events: none;
+      background: var(--hero-glow);
+      z-index: 0;
+    }
+    main, header, footer { position: relative; z-index: 2; }
+
+    /* ─── Sticky nav (matches index.html) ────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    }
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: -0.01em;
+    }
+    .logo img { height: 24px; transition: transform 0.4s var(--ease); }
+    .logo:hover img { transform: scale(1.06); }
+    .nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 0.9rem;
+    }
+    .nav ul a {
+      color: var(--text-dim);
+      transition: color 0.2s var(--ease);
+    }
+    .nav ul a:hover { color: var(--text); }
+    .nav .gh-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      transition: all 0.2s var(--ease);
+    }
+    .nav .gh-link:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+    @media (max-width: 720px) {
+      .nav ul { gap: 12px; }
+      .nav ul .nav-link { display: none; }
+    }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 999px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .theme-toggle:hover {
+      color: var(--text);
+      background: color-mix(in srgb, var(--text) 8%, transparent);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .theme-toggle svg { width: 16px; height: 16px; display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────────── */
+    .hero {
+      padding: clamp(48px, 8vw, 88px) 0 clamp(28px, 4vw, 48px);
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      max-width: 22ch;
+      margin: 0 auto 20px;
+      color: var(--text);
+    }
+    .hero p {
+      font-size: clamp(1rem, 1.4vw, 1.12rem);
+      color: var(--text-dim);
+      max-width: 56ch;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+    .hero .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+      transition: color 0.2s var(--ease);
+    }
+    .hero .back-link:hover { color: var(--text); }
+
+    /* ─── Filter bar (sticky) ────────────────────────────────────────────── */
+    .filters {
+      position: sticky;
+      top: 63px;
+      z-index: 40;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+      padding: 18px 0 16px;
+    }
+    .filters .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1 1 280px;
+      min-width: 240px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s var(--ease);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--border-strong);
+    }
+    .search-input:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .sort-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .sort-select:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .result-count {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+    .pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      transition: all 0.2s var(--ease);
+      white-space: nowrap;
+    }
+    .pill:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+    .pill[aria-pressed="true"] {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .pill:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .pill .pill-count {
+      opacity: 0.7;
+      margin-left: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── Tool grid ──────────────────────────────────────────────────────── */
+    .catalog {
+      padding: 36px 0 80px;
+    }
+    .category-block {
+      margin-bottom: 48px;
+      scroll-margin-top: 200px;
+    }
+    .category-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .category-head h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .category-head .cat-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-variant-numeric: tabular-nums;
+    }
+    .category-head .cat-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      max-width: 70ch;
+    }
+    .category-head .cat-text { flex: 1 1 auto; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s var(--ease), transform 0.3s var(--ease);
+      position: relative;
+    }
+    .tool-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .tool-card.hidden { display: none; }
+    .tool-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .tool-name {
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
+      font-size: 0.86rem;
+      color: var(--text);
+      background: var(--surface-2);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      word-break: break-all;
+    }
+    .copy-name-btn {
+      flex: none;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s var(--ease);
+    }
+    .copy-name-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .copy-name-btn:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    .copy-name-btn.copied {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .copy-name-btn svg { width: 14px; height: 14px; }
+    .tool-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      line-height: 1.3;
+    }
+    .tool-desc {
+      font-size: 0.86rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .tool-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
+      text-transform: lowercase;
+      white-space: nowrap;
+    }
+    .badge-readonly {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+    }
+    .badge-destructive {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--text);
+    }
+    .badge-destructive::before {
+      content: "!";
+      font-weight: 700;
+      margin-right: 2px;
+    }
+    .badge-idempotent {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border-strong);
+    }
+    .badge-openworld {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ─── Loading + empty states ─────────────────────────────────────────── */
+    .skeleton {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
+    }
+    .skeleton-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+    .skeleton-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--surface-2) 60%, transparent) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      to { transform: translateX(100%); }
+    }
+    .empty-state, .error-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-dim);
+    }
+    .empty-state h3, .error-state h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .error-state a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+    }
+    .error-state a:hover { border-bottom-color: var(--text); }
+
+    /* ─── Footer ─────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      margin-top: 40px;
+      background: color-mix(in srgb, var(--surface) 30%, transparent);
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    footer .links { display: flex; flex-wrap: wrap; gap: 22px; }
+    footer a {
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      transition: color 0.2s var(--ease);
+    }
+    footer a:hover { color: var(--text); }
+    footer .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+    }
+
+    /* ─── Toast ──────────────────────────────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+      z-index: 100;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .filters { top: 63px; }
+      .search-row { gap: 8px; }
+      .result-count { width: 100%; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <a href="index.html" class="logo" aria-label="Speak AI MCP — back to landing">
+        <span>Speak AI</span>
+      </a>
+      <nav>
+        <ul>
+          <li class="nav-link"><a href="index.html#install">Install</a></li>
+          <li class="nav-link"><a href="index.html#capabilities">Capabilities</a></li>
+          <li class="nav-link"><a href="index.html">Back to landing</a></li>
+          <li>
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
+          </li>
+          <li><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <a href="index.html" class="back-link">← Back to landing</a>
+        <h1>All 83 tools at a glance</h1>
+        <p>Search, filter, copy. The full surface of what Speak AI exposes to your AI assistant.</p>
+      </div>
+    </section>
+
+    <section class="filters" aria-label="Filter and search tools">
+      <div class="container">
+        <div class="search-row">
+          <input
+            type="search"
+            id="search"
+            class="search-input"
+            placeholder="Search tool name or description…"
+            aria-label="Search tools by name or description"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <select id="sort" class="sort-select" aria-label="Sort tools">
+            <option value="category">Sort: by category</option>
+            <option value="name">Sort: A–Z</option>
+            <option value="readonly">Sort: read-only first</option>
+            <option value="destructive">Sort: destructive first</option>
+          </select>
+          <span class="result-count" id="result-count" aria-live="polite">Loading…</span>
+        </div>
+        <div class="pills-row" id="category-pills" role="group" aria-label="Filter by category">
+          <button type="button" class="pill" data-category="" aria-pressed="true">All <span class="pill-count" id="all-count"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog">
+      <div class="container">
+        <div id="catalog-content">
+          <div class="skeleton" aria-hidden="true">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="brand">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--text-dim);display:inline-block;"></span>
+        <span>© Speak AI</span>
+      </div>
+      <div class="links">
+        <a href="index.html">mcp.speakai.co</a>
+        <a href="https://speakai.co">Speak AI</a>
+        <a href="https://github.com/speakai/speakai-mcp">GitHub</a>
+        <a href="https://docs.speakai.co">API docs</a>
+        <a href="https://speakai.co/privacy">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite">Copied</div>
+
+  <script>
+    // ─── Theme toggle ──────────────────────────────────────────────────────
+    (function setupThemeToggle() {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      function currentTheme() {
+        var explicit = document.documentElement.getAttribute('data-theme');
+        if (explicit === 'light' || explicit === 'dark') return explicit;
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      btn.addEventListener('click', function () {
+        var next = currentTheme() === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('speakai-mcp-theme', next); } catch (e) { /* ignore */ }
+      });
+    })();
+
+    // ─── Toast ─────────────────────────────────────────────────────────────
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      if (msg) t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function () { t.classList.remove('show'); }, 1800);
+    }
+
+    // ─── HTML escape ───────────────────────────────────────────────────────
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // ─── State ─────────────────────────────────────────────────────────────
+    var state = {
+      data: null,
+      activeCategory: '',
+      query: '',
+      sort: 'category',
+    };
+
+    // ─── Render ────────────────────────────────────────────────────────────
+    function buildBadges(t) {
+      var parts = [];
+      if (t.readOnlyHint) parts.push('<span class="badge badge-readonly" title="Tool does not modify data">read-only</span>');
+      if (t.destructiveHint) parts.push('<span class="badge badge-destructive" title="Tool may delete or overwrite data">destructive</span>');
+      if (t.idempotentHint) parts.push('<span class="badge badge-idempotent" title="Repeating the call yields the same result">idempotent</span>');
+      if (t.openWorldHint) parts.push('<span class="badge badge-openworld" title="Tool interacts with external systems / network">open-world</span>');
+      return parts.join('');
+    }
+
+    function toolCard(t) {
+      return '<article class="tool-card" data-name="' + esc(t.name) + '" data-search="' + esc((t.name + ' ' + (t.title || '') + ' ' + (t.description || '')).toLowerCase()) + '" data-readonly="' + (t.readOnlyHint ? '1' : '0') + '" data-destructive="' + (t.destructiveHint ? '1' : '0') + '">' +
+        '<div class="tool-card-head">' +
+          '<code class="tool-name">' + esc(t.name) + '</code>' +
+          '<button type="button" class="copy-name-btn" aria-label="Copy tool name ' + esc(t.name) + '" data-copy="' + esc(t.name) + '">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>' +
+          '</button>' +
+        '</div>' +
+        (t.title ? '<div class="tool-title">' + esc(t.title) + '</div>' : '') +
+        (t.description ? '<p class="tool-desc">' + esc(t.description) + '</p>' : '') +
+        '<div class="tool-badges">' + buildBadges(t) + '</div>' +
+      '</article>';
+    }
+
+    function buildPills(data) {
+      var pillsRow = document.getElementById('category-pills');
+      var allBtn = pillsRow.querySelector('.pill[data-category=""]');
+      document.getElementById('all-count').textContent = data.totalTools;
+      var html = '';
+      data.categories.forEach(function (c) {
+        html += '<button type="button" class="pill" data-category="' + esc(c.id) + '" aria-pressed="false">' + esc(c.name) + ' <span class="pill-count">' + c.tools.length + '</span></button>';
+      });
+      allBtn.insertAdjacentHTML('afterend', html);
+    }
+
+    function renderGroupedByCategory(data, query) {
+      var html = '';
+      var visibleTotal = 0;
+      data.categories.forEach(function (c) {
+        if (state.activeCategory && state.activeCategory !== c.id) return;
+        var cardsHtml = '';
+        var visibleInCat = 0;
+        c.tools.forEach(function (t) {
+          var hay = (t.name + ' ' + (t.title || '') + ' ' + (t.description || '')).toLowerCase();
+          if (query && hay.indexOf(query) === -1) return;
+          cardsHtml += toolCard(t);
+          visibleInCat++;
+        });
+        if (visibleInCat === 0) return;
+        visibleTotal += visibleInCat;
+        html += '<section class="category-block" id="category-' + esc(c.id) + '">' +
+          '<div class="category-head">' +
+            '<div class="cat-text">' +
+              '<h2>' + esc(c.name) + '</h2>' +
+              '<p class="cat-desc">' + esc(c.shortDescription) + '</p>' +
+            '</div>' +
+            '<span class="cat-meta">' + visibleInCat + (visibleInCat === c.tools.length ? '' : ' / ' + c.tools.length) + ' tool' + (c.tools.length === 1 ? '' : 's') + '</span>' +
+          '</div>' +
+          '<div class="tools-grid">' + cardsHtml + '</div>' +
+        '</section>';
+      });
+      return { html: html, count: visibleTotal };
+    }
+
+    function renderFlat(data, query, sortMode) {
+      var allTools = [];
+      data.categories.forEach(function (c) {
+        if (state.activeCategory && state.activeCategory !== c.id) return;
+        c.tools.forEach(function (t) {
+          var hay = (t.name + ' ' + (t.title || '') + ' ' + (t.description || '')).toLowerCase();
+          if (query && hay.indexOf(query) === -1) return;
+          allTools.push({ tool: t, category: c });
+        });
+      });
+      if (sortMode === 'name') {
+        allTools.sort(function (a, b) { return a.tool.name.localeCompare(b.tool.name); });
+      } else if (sortMode === 'readonly') {
+        allTools.sort(function (a, b) {
+          var ar = a.tool.readOnlyHint ? 0 : 1;
+          var br = b.tool.readOnlyHint ? 0 : 1;
+          return ar - br || a.tool.name.localeCompare(b.tool.name);
+        });
+      } else if (sortMode === 'destructive') {
+        allTools.sort(function (a, b) {
+          var ad = a.tool.destructiveHint ? 0 : 1;
+          var bd = b.tool.destructiveHint ? 0 : 1;
+          return ad - bd || a.tool.name.localeCompare(b.tool.name);
+        });
+      }
+      var html = '<div class="tools-grid">' + allTools.map(function (x) { return toolCard(x.tool); }).join('') + '</div>';
+      return { html: html, count: allTools.length };
+    }
+
+    function render() {
+      if (!state.data) return;
+      var content = document.getElementById('catalog-content');
+      var result;
+      if (state.sort === 'category') {
+        result = renderGroupedByCategory(state.data, state.query);
+      } else {
+        result = renderFlat(state.data, state.query, state.sort);
+      }
+      if (result.count === 0) {
+        content.innerHTML = '<div class="empty-state"><h3>No tools match your filters.</h3><p>Try clearing the search or selecting "All".</p></div>';
+      } else {
+        content.innerHTML = result.html;
+      }
+      document.getElementById('result-count').textContent =
+        'Showing ' + result.count + ' of ' + state.data.totalTools + ' tools';
+    }
+
+    // ─── Wire up filters ───────────────────────────────────────────────────
+    function wireFilters() {
+      var search = document.getElementById('search');
+      var sort = document.getElementById('sort');
+      var pills = document.getElementById('category-pills');
+
+      var debounceTimer = null;
+      search.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () {
+          state.query = search.value.trim().toLowerCase();
+          render();
+        }, 80);
+      });
+
+      sort.addEventListener('change', function () {
+        state.sort = sort.value;
+        render();
+      });
+
+      pills.addEventListener('click', function (e) {
+        var btn = e.target.closest('.pill');
+        if (!btn) return;
+        pills.querySelectorAll('.pill').forEach(function (p) {
+          p.setAttribute('aria-pressed', 'false');
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        state.activeCategory = btn.dataset.category || '';
+        render();
+        if (state.activeCategory) {
+          var anchor = document.getElementById('category-' + state.activeCategory);
+          if (anchor) {
+            // Scroll the section into view (after render)
+            requestAnimationFrame(function () { anchor.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+          }
+        }
+      });
+
+      // Copy-to-clipboard delegation
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.copy-name-btn');
+        if (!btn) return;
+        var name = btn.dataset.copy;
+        if (!name) return;
+        navigator.clipboard.writeText(name).then(function () {
+          btn.classList.add('copied');
+          setTimeout(function () { btn.classList.remove('copied'); }, 1200);
+          showToast('Copied "' + name + '"');
+        });
+      });
+
+      // Keyboard: '/' to focus search
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '/' && document.activeElement !== search && document.activeElement.tagName !== 'INPUT') {
+          e.preventDefault();
+          search.focus();
+        }
+      });
+    }
+
+    // ─── Deep-link from #category-* anchor ─────────────────────────────────
+    function applyHashFilter() {
+      var hash = window.location.hash || '';
+      var m = hash.match(/^#category-(.+)$/);
+      if (!m) return;
+      var catId = m[1];
+      // Verify category exists
+      if (!state.data.categories.some(function (c) { return c.id === catId; })) return;
+      state.activeCategory = catId;
+      var pills = document.getElementById('category-pills');
+      pills.querySelectorAll('.pill').forEach(function (p) {
+        p.setAttribute('aria-pressed', p.dataset.category === catId ? 'true' : 'false');
+      });
+    }
+
+    // ─── Load tools.json ───────────────────────────────────────────────────
+    function loadTools() {
+      fetch('./tools.json', { cache: 'no-cache' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          state.data = data;
+          buildPills(data);
+          applyHashFilter();
+          render();
+          // Re-apply hash scroll once content exists
+          if (window.location.hash) {
+            var el = document.getElementById(window.location.hash.slice(1));
+            if (el) requestAnimationFrame(function () { el.scrollIntoView({ behavior: 'auto', block: 'start' }); });
+          }
+        })
+        .catch(function (err) {
+          var content = document.getElementById('catalog-content');
+          content.innerHTML =
+            '<div class="error-state"><h3>Couldn\'t load the tool catalog.</h3>' +
+            '<p>Network or fetch error: ' + esc(err.message) + '. ' +
+            'See the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md#mcp-tools-83" rel="noopener">full catalog in the GitHub README</a>.</p></div>';
+          document.getElementById('result-count').textContent = '';
+        });
+    }
+
+    // Listen for hash changes (e.g. user clicks an anchor on another page)
+    window.addEventListener('hashchange', function () {
+      if (!state.data) return;
+      applyHashFilter();
+      render();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      wireFilters();
+      loadTools();
+    });
+  </script>
+</body>
+</html>
