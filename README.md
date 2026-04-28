@@ -48,14 +48,27 @@ The AI does the searching, summarizing, and citing. Your recordings stay in your
 
 1. Open [claude.ai/settings/connectors](https://claude.ai/settings/connectors)
 2. Click **Add custom connector**
-3. Paste `https://api.speakai.co/v1/mcp`
-4. Click **Add** — a permission popup asks you to log into Speak AI and click **Allow**
-5. Done. Open a new chat and ask about your recordings.
+3. Name it **Speak AI** and paste `https://api.speakai.co/v1/mcp`, then click **Add**
+4. A permission popup asks you to log into Speak AI and click **Allow**
+5. Done — Speak AI shows in your connector list with its tools ready to use. Open a new chat and ask about your recordings.
+
+<details>
+<summary>What each step looks like (screenshots)</summary>
+
+**3. Add custom connector dialog** — name and URL filled in.
+
+![Claude add custom connector dialog](./assets/claude/1.connector.png)
+
+**5. Connected** — Speak AI tools appear in your connector list.
+
+![Speak AI connected in Claude](./assets/claude/2.connected.png)
+
+</details>
 
 <details>
 <summary>Developer alternative — manual setup with an API key</summary>
 
-Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys), then in step 3 expand **Custom headers** and add `Authorization` = `Bearer <your-key>` before clicking Add.
+Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys), then in step 3 expand **Advanced settings** and add `Authorization` = `Bearer <your-key>` before clicking Add.
 
 </details>
 
@@ -79,11 +92,46 @@ Then click Add.
 
 ### ChatGPT
 
-1. Open ChatGPT → **Settings → Connectors → Advanced**
-2. Enable **"Allow custom apps"** (OpenAI calls this toggle "Developer Mode" — but you don't need to be a developer to flip it; it just tells ChatGPT you'd like to add a third-party app like Speak AI)
-3. Click **Create**, paste `https://api.speakai.co/v1/mcp`
-4. Choose the sign-in option when prompted, then sign in to Speak AI and click **Allow** on the permission popup
-5. Per-chat: open a chat, click the connector menu, and enable **Speak AI** for that chat.
+1. Open ChatGPT → **Settings → Apps & Connectors → Advanced**
+2. Turn on **Developer Mode** (required while Speak AI isn't yet listed in ChatGPT's app store — this lets you add it as a custom app)
+3. Back on **Apps & Connectors**, click **Create** and paste `https://api.speakai.co/v1/mcp`
+4. For **Authentication**, choose **OAuth**
+5. ChatGPT opens a new tab to Speak AI — sign in (or click **Confirm** if already logged in) to authorize. You'll be redirected back; close the tab and return to ChatGPT.
+6. **Per-chat:** open a chat, click the **+** / connector menu, and enable **Speak AI** for that chat.
+
+<details>
+<summary>What each step looks like (screenshots)</summary>
+
+**1. Connect screen in ChatGPT** — paste the connector URL and pick OAuth.
+
+![ChatGPT connect screen](./assets/openai/1.connect.png)
+
+**2. Confirm and continue** — ChatGPT asks you to continue to Speak AI.
+
+![ChatGPT continue to Speak](./assets/openai/2.connect-continue.png)
+
+**3. Authorize on Speak AI** — sign in or click Confirm if you're already signed in.
+
+![Speak AI authorization screen](./assets/openai/3.speak-auth.png)
+
+**4. Connected** — Speak AI now shows in your ChatGPT connector list.
+
+![Speak AI connected in ChatGPT](./assets/openai/4.connected.png)
+
+</details>
+
+<details>
+<summary>Trouble connecting?</summary>
+
+A few things we've seen during early access:
+
+- **Authorization tab doesn't show a "you're connected" page** — if you land on the plain Speak AI dashboard with no confirmation, the authorization still went through. Close that tab and return to ChatGPT.
+- **"Connect" button keeps reopening the dashboard** — fully close and reopen ChatGPT, then check **Settings → Apps & Connectors**. Speak AI should already be listed there.
+- **"No actions available" inside a chat** — make sure Developer Mode is still on, and that you've enabled Speak AI from the per-chat connector menu (step 6 above).
+
+Still stuck? Email [accounts@speakai.co](mailto:accounts@speakai.co).
+
+</details>
 
 ### Claude Code (terminal)
 
