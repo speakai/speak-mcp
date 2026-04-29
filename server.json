@@ -3,7 +3,7 @@
   "name": "io.github.speakai/mcp-server",
   "title": "Speak AI",
   "description": "Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows — all from your AI assistant.",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "websiteUrl": "https://mcp.speakai.co",
   "repository": {
     "url": "https://github.com/speakai/speakai-mcp",
@@ -15,7 +15,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@speakai/mcp-server",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "transport": {
         "type": "stdio"
       },

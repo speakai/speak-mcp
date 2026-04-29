@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.6.1 (2026-04-29)
+
+- Fix versions only
+
 ## v1.6.0 (2026-04-26)
 
 - Improved Codex and Claude plugin functionality and released the package to Claude
