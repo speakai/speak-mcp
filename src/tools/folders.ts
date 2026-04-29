@@ -15,7 +15,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async () => {
       try {
@@ -45,7 +45,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId }) => {
       try {
@@ -80,7 +80,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId, ...body }) => {
       try {
@@ -119,7 +119,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId, viewId, ...body }) => {
       try {
@@ -152,7 +152,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (body) => {
       try {
@@ -188,7 +188,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (params) => {
       try {
@@ -218,7 +218,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId }) => {
       try {
@@ -252,7 +252,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (body) => {
       try {
@@ -282,7 +282,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (body) => {
       try {
@@ -313,7 +313,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId, ...body }) => {
       try {
@@ -343,7 +343,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: true,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ folderId }) => {
       try {

@@ -16,7 +16,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ token }) => {
       try {
@@ -76,7 +76,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (params) => {
       try {
@@ -132,7 +132,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ recorderId }) => {
       try {
@@ -160,7 +160,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ recorderId }) => {
       try {

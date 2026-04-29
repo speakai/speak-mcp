@@ -24,7 +24,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ isVideo, filename, mimeType }) => {
       try {
@@ -180,7 +180,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ include, ...params }) => {
       try {
@@ -215,7 +215,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -246,7 +246,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -285,7 +285,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: true,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId, speakers }) => {
       try {
@@ -319,7 +319,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -372,7 +372,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId, ...body }) => {
       try {
@@ -403,7 +403,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: true,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -434,7 +434,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -463,7 +463,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async () => {
       try {
@@ -492,7 +492,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async () => {
       try {
@@ -523,7 +523,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (body) => {
       try {
@@ -554,7 +554,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaId }) => {
       try {
@@ -597,7 +597,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: true,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async ({ mediaIds, speakers }) => {
       const results: { mediaId: string; success: boolean; error?: string }[] = [];
@@ -646,7 +646,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: false,
       destructiveHint: true,
       idempotentHint: false,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (body) => {
       try {

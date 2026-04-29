@@ -25,7 +25,7 @@ export function register(server: McpServer, client?: AxiosInstance): void {
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: true,
+      openWorldHint: false,
     },
     async (params) => {
       try {

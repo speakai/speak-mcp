@@ -16,7 +16,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "upload_media",
@@ -34,7 +34,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "upload_and_analyze",
@@ -43,7 +43,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "list_media",
@@ -52,7 +52,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_media_insights",
@@ -61,7 +61,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_transcript",
@@ -70,7 +70,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_captions",
@@ -79,7 +79,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_transcript_speakers",
@@ -88,7 +88,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "bulk_update_transcript_speakers",
@@ -97,7 +97,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_media_status",
@@ -106,7 +106,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_media_metadata",
@@ -115,7 +115,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "delete_media",
@@ -124,7 +124,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "toggle_media_favorite",
@@ -133,7 +133,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "reanalyze_media",
@@ -142,7 +142,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "bulk_move_media",
@@ -151,7 +151,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -168,7 +168,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "retry_magic_prompt",
@@ -177,7 +177,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_chat_history",
@@ -186,7 +186,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_chat_messages",
@@ -195,7 +195,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "delete_chat_message",
@@ -204,7 +204,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "list_prompts",
@@ -213,7 +213,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_favorite_prompts",
@@ -222,7 +222,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "toggle_prompt_favorite",
@@ -231,7 +231,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_chat_title",
@@ -240,7 +240,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "submit_chat_feedback",
@@ -249,7 +249,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_chat_statistics",
@@ -258,7 +258,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "export_chat_answer",
@@ -267,7 +267,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -284,7 +284,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_media_statistics",
@@ -293,7 +293,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "list_supported_languages",
@@ -302,7 +302,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -319,7 +319,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_folder_info",
@@ -328,7 +328,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "create_folder",
@@ -337,7 +337,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "clone_folder",
@@ -346,7 +346,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_folder",
@@ -355,7 +355,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "delete_folder",
@@ -364,7 +364,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_all_folder_views",
@@ -373,7 +373,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_folder_views",
@@ -382,7 +382,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "create_folder_view",
@@ -391,7 +391,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_folder_view",
@@ -400,7 +400,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "clone_folder_view",
@@ -409,7 +409,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -435,7 +435,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_recorder_info",
@@ -444,7 +444,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "clone_recorder",
@@ -462,7 +462,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "generate_recorder_url",
@@ -498,7 +498,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "delete_recorder",
@@ -524,7 +524,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_clips",
@@ -533,7 +533,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_clip",
@@ -542,7 +542,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "delete_clip",
@@ -551,7 +551,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "export_media",
@@ -560,7 +560,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "export_multiple_media",
@@ -569,7 +569,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -586,7 +586,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "schedule_meeting_event",
@@ -630,7 +630,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_automation",
@@ -639,7 +639,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "create_automation",
@@ -648,7 +648,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_automation",
@@ -657,7 +657,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "toggle_automation_status",
@@ -666,7 +666,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "create_webhook",
@@ -684,7 +684,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_webhook",
@@ -719,7 +719,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_text_insight",
@@ -728,7 +728,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "reanalyze_text",
@@ -737,7 +737,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_text_note",
@@ -746,7 +746,7 @@
           "readOnlyHint": false,
           "destructiveHint": true,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "list_fields",
@@ -755,7 +755,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "create_field",
@@ -764,7 +764,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": false,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_field",
@@ -773,7 +773,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "update_multiple_fields",
@@ -782,7 +782,7 @@
           "readOnlyHint": false,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     },
@@ -817,7 +817,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         },
         {
           "name": "get_embed_iframe_url",
@@ -826,7 +826,7 @@
           "readOnlyHint": true,
           "destructiveHint": false,
           "idempotentHint": true,
-          "openWorldHint": true
+          "openWorldHint": false
         }
       ]
     }
