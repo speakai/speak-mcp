@@ -1,7 +1,7 @@
 {
   "name": "speakai-mcp",
-  "version": "1.5.2",
-  "description": "Connect Codex to Speak AI for transcription, insights, and media management.",
+  "version": "1.5.3",
+  "description": "Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows — all from your AI assistant.",
   "author": {
     "name": "Vatsal Shah",
     "email": "accounts@speakai.co",
@@ -23,8 +23,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Speak AI",
-    "shortDescription": "Search and analyze Speak AI transcripts, recordings, clips, and insights.",
-    "longDescription": "Connect Codex to Speak AI through MCP so it can work with your media library, transcripts, AI insights, clips, captions, folders, exports, automations, webhooks, and meeting assistant workflows.",
+    "shortDescription": "Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows — all from your AI assistant.",
+    "longDescription": "Speak AI transcribes and analyzes your interviews, sales calls, research sessions, webinars, podcasts, and team meetings. This connector brings that library into your AI assistant — so instead of scrubbing hours of audio, you just ask.\n\nCapture — Send a meeting assistant to Zoom, Google Meet, or Microsoft Teams. Upload audio, video, or text. Run async voice and video surveys with custom questions.\n\nAnalyze — Search and reason across thousands of recordings at once with citations. Chat with your library, save favorite prompts, and keep a full history. Pull decisions, action items, owners, risks, sentiment, themes, and exact quotes.\n\nAct — Create clips, highlights, captions, notes, folders, fields, and embeds from chat. Chain steps with automations and webhooks: auto-tag new recordings, route insights to other tools, or run a custom prompt against every new upload.\n\nShare & organize — Export answers, transcripts, captions, and clips. Generate embed links and shareable views. Bulk move media, update transcripts and speakers, and clone setups across teams.\n\nWho it's for: researchers, revenue and customer-success teams, meeting-heavy operators, and media and content workflows — anyone who records conversations and wants to stop re-listening to find what matters.\n\nYour recordings stay in your Speak AI workspace. The connector only queries them with the permissions you allow.",
     "developerName": "Vatsal Shah",
     "category": "Productivity",
     "capabilities": [

@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.speakai/mcp-server",
   "title": "Speak AI",
-  "description": "Connect AI assistants to Speak AI for transcription, AI insights, and media management",
+  "description": "Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows — all from your AI assistant.",
   "version": "1.6.0",
   "websiteUrl": "https://mcp.speakai.co",
   "repository": {
