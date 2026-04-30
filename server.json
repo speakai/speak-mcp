@@ -2,9 +2,15 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.speakai/mcp-server",
   "title": "Speak AI",
-  "description": "Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows — all from your AI assistant.",
+  "description": "Search recordings, summarize meetings, create clips, and automate workflows from your AI assistant.",
   "version": "1.7.1",
   "websiteUrl": "https://mcp.speakai.co",
+  "icons": [
+    {
+      "src": "https://mcp.speakai.co/assets/logo.png",
+      "mimeType": "image/png"
+    }
+  ],
   "repository": {
     "url": "https://github.com/speakai/speakai-mcp",
     "source": "github",
