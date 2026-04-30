@@ -1,10 +1,51 @@
 ---
-description: Use when a user asks how to use, configure, troubleshoot, or understand the Speak AI Claude Code plugin and Speak AI MCP tools.
+name: speakai
+description: Capture meetings, search thousands of recordings, run async voice and video surveys, create clips, and automate workflows with Speak AI through MCP.
+version: 1.6.1
+metadata:
+  openclaw:
+    primaryEnv: SPEAK_API_KEY
+    requires:
+      env:
+        - SPEAK_API_KEY
+    envVars:
+      - name: SPEAK_API_KEY
+        required: true
+        description: Your Speak AI API key. Generate one at https://app.speakai.co/developers/apikeys. API reference at https://docs.speakai.co.
+      - name: SPEAK_BASE_URL
+        required: false
+        description: Override the Speak AI API base URL. Defaults to https://api.speakai.co.
+    homepage: https://mcp.speakai.co
+    emoji: "🎙️"
 ---
 
-# Speak AI MCP Plugin
+# Speak AI
 
-This plugin connects Claude Code to Speak AI through the `speakai` MCP server. Speak AI stores and analyzes media files such as customer interviews, sales calls, research sessions, meetings, podcasts, webinars, and videos.
+This skill connects your agent to Speak AI through the `speakai` MCP server. Speak AI stores and analyzes media files such as customer interviews, sales calls, research sessions, meetings, podcasts, webinars, and videos.
+
+## Install
+
+Add the `speakai` MCP server to your agent's MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "speakai": {
+      "command": "npx",
+      "args": ["-y", "@speakai/mcp-server@latest"],
+      "env": {
+        "SPEAK_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+Generate an API key at https://app.speakai.co/developers/apikeys. Full API reference at https://docs.speakai.co. Requires Node.js 22+.
+
+To override the API endpoint (rare), also set `SPEAK_BASE_URL` in `env` (defaults to `https://api.speakai.co`).
+
+## When to use the tools
 
 Use the MCP tools when the user wants to work with their Speak AI workspace, including:
 
@@ -30,7 +71,7 @@ Respect user intent and privacy. Only fetch the records needed for the user's re
 
 If the tools are unavailable, tell the user to:
 
-1. Confirm the `speakai-mcp` plugin is enabled in Claude Code.
-2. Run `/mcp` and check that the `speakai` MCP server is connected.
-3. Confirm their Speak AI API key is configured. API keys are generated at `https://app.speakai.co/developers/apikeys`.
-4. Confirm Node.js 22 or newer is installed, because the plugin starts `@speakai/mcp-server` through `npx`.
+1. Confirm the `speakai` MCP server is configured and connected in their agent (e.g. `/mcp` in Claude Code, equivalent command in other agents).
+2. Confirm `SPEAK_API_KEY` is set in the MCP server environment. Generate a key at `https://app.speakai.co/developers/apikeys`. Full API reference at `https://docs.speakai.co`.
+3. Confirm Node.js 22 or newer is installed, because the MCP server runs via `npx @speakai/mcp-server`.
+4. If overriding the endpoint, confirm `SPEAK_BASE_URL` points at the correct Speak AI deployment (defaults to `https://api.speakai.co`).
