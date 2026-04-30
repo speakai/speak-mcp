@@ -205,3 +205,4 @@ For 401/403 errors: rotate the API key at https://app.speakai.co/developers/apik
 - API reference: https://docs.speakai.co
 - Privacy: https://speakai.co/privacy
 - Support: accounts@speakai.co
+- Webiste: https://speakai.co

@@ -83,6 +83,7 @@ Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/develope
 <summary>Developer alternative — manual setup with an API key</summary>
 
 Get a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys), then in step 2 also expand **Custom headers** and add:
+
 - **Header name:** `Authorization`
 - **Header value:** `Bearer <your-speak-api-key>`
 
@@ -249,6 +250,7 @@ Get a Speak AI API key at [app.speakai.co/developers/apikeys](https://app.speaka
 ### CLI / npm package
 
 The `@speakai/mcp-server` npm package provides:
+
 - A CLI (`speakai-mcp`) for scripting and pipelines (28 commands).
 - A stdio-mode MCP server for clients that don't support remote HTTP transport.
 - An auto-setup wizard that detects installed MCP clients and configures them.
@@ -592,7 +594,7 @@ Upload a recording and get a full analysis — transcript, insights, action item
 Parameters: url (required), name (optional)
 ```
 
-**Example:** "Use the analyze-meeting prompt with url=https://example.com/standup.mp3"
+**Example:** "Use the analyze-meeting prompt with url=<https://example.com/standup.mp3>"
 
 #### `research-across-media`
 
@@ -685,6 +687,7 @@ npx @speakai/mcp-server config set-key
 #### CLI options
 
 Every command supports:
+
 - `--json` — output raw JSON (for scripting and piping)
 - `--help` — show command-specific help
 
@@ -810,6 +813,7 @@ curl -X POST https://api.speakai.co/v1/auth/accessToken \
 ```
 
 Response:
+
 ```json
 {
   "data": {
@@ -896,12 +900,13 @@ npm run build  # Production build
 ## Resources
 
 - [mcp.speakai.co](https://mcp.speakai.co) — installation walkthrough with screenshots and video
-- [Speak AI](https://speakai.co) — main product
+- [Speak AI Platform](https://app.speakai.co) — main product
 - [API Documentation](https://docs.speakai.co)
 - [MCP Protocol](https://modelcontextprotocol.io)
 - [MCP Registry entry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.speakai/mcp-server) — official discovery
 - [llms.txt](https://github.com/speakai/speakai-mcp/blob/main/llms.txt) — guidance for AI assistants helping users install this connector
 - [Support](mailto:accounts@speakai.co)
+- [Website](https://speakai.co?ref=mcp-server)
 
 ---
 
