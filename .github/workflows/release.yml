@@ -144,6 +144,27 @@ jobs:
               "$NEW_VERSION" "$DATE" "$CHANGELOG" > CHANGELOG.md
           fi
 
+      - name: Check for tag conflict
+        if: steps.bump.outputs.should_release == 'true'
+        run: |
+          NEW_VERSION="${{ steps.bump.outputs.new_version }}"
+          git fetch origin "refs/tags/$NEW_VERSION:refs/tags/$NEW_VERSION" 2>/dev/null || true
+          if git rev-parse -q --verify "refs/tags/$NEW_VERSION" >/dev/null; then
+            echo "::error title=Tag conflict::Tag $NEW_VERSION already exists on the remote."
+            echo "This usually means a previous release run pushed the tag but failed at a downstream step (npm / MCP / ClawHub publish)."
+            echo ""
+            echo "To recover:"
+            echo "  1. Check what was actually published:"
+            echo "     - npm view @speakai/mcp-server version"
+            echo "     - npx clawhub inspect speakai --json | jq '.skill.tags'"
+            echo "  2. If npm has $NEW_VERSION but ClawHub does not — finish the missing publishes manually."
+            echo "  3. If nothing was actually published — delete the orphan tag:"
+            echo "     git push origin --delete $NEW_VERSION"
+            echo "  4. Re-run this workflow."
+            exit 1
+          fi
+          echo "Tag $NEW_VERSION is available."
+
       - name: Commit and tag release
         if: steps.bump.outputs.should_release == 'true'
         run: |
