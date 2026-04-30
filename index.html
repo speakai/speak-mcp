@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connect Speak AI to Claude or ChatGPT in 60 seconds</title>
-  <meta name="description" content="Speak AI transcribes interviews, coaching calls, and meetings. This connector lets Claude or ChatGPT query that data — search transcripts, pull action items, summarise themes, generate clips. Install in 60 seconds." />
-  <meta property="og:title" content="Connect Speak AI to Claude or ChatGPT in 60 seconds" />
-  <meta property="og:description" content="Speak AI transcribes interviews, calls, and meetings. Connect it to Claude or ChatGPT to search transcripts, pull action items, summarise themes, and generate clips — without copy‑paste." />
+  <title>Connect Speak AI to Claude or ChatGPT in 30 seconds</title>
+  <meta name="description"
+    content="Speak AI transcribes interviews, coaching calls, and meetings. This connector lets Claude or ChatGPT query that data — search transcripts, pull action items, summarise themes, generate clips. Install in 30 seconds." />
+  <meta property="og:title" content="Connect Speak AI to Claude or ChatGPT in 30 seconds" />
+  <meta property="og:description"
+    content="Speak AI transcribes interviews, calls, and meetings. Connect it to Claude or ChatGPT to search transcripts, pull action items, summarise themes, and generate clips — without copy‑paste." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mcp.speakai.co" />
   <meta property="og:site_name" content="Speak AI" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Connect Speak AI to Claude or ChatGPT in 60 seconds" />
-  <meta name="twitter:description" content="Speak AI transcribes interviews, calls, and meetings. Connect it to Claude or ChatGPT to search transcripts, pull action items, summarise themes — without copy‑paste." />
-  <link rel="alternate" type="text/plain" title="LLM-friendly summary" href="https://github.com/speakai/speakai-mcp/blob/main/llms.txt" />
+  <meta name="twitter:title" content="Connect Speak AI to Claude or ChatGPT in 30 seconds" />
+  <meta name="twitter:description"
+    content="Speak AI transcribes interviews, calls, and meetings. Connect it to Claude or ChatGPT to search transcripts, pull action items, summarise themes — without copy‑paste." />
+  <link rel="alternate" type="text/plain" title="LLM-friendly summary"
+    href="https://github.com/speakai/speakai-mcp/blob/main/llms.txt" />
   <link rel="canonical" href="https://mcp.speakai.co" />
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WQQ73WG');</script>
+  <!-- End Google Tag Manager -->
   <script>
     // Apply theme before first paint to avoid a flash of the wrong theme.
     (function () {
@@ -44,11 +59,11 @@
       --text: #ffffff;
       --text-dim: #b8b8b8;
       --text-muted: #6e6e6e;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
-      --shadow-lg: 0 24px 60px rgba(0,0,0,0.6);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
       --grain-opacity: 0.06;
-      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.10), transparent 70%);
+      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(255, 255, 255, 0.10), transparent 70%);
       --grad-border: linear-gradient(135deg, #ffffff 0%, #6a6a6a 50%, #1a1a1a 100%);
       --radius-sm: 8px;
       --radius: 14px;
@@ -58,6 +73,7 @@
       --selection-bg: #ffffff;
       --selection-fg: #000000;
     }
+
     /* Light tokens — applied either by explicit user choice or system preference */
     :root[data-theme="light"] {
       --bg: #ffffff;
@@ -70,15 +86,16 @@
       --text: #050505;
       --text-dim: #4a4a4a;
       --text-muted: #8a8a8a;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow-md: 0 10px 24px rgba(0,0,0,0.06);
-      --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.08);
       --grain-opacity: 0.04;
-      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
+      --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0, 0, 0, 0.06), transparent 70%);
       --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
       --selection-bg: #050505;
       --selection-fg: #ffffff;
     }
+
     @media (prefers-color-scheme: light) {
       :root:not([data-theme="dark"]):not([data-theme="light"]) {
         --bg: #ffffff;
@@ -91,11 +108,11 @@
         --text: #050505;
         --text-dim: #4a4a4a;
         --text-muted: #8a8a8a;
-        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-        --shadow-md: 0 10px 24px rgba(0,0,0,0.06);
-        --shadow-lg: 0 24px 60px rgba(0,0,0,0.08);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.08);
         --grain-opacity: 0.04;
-        --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0,0,0,0.06), transparent 70%);
+        --hero-glow: radial-gradient(60% 50% at 50% 0%, rgba(0, 0, 0, 0.06), transparent 70%);
         --grad-border: linear-gradient(135deg, #0a0a0a 0%, #8a8a8a 50%, #ffffff 100%);
         --selection-bg: #050505;
         --selection-fg: #ffffff;
@@ -103,8 +120,16 @@
     }
 
     /* ─── Resets / base ──────────────────────────────────────────────────── */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "SF Pro Text", system-ui, sans-serif;
       background: var(--bg);
@@ -114,14 +139,33 @@
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
-    ::selection { background: var(--selection-bg); color: var(--selection-fg); }
-    a { color: var(--text); text-decoration: none; }
-    code, pre {
+
+    ::selection {
+      background: var(--selection-bg);
+      color: var(--selection-fg);
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    code,
+    pre {
       font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, "Courier New", monospace;
       font-size: 0.92em;
     }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 28px; }
-    section { scroll-margin-top: 80px; position: relative; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    section {
+      scroll-margin-top: 80px;
+      position: relative;
+    }
 
     /* ─── Background grain (SVG data URI, ~140 bytes) ────────────────────── */
     body::before {
@@ -134,17 +178,26 @@
       opacity: var(--grain-opacity);
       mix-blend-mode: overlay;
     }
+
     /* Hero radial backdrop */
     body::after {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 720px;
       pointer-events: none;
       background: var(--hero-glow);
       z-index: 0;
     }
-    main, header, footer { position: relative; z-index: 2; }
+
+    main,
+    header,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
 
     /* ─── Sticky nav ─────────────────────────────────────────────────────── */
     .nav {
@@ -156,6 +209,7 @@
       background: color-mix(in srgb, var(--bg) 72%, transparent);
       border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
     }
+
     .nav .container {
       display: flex;
       align-items: center;
@@ -163,6 +217,7 @@
       padding-top: 14px;
       padding-bottom: 14px;
     }
+
     .logo {
       display: flex;
       align-items: center;
@@ -175,7 +230,12 @@
       cursor: pointer;
       transition: opacity 0.2s var(--ease);
     }
-    .logo:hover { opacity: 0.7; text-decoration: none; }
+
+    .logo:hover {
+      opacity: 0.7;
+      text-decoration: none;
+    }
+
     .nav ul {
       list-style: none;
       display: flex;
@@ -183,11 +243,16 @@
       gap: 28px;
       font-size: 0.9rem;
     }
+
     .nav ul a {
       color: var(--text-dim);
       transition: color 0.2s var(--ease);
     }
-    .nav ul a:hover { color: var(--text); }
+
+    .nav ul a:hover {
+      color: var(--text);
+    }
+
     .nav .gh-link {
       display: inline-flex;
       align-items: center;
@@ -199,14 +264,22 @@
       color: var(--text-dim);
       transition: all 0.2s var(--ease);
     }
+
     .nav .gh-link:hover {
       border-color: var(--border-strong);
       color: var(--text);
     }
+
     @media (max-width: 720px) {
-      .nav ul { gap: 12px; }
-      .nav ul .nav-link { display: none; }
+      .nav ul {
+        gap: 12px;
+      }
+
+      .nav ul .nav-link {
+        display: none;
+      }
     }
+
     .theme-toggle {
       display: inline-flex;
       align-items: center;
@@ -221,22 +294,47 @@
       cursor: pointer;
       transition: color 0.2s var(--ease), background 0.2s var(--ease);
     }
+
     .theme-toggle:hover {
       color: var(--text);
       background: color-mix(in srgb, var(--text) 8%, transparent);
     }
+
     .theme-toggle:focus-visible {
       outline: 2px solid var(--text);
       outline-offset: 2px;
     }
-    .theme-toggle svg { width: 16px; height: 16px; display: block; }
-    .theme-toggle .icon-sun { display: none; }
-    .theme-toggle .icon-moon { display: block; }
-    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
-    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .theme-toggle .icon-sun {
+      display: none;
+    }
+
+    .theme-toggle .icon-moon {
+      display: block;
+    }
+
+    :root[data-theme="light"] .theme-toggle .icon-sun {
+      display: block;
+    }
+
+    :root[data-theme="light"] .theme-toggle .icon-moon {
+      display: none;
+    }
+
     @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-sun { display: block; }
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-sun {
+        display: block;
+      }
+
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .theme-toggle .icon-moon {
+        display: none;
+      }
     }
 
     /* ─── Hero actions (single subtle text link) ─────────────────────── */
@@ -247,6 +345,7 @@
       justify-content: center;
       width: 100%;
     }
+
     .hero-link {
       display: inline-flex;
       align-items: center;
@@ -259,13 +358,21 @@
       border: 1px solid var(--border);
       transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
     }
+
     .hero-link:hover {
       color: var(--text);
       border-color: var(--border-strong);
       background: color-mix(in srgb, var(--text) 5%, transparent);
     }
-    .hero-link .arrow { transition: transform 0.2s var(--ease); display: inline-block; }
-    .hero-link:hover .arrow { transform: translateX(3px); }
+
+    .hero-link .arrow {
+      transition: transform 0.2s var(--ease);
+      display: inline-block;
+    }
+
+    .hero-link:hover .arrow {
+      transform: translateX(3px);
+    }
 
     /* ─── Hero prompt box (rotating examples) ─────────────────────────── */
     .prompt-box {
@@ -285,6 +392,7 @@
       -webkit-backdrop-filter: blur(20px);
       box-shadow: var(--shadow-md);
     }
+
     .prompt-box .prompt-prefix {
       flex: none;
       font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
@@ -297,6 +405,7 @@
       border-radius: 6px;
       margin-top: 1px;
     }
+
     .prompt-box .prompt-text {
       font-family: "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
       font-style: italic;
@@ -307,6 +416,7 @@
       min-height: 1.8em;
       flex: 1;
     }
+
     /* Caret rides at the end of the text — pseudo-element ensures it follows
        the typed content as it grows/shrinks during the typewriter animation. */
     .prompt-box .prompt-text::after {
@@ -319,12 +429,21 @@
       margin-left: 3px;
       animation: blink 1.05s steps(2, start) infinite;
     }
+
     .prompt-caption {
       display: none;
     }
+
     @media (max-width: 560px) {
-      .prompt-box { flex-direction: column; align-items: stretch; padding: 16px 18px; }
-      .prompt-box .prompt-prefix { align-self: flex-start; }
+      .prompt-box {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 18px;
+      }
+
+      .prompt-box .prompt-prefix {
+        align-self: flex-start;
+      }
     }
 
     /* ─── Hero ───────────────────────────────────────────────────────────── */
@@ -332,6 +451,7 @@
       padding: clamp(36px, 5vw, 64px) 0 clamp(28px, 4vw, 48px);
       text-align: center;
     }
+
     .hero h1 {
       font-size: clamp(1.7rem, 3.4vw, 3rem);
       line-height: 1.12;
@@ -342,11 +462,13 @@
       color: var(--text);
       text-wrap: balance;
     }
+
     .hero h1 .em {
       font-style: italic;
       font-weight: 500;
       letter-spacing: -0.04em;
     }
+
     .hero .subtitle {
       font-size: clamp(1rem, 1.4vw, 1.15rem);
       color: var(--text-dim);
@@ -354,6 +476,7 @@
       margin: 0 auto 32px;
       line-height: 1.55;
     }
+
     .url-box {
       position: relative;
       display: inline-flex;
@@ -370,6 +493,7 @@
       box-shadow: var(--shadow-md);
       transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
     }
+
     .url-box::before {
       content: "";
       position: absolute;
@@ -378,15 +502,22 @@
       padding: 1px;
       background: var(--grad-border);
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
-              mask-composite: exclude;
+      mask-composite: exclude;
       opacity: 0;
       transition: opacity 0.4s var(--ease);
       pointer-events: none;
     }
-    .url-box:hover { transform: translateY(-1px); }
-    .url-box:hover::before { opacity: 1; }
+
+    .url-box:hover {
+      transform: translateY(-1px);
+    }
+
+    .url-box:hover::before {
+      opacity: 1;
+    }
+
     .url-box code {
       color: var(--text);
       user-select: all;
@@ -396,6 +527,7 @@
       min-width: 0;
       flex: 1 1 auto;
     }
+
     @media (max-width: 520px) {
       .url-box {
         display: flex;
@@ -405,11 +537,25 @@
         padding: 14px;
         gap: 10px;
       }
-      .url-box::before { border-radius: var(--radius); }
-      .url-box code { text-align: center; font-size: 0.86rem; }
-      .url-box .caret { display: none; }
-      .copy-btn { width: 100%; }
+
+      .url-box::before {
+        border-radius: var(--radius);
+      }
+
+      .url-box code {
+        text-align: center;
+        font-size: 0.86rem;
+      }
+
+      .url-box .caret {
+        display: none;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
     }
+
     .url-box .caret {
       display: inline-block;
       width: 8px;
@@ -419,7 +565,13 @@
       margin-left: 2px;
       animation: blink 1.1s steps(2, start) infinite;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
     .copy-btn {
       cursor: pointer;
       position: relative;
@@ -435,6 +587,7 @@
       overflow: hidden;
       isolation: isolate;
     }
+
     .copy-btn::after {
       content: "";
       position: absolute;
@@ -444,13 +597,33 @@
       animation: shimmer 3.6s ease-in-out infinite;
       z-index: -1;
     }
+
     @keyframes shimmer {
-      0%, 60% { transform: translateX(-100%); }
-      80%, 100% { transform: translateX(100%); }
+
+      0%,
+      60% {
+        transform: translateX(-100%);
+      }
+
+      80%,
+      100% {
+        transform: translateX(100%);
+      }
     }
-    .copy-btn:hover { transform: scale(1.03); }
-    .copy-btn.copied { background: var(--surface-3); color: var(--text); border-color: var(--border-strong); }
-    .copy-btn.copied::after { display: none; }
+
+    .copy-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .copy-btn.copied {
+      background: var(--surface-3);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .copy-btn.copied::after {
+      display: none;
+    }
 
     /* ─── Value strip ────────────────────────────────────────────────────── */
     .value-strip {
@@ -460,6 +633,7 @@
       margin-top: 56px;
       background: color-mix(in srgb, var(--surface) 30%, transparent);
     }
+
     .value-strip .container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -467,12 +641,17 @@
       padding-top: 8px;
       padding-bottom: 28px;
     }
+
     .value-item {
       text-align: center;
       padding: 8px 12px;
       border-right: 1px solid var(--border);
     }
-    .value-item:last-child { border-right: none; }
+
+    .value-item:last-child {
+      border-right: none;
+    }
+
     .value-item .num {
       font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 600;
@@ -481,20 +660,37 @@
       display: block;
       margin-bottom: 4px;
     }
+
     .value-item .label {
       font-size: 0.78rem;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.12em;
     }
+
     @media (max-width: 720px) {
-      .value-strip .container { grid-template-columns: 1fr; gap: 18px; }
-      .value-item { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
-      .value-item:last-child { border-bottom: none; padding-bottom: 0; }
+      .value-strip .container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .value-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+      }
+
+      .value-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
     }
 
     /* ─── Section heading ────────────────────────────────────────────────── */
-    .section { padding: clamp(72px, 10vw, 120px) 0; }
+    .section {
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+
     .section-eyebrow {
       font-size: 0.74rem;
       text-transform: uppercase;
@@ -503,6 +699,7 @@
       margin-bottom: 14px;
       font-weight: 500;
     }
+
     .section h2 {
       font-size: clamp(1.8rem, 3.6vw, 2.6rem);
       font-weight: 600;
@@ -514,6 +711,7 @@
       display: inline-block;
       cursor: default;
     }
+
     /* Animated dots reveal after H2 on hover — same caret/loading rhythm
        as the hero typewriter, ties the visual language together. */
     .section h2::after {
@@ -528,6 +726,7 @@
       overflow: hidden;
       transition: width 0.4s var(--ease), margin-left 0.4s var(--ease);
     }
+
     .section h2:hover::after {
       content: "···";
       width: 1.6em;
@@ -536,13 +735,28 @@
       color: var(--text-muted);
       animation: heading-dots 1.4s var(--ease) infinite;
     }
+
     @keyframes heading-dots {
-      0%, 100% { opacity: 0.35; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-2px); }
+
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: translateY(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      .section h2:hover::after { animation: none; opacity: 0.6; }
+      .section h2:hover::after {
+        animation: none;
+        opacity: 0.6;
+      }
     }
+
     .section .lead {
       color: var(--text-dim);
       max-width: 60ch;
@@ -564,6 +778,7 @@
       max-width: 100%;
       flex-wrap: wrap;
     }
+
     .install-url-bar .install-url-label {
       font-size: 0.7rem;
       letter-spacing: 0.14em;
@@ -571,6 +786,7 @@
       color: var(--text-muted);
       flex: none;
     }
+
     .install-url-bar code {
       flex: 1;
       min-width: 0;
@@ -580,11 +796,13 @@
       white-space: nowrap;
       user-select: all;
     }
+
     .install-url-bar .install-url-copy {
       flex: none;
       padding: 6px 14px;
       font-size: 0.82rem;
     }
+
     @media (max-width: 560px) {
       .install-url-bar {
         flex-direction: column;
@@ -592,8 +810,15 @@
         border-radius: 14px;
         padding: 12px 14px;
       }
-      .install-url-bar code { text-align: center; font-size: 0.85rem; }
-      .install-url-bar .install-url-copy { width: 100%; }
+
+      .install-url-bar code {
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      .install-url-bar .install-url-copy {
+        width: 100%;
+      }
     }
 
     .install-grid {
@@ -601,6 +826,7 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 18px;
     }
+
     .install-card {
       position: relative;
       background: var(--surface);
@@ -612,6 +838,7 @@
       flex-direction: column;
       overflow: hidden;
     }
+
     .install-card::before {
       content: "";
       position: absolute;
@@ -620,19 +847,24 @@
       padding: 1px;
       background: var(--grad-border);
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
-              mask-composite: exclude;
+      mask-composite: exclude;
       opacity: 0;
       transition: opacity 0.4s var(--ease);
       pointer-events: none;
     }
+
     .install-card:hover {
       transform: translateY(-4px);
       border-color: var(--border-strong);
       box-shadow: var(--shadow-lg);
     }
-    .install-card:hover::before { opacity: 1; }
+
+    .install-card:hover::before {
+      opacity: 1;
+    }
+
     .install-card h3 {
       font-size: 1.08rem;
       font-weight: 600;
@@ -642,6 +874,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .install-card .meta {
       font-size: 0.78rem;
       color: var(--text-muted);
@@ -649,6 +882,7 @@
       letter-spacing: 0.08em;
       margin-bottom: 18px;
     }
+
     .install-card ol {
       margin: 0 0 20px 18px;
       font-size: 0.92rem;
@@ -656,11 +890,29 @@
       line-height: 1.7;
       flex-grow: 1;
     }
-    .install-card ol li::marker { color: var(--text-muted); }
-    .install-card ol strong { color: var(--text); font-weight: 600; }
-    .install-card ol em { color: var(--text-dim); }
-    .install-card ol a { color: var(--text); border-bottom: 1px solid var(--text-muted); }
-    .install-card ol a:hover { border-bottom-color: var(--text); }
+
+    .install-card ol li::marker {
+      color: var(--text-muted);
+    }
+
+    .install-card ol strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .install-card ol em {
+      color: var(--text-dim);
+    }
+
+    .install-card ol a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+    }
+
+    .install-card ol a:hover {
+      border-bottom-color: var(--text);
+    }
+
     .install-card .install-btn {
       display: inline-flex;
       align-items: center;
@@ -678,12 +930,20 @@
       border: 1px solid var(--text);
       margin-top: auto;
     }
+
     .install-card .install-btn .arrow {
       display: inline-block;
       transition: transform 0.3s var(--ease);
     }
-    .install-card .install-btn:hover .arrow { transform: translateX(4px); }
-    .install-card .install-btn:hover { background: color-mix(in srgb, var(--text) 88%, var(--bg)); }
+
+    .install-card .install-btn:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    .install-card .install-btn:hover {
+      background: color-mix(in srgb, var(--text) 88%, var(--bg));
+    }
+
     .install-card pre {
       background: var(--surface-2);
       border: 1px solid var(--border);
@@ -695,7 +955,11 @@
       color: var(--text-dim);
       line-height: 1.5;
     }
-    .install-card pre code { color: var(--text); }
+
+    .install-card pre code {
+      color: var(--text);
+    }
+
     .install-card .dev-alt {
       margin-top: -4px;
       margin-bottom: 14px;
@@ -705,6 +969,7 @@
       border-radius: 8px;
       font-size: 0.85rem;
     }
+
     .install-card .dev-alt summary {
       cursor: pointer;
       color: var(--text-dim);
@@ -714,8 +979,15 @@
       background: transparent;
       font-weight: 400;
     }
-    .install-card .dev-alt summary:hover { color: var(--text); }
-    .install-card .dev-alt summary::-webkit-details-marker { display: none; }
+
+    .install-card .dev-alt summary:hover {
+      color: var(--text);
+    }
+
+    .install-card .dev-alt summary::-webkit-details-marker {
+      display: none;
+    }
+
     .install-card .dev-alt summary::before {
       content: "+";
       display: inline-block;
@@ -724,19 +996,25 @@
       color: var(--text-muted);
       transition: transform 0.2s var(--ease);
     }
-    .install-card .dev-alt[open] summary::before { content: "−"; }
+
+    .install-card .dev-alt[open] summary::before {
+      content: "−";
+    }
+
     .install-card .dev-alt p {
       margin-top: 8px;
       color: var(--text-dim);
       font-size: 0.85rem;
       line-height: 1.55;
     }
+
     .install-card .dev-alt code {
       background: var(--surface-3);
       padding: 1px 5px;
       border-radius: 4px;
       font-size: 0.82em;
     }
+
     .install-card .heads-up {
       background: color-mix(in srgb, var(--surface-2) 80%, transparent);
       border: 1px solid var(--border);
@@ -748,6 +1026,7 @@
       margin-bottom: 16px;
       line-height: 1.55;
     }
+
     .install-card .copy-btn-inline {
       cursor: pointer;
       width: 100%;
@@ -762,10 +1041,12 @@
       font-family: inherit;
       margin-top: auto;
     }
+
     .install-card .copy-btn-inline:hover {
       background: var(--surface-2);
       border-color: var(--text);
     }
+
     .install-card ol li .step-img {
       display: block;
       margin: 12px 0 4px;
@@ -776,26 +1057,42 @@
       border-radius: 8px;
       background: var(--surface-2);
     }
+
     .install-card .troubleshoot {
       margin-top: 12px;
       font-size: 0.85rem;
       color: var(--text-dim);
     }
+
     .install-card .troubleshoot summary {
       cursor: pointer;
       color: var(--text-muted);
       padding: 8px 0;
       list-style: none;
     }
-    .install-card .troubleshoot summary:hover { color: var(--text); }
-    .install-card .troubleshoot summary::-webkit-details-marker { display: none; }
+
+    .install-card .troubleshoot summary:hover {
+      color: var(--text);
+    }
+
+    .install-card .troubleshoot summary::-webkit-details-marker {
+      display: none;
+    }
+
     .install-card .troubleshoot ul {
       margin: 6px 0 0;
       padding-left: 18px;
       line-height: 1.55;
     }
-    .install-card .troubleshoot ul li { margin-bottom: 6px; }
-    .install-card .troubleshoot a { color: var(--text); border-bottom: 1px solid var(--text-muted); }
+
+    .install-card .troubleshoot ul li {
+      margin-bottom: 6px;
+    }
+
+    .install-card .troubleshoot a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+    }
 
     /* Featured "two paths" notice */
     .install-notice {
@@ -809,9 +1106,11 @@
       margin-bottom: 28px;
       backdrop-filter: blur(8px);
     }
+
     .install-notice .badge {
       flex-shrink: 0;
-      width: 28px; height: 28px;
+      width: 28px;
+      height: 28px;
       border-radius: 8px;
       background: var(--text);
       color: var(--bg);
@@ -821,17 +1120,26 @@
       font-weight: 700;
       font-size: 0.9rem;
     }
+
     .install-notice p {
       font-size: 0.93rem;
       color: var(--text-dim);
       line-height: 1.55;
     }
-    .install-notice strong { color: var(--text); }
+
+    .install-notice strong {
+      color: var(--text);
+    }
+
     .install-notice a {
       color: var(--text);
       border-bottom: 1px solid var(--text-muted);
     }
-    .install-notice a:hover { border-bottom-color: var(--text); }
+
+    .install-notice a:hover {
+      border-bottom-color: var(--text);
+    }
+
     .install-notice code {
       background: var(--surface-2);
       padding: 2px 6px;
@@ -846,6 +1154,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
+
     .capability {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -857,18 +1166,22 @@
       flex-direction: column;
       gap: 10px;
     }
+
     .capability:hover {
       transform: translateY(-2px);
       border-color: var(--border-strong);
       background: color-mix(in srgb, var(--surface-2) 50%, var(--surface));
     }
+
     .capability .cap-head {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .capability .cap-icon {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
       flex: none;
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -878,13 +1191,19 @@
       color: var(--text);
       background: var(--bg);
     }
-    .capability .cap-icon svg { width: 20px; height: 20px; }
+
+    .capability .cap-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
     .capability h3 {
       font-size: 1.04rem;
       font-weight: 600;
       letter-spacing: -0.01em;
       line-height: 1.2;
     }
+
     .capability .count {
       display: inline-block;
       font-size: 0.72rem;
@@ -893,24 +1212,32 @@
       color: var(--text-muted);
       margin-top: 2px;
     }
+
     .capability p {
       color: var(--text-dim);
       font-size: 0.92rem;
       line-height: 1.55;
       margin: 0;
     }
+
     .capability-footer {
       margin-top: 24px;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.92rem;
     }
+
     .capability-footer a {
       color: var(--text-dim);
       border-bottom: 1px solid var(--border);
       transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
     }
-    .capability-footer a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+    .capability-footer a:hover {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+
     .cap-tools {
       margin-top: 2px;
       padding: 0;
@@ -918,6 +1245,7 @@
       border: 0;
       font-size: 0.84rem;
     }
+
     .cap-tools summary {
       cursor: pointer;
       color: var(--text-dim);
@@ -931,8 +1259,15 @@
       gap: 6px;
       transition: color 0.2s var(--ease);
     }
-    .cap-tools summary:hover { color: var(--text); }
-    .cap-tools summary::-webkit-details-marker { display: none; }
+
+    .cap-tools summary:hover {
+      color: var(--text);
+    }
+
+    .cap-tools summary::-webkit-details-marker {
+      display: none;
+    }
+
     .cap-tools summary::after {
       content: "";
       width: 8px;
@@ -943,13 +1278,18 @@
       transition: transform 0.2s var(--ease);
       display: inline-block;
     }
-    .cap-tools[open] summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
+
+    .cap-tools[open] summary::after {
+      transform: rotate(-135deg) translate(-1px, -1px);
+    }
+
     .cap-tools .tool-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 4px;
       margin-top: 10px;
     }
+
     .cap-tools .tool-pills code {
       font-family: "JetBrains Mono", "SF Mono", Menlo, Monaco, monospace;
       font-size: 0.74rem;
@@ -961,11 +1301,13 @@
       line-height: 1.5;
       word-break: break-all;
     }
+
     .cap-tools .tool-pills .pills-loading {
       color: var(--text-muted);
       font-size: 0.78rem;
       font-style: italic;
     }
+
     .cap-link {
       margin-top: 4px;
       display: inline-flex;
@@ -977,26 +1319,44 @@
       transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
       align-self: flex-start;
     }
+
     .cap-link:hover {
       color: var(--text);
       border-bottom-color: var(--text);
     }
-    .cap-link .arrow { transition: transform 0.25s var(--ease); display: inline-block; }
-    .cap-link:hover .arrow { transform: translateX(3px); }
-    @media (max-width: 900px) {
-      .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .cap-link .arrow {
+      transition: transform 0.25s var(--ease);
+      display: inline-block;
     }
+
+    .cap-link:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 900px) {
+      .capabilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 560px) {
-      .capabilities-grid { grid-template-columns: 1fr; }
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ─── Examples ───────────────────────────────────────────────────────── */
-    .examples-section { background: color-mix(in srgb, var(--surface) 30%, transparent); }
+    .examples-section {
+      background: color-mix(in srgb, var(--surface) 30%, transparent);
+    }
+
     .examples-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
+
     .example {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -1007,10 +1367,12 @@
       transition: transform 0.4s var(--ease), border-color 0.3s var(--ease);
       position: relative;
     }
+
     .example:hover {
       transform: translateY(-2px);
       border-color: var(--border-strong);
     }
+
     .example .ask {
       color: var(--text);
       font-family: "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
@@ -1019,21 +1381,29 @@
       line-height: 1.45;
       letter-spacing: -0.005em;
     }
+
     .example .ask::before {
       content: '\201C';
       color: var(--text-muted);
       margin-right: 2px;
     }
+
     .example .ask::after {
       content: '\201D';
       color: var(--text-muted);
       margin-left: 2px;
     }
+
     @media (max-width: 900px) {
-      .examples-grid { grid-template-columns: repeat(2, 1fr); }
+      .examples-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
+
     @media (max-width: 560px) {
-      .examples-grid { grid-template-columns: 1fr; }
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ─── Privacy ────────────────────────────────────────────────────────── */
@@ -1047,8 +1417,10 @@
       gap: 28px;
       box-shadow: var(--shadow-md);
     }
+
     .privacy-icon {
-      width: 56px; height: 56px;
+      width: 56px;
+      height: 56px;
       border-radius: 14px;
       background: var(--surface-2);
       border: 1px solid var(--border);
@@ -1057,14 +1429,26 @@
       justify-content: center;
       color: var(--text);
     }
-    .privacy-icon svg { width: 28px; height: 28px; }
+
+    .privacy-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
     .privacy-card h3 {
       font-size: 1.2rem;
       font-weight: 600;
       letter-spacing: -0.015em;
       margin-bottom: 12px;
     }
-    .privacy-card p { color: var(--text-dim); font-size: 0.96rem; margin-bottom: 14px; line-height: 1.65; }
+
+    .privacy-card p {
+      color: var(--text-dim);
+      font-size: 0.96rem;
+      margin-bottom: 14px;
+      line-height: 1.65;
+    }
+
     .privacy-card ul {
       list-style: none;
       margin: 16px 0;
@@ -1072,6 +1456,7 @@
       display: grid;
       gap: 10px;
     }
+
     .privacy-card ul li {
       position: relative;
       padding-left: 24px;
@@ -1079,6 +1464,7 @@
       font-size: 0.94rem;
       line-height: 1.6;
     }
+
     .privacy-card ul li::before {
       content: "";
       position: absolute;
@@ -1088,11 +1474,25 @@
       height: 1px;
       background: var(--border-strong);
     }
-    .privacy-card a { color: var(--text); border-bottom: 1px solid var(--text-muted); }
-    .privacy-card a:hover { border-bottom-color: var(--text); }
-    .privacy-card strong { color: var(--text); }
+
+    .privacy-card a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+    }
+
+    .privacy-card a:hover {
+      border-bottom-color: var(--text);
+    }
+
+    .privacy-card strong {
+      color: var(--text);
+    }
+
     @media (max-width: 720px) {
-      .privacy-card { grid-template-columns: 1fr; gap: 20px; }
+      .privacy-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
 
     /* ─── Help ───────────────────────────────────────────────────────────── */
@@ -1105,6 +1505,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .help-card::before {
       content: "";
       position: absolute;
@@ -1116,7 +1517,11 @@
       background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--text) 8%, transparent), transparent);
       pointer-events: none;
     }
-    .help-card > * { position: relative; }
+
+    .help-card>* {
+      position: relative;
+    }
+
     .help-card h2 {
       font-size: clamp(1.5rem, 3vw, 2.1rem);
       font-weight: 600;
@@ -1124,6 +1529,7 @@
       margin: 0 auto 14px;
       max-width: 22ch;
     }
+
     .help-card p {
       color: var(--text-dim);
       max-width: 60ch;
@@ -1131,12 +1537,14 @@
       font-size: 1rem;
       line-height: 1.6;
     }
+
     .help-actions {
       display: inline-flex;
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
     }
+
     .help-actions .btn {
       display: inline-flex;
       align-items: center;
@@ -1149,16 +1557,25 @@
       border: 1px solid var(--border-strong);
       color: var(--text);
     }
-    .help-actions .btn .arrow { transition: transform 0.3s var(--ease); }
-    .help-actions .btn:hover .arrow { transform: translateX(4px); }
+
+    .help-actions .btn .arrow {
+      transition: transform 0.3s var(--ease);
+    }
+
+    .help-actions .btn:hover .arrow {
+      transform: translateX(4px);
+    }
+
     .help-actions .btn.primary {
       background: var(--text);
       color: var(--bg);
       border-color: var(--text);
     }
+
     .help-actions .btn.primary:hover {
       background: color-mix(in srgb, var(--text) 88%, var(--bg));
     }
+
     .help-actions .btn:not(.primary):hover {
       background: var(--surface-2);
       border-color: var(--text);
@@ -1171,6 +1588,7 @@
       border-bottom: 1px solid var(--border);
       text-align: center;
     }
+
     .compat-section .lead {
       color: var(--text-muted);
       font-size: 0.74rem;
@@ -1178,6 +1596,7 @@
       letter-spacing: 0.18em;
       margin-bottom: 24px;
     }
+
     .compat-list {
       display: flex;
       flex-wrap: wrap;
@@ -1185,6 +1604,7 @@
       justify-content: center;
       align-items: center;
     }
+
     .compat-list span {
       font-weight: 500;
       font-size: 0.95rem;
@@ -1192,13 +1612,17 @@
       letter-spacing: -0.01em;
       transition: color 0.25s var(--ease), transform 0.25s var(--ease);
     }
+
     .compat-list span:hover {
       color: var(--text);
       transform: scale(1.05);
     }
 
     /* ─── FAQ ────────────────────────────────────────────────────────────── */
-    .faq-list { max-width: none; }
+    .faq-list {
+      max-width: none;
+    }
+
     details {
       background: transparent;
       border-bottom: 1px solid var(--border);
@@ -1206,9 +1630,19 @@
       transition: background 0.3s var(--ease);
       border-radius: 8px;
     }
-    details:hover { background: color-mix(in srgb, var(--surface) 35%, transparent); }
-    details:first-of-type { border-top: 1px solid var(--border); }
-    details[open] { background: color-mix(in srgb, var(--surface) 30%, transparent); }
+
+    details:hover {
+      background: color-mix(in srgb, var(--surface) 35%, transparent);
+    }
+
+    details:first-of-type {
+      border-top: 1px solid var(--border);
+    }
+
+    details[open] {
+      background: color-mix(in srgb, var(--surface) 30%, transparent);
+    }
+
     details summary {
       cursor: pointer;
       font-weight: 500;
@@ -1221,10 +1655,15 @@
       gap: 16px;
       padding: 0 16px;
     }
-    details summary::-webkit-details-marker { display: none; }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
     details summary .chev {
       flex-shrink: 0;
-      width: 28px; height: 28px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 1px solid var(--border);
       display: inline-flex;
@@ -1232,19 +1671,33 @@
       justify-content: center;
       transition: transform 0.4s var(--ease), border-color 0.25s var(--ease);
     }
+
     details summary .chev::before {
       content: "";
-      width: 8px; height: 8px;
+      width: 8px;
+      height: 8px;
       border-right: 1.5px solid var(--text-dim);
       border-bottom: 1.5px solid var(--text-dim);
       transform: rotate(45deg);
       margin-top: -3px;
       transition: border-color 0.25s var(--ease);
     }
-    details[open] summary .chev { transform: rotate(180deg); border-color: var(--border-strong); }
-    details:hover summary .chev { border-color: var(--border-strong); }
-    details:hover summary .chev::before { border-color: var(--text); }
-    details > div, details > p {
+
+    details[open] summary .chev {
+      transform: rotate(180deg);
+      border-color: var(--border-strong);
+    }
+
+    details:hover summary .chev {
+      border-color: var(--border-strong);
+    }
+
+    details:hover summary .chev::before {
+      border-color: var(--text);
+    }
+
+    details>div,
+    details>p {
       margin-top: 14px;
       color: var(--text-dim);
       font-size: 0.95rem;
@@ -1252,10 +1705,27 @@
       padding: 0 16px;
       max-width: 70ch;
     }
-    details a { color: var(--text); border-bottom: 1px solid var(--text-muted); }
-    details a:hover { border-bottom-color: var(--text); }
-    details code { background: var(--surface-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; font-size: 0.88em; }
-    details strong { color: var(--text); }
+
+    details a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+    }
+
+    details a:hover {
+      border-bottom-color: var(--text);
+    }
+
+    details code {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    details strong {
+      color: var(--text);
+    }
 
     /* ─── Footer ─────────────────────────────────────────────────────────── */
     footer {
@@ -1264,6 +1734,7 @@
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+
     footer .container {
       display: flex;
       justify-content: space-between;
@@ -1271,12 +1742,22 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    footer .links { display: flex; flex-wrap: wrap; gap: 22px; }
+
+    footer .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
     footer a {
       color: var(--text-dim);
       transition: color 0.2s ease;
     }
-    footer a:hover { color: var(--text); }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
     footer .brand {
       display: flex;
       align-items: center;
@@ -1302,13 +1783,24 @@
       z-index: 1000;
       box-shadow: var(--shadow-lg);
     }
-    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
 
     /* ─── Scroll-triggered fade-in (progressive) ─────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @supports (animation-timeline: view()) {
       .reveal {
         animation: fadeUp 0.9s var(--ease) both;
@@ -1316,8 +1808,11 @@
         animation-range: entry 0% cover 30%;
       }
     }
+
     /* Fallback: when animation-timeline isn't supported, content is visible by default */
-    .reveal { opacity: 1; }
+    .reveal {
+      opacity: 1;
+    }
 
     /* ─── Focus states (keyboard a11y) ───────────────────────────────────── */
     a:focus-visible,
@@ -1327,6 +1822,7 @@
       outline-offset: 2px;
       border-radius: 6px;
     }
+
     .install-card .install-btn:focus-visible,
     .copy-btn:focus-visible,
     .help-actions .btn:focus-visible {
@@ -1334,20 +1830,33 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
       }
-      .reveal { opacity: 1; transform: none; }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
+
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQQ73WG" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <header class="nav">
     <div class="container">
-      <a href="https://speakai.co/?utm_source=mcp.speakai.co&amp;utm_medium=referral&amp;utm_campaign=mcp_landing" class="logo" rel="noopener" aria-label="Speak AI — visit speakai.co">
+      <a href="https://speakai.co/?utm_source=mcp.speakai.co&amp;utm_medium=referral&amp;utm_campaign=mcp_landing"
+        class="logo" rel="noopener" aria-label="Speak AI — visit speakai.co">
         <span>Speak AI</span>
       </a>
       <nav>
@@ -1359,11 +1868,20 @@
           <li class="nav-link"><a href="#help">Help</a></li>
           <li>
             <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
-              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
-              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+              </svg>
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
             </button>
           </li>
-          <li><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+          <li><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener">GitHub <span
+                aria-hidden="true">↗</span></a></li>
         </ul>
       </nav>
     </div>
@@ -1372,11 +1890,12 @@
   <main>
     <section class="hero">
       <div class="container">
-        <h1>Connect Speak AI to <span class="em">Claude or ChatGPT</span> in 60 seconds</h1>
+        <h1>Connect Speak AI to <span class="em">Claude or ChatGPT</span> in 30 seconds</h1>
         <p class="subtitle">No Terminal. No npm. No JSON config.</p>
         <div class="prompt-box" role="group" aria-label="Example prompts you can ask once installed">
           <span class="prompt-prefix" aria-hidden="true">Ask</span>
-          <span class="prompt-text" id="prompt-rotator" aria-live="polite">Show me every coaching call last month where my client mentioned imposter syndrome.</span>
+          <span class="prompt-text" id="prompt-rotator" aria-live="polite">Show me every coaching call last month where
+            my client mentioned imposter syndrome.</span>
         </div>
         <p class="prompt-caption">Things you'll be able to ask Claude or ChatGPT.</p>
         <div class="hero-actions">
@@ -1406,17 +1925,23 @@
       <div class="container">
         <p class="section-eyebrow">Install</p>
         <h2>Pick your tool.</h2>
-        <p class="lead">One-click connect is the easiest install (recommended for coaches and non-developers). Or paste an API key as a header for any client that prefers manual setup.</p>
+        <p class="lead">One-click connect is the easiest install (recommended for coaches and non-developers). Or paste
+          an API key as a header for any client that prefers manual setup.</p>
 
         <div class="install-url-bar" role="group" aria-label="Speak AI MCP URL">
           <span class="install-url-label">Connector URL</span>
           <code id="mcp-url">https://api.speakai.co/v1/mcp</code>
-          <button class="install-url-copy copy-btn" onclick="copyUrl()" aria-label="Copy MCP URL to clipboard">Copy</button>
+          <button class="install-url-copy copy-btn" onclick="copyUrl()"
+            aria-label="Copy MCP URL to clipboard">Copy</button>
         </div>
 
         <div class="install-notice">
           <span class="badge" aria-hidden="true">i</span>
-          <p>Paste the URL above into your AI tool's connector settings — same idea as pasting a Zoom link into your calendar. For the manual API-key route, generate a key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a> and add it as an <code>Authorization</code> header.</p>
+          <p>Paste the URL above into your AI tool's connector settings — same idea as pasting a Zoom link into your
+            calendar. For the manual API-key route, generate a key at <a
+              href="https://app.speakai.co/developers/apikeys" target="_blank"
+              rel="noopener">app.speakai.co/developers/apikeys</a> and add it as an <code>Authorization</code> header.
+          </p>
         </div>
 
         <div class="install-grid">
@@ -1424,16 +1949,20 @@
           <article class="install-card" id="card-claude-web">
             <h3>Claude.ai (web)</h3>
             <ol>
-              <li>Open <a href="https://claude.ai/settings/connectors" target="_blank" rel="noopener">claude.ai/settings/connectors</a></li>
+              <li>Open <a href="https://claude.ai/settings/connectors" target="_blank"
+                  rel="noopener">claude.ai/settings/connectors</a></li>
               <li>Click <strong>Add custom connector</strong></li>
               <li>Name it <strong>Speak AI</strong>, paste the URL above, click <strong>Add</strong>
-                <img class="step-img" src="./assets/claude/1.connector.png" alt="Claude add custom connector dialog with Speak AI filled in" loading="lazy" />
+                <img class="step-img" src="./assets/claude/1.connector.png"
+                  alt="Claude add custom connector dialog with Speak AI filled in" loading="lazy" />
               </li>
               <li>Sign in to Speak AI, click <strong>Allow</strong> on the permission popup
-                <img class="step-img" src="./assets/claude/2.connected.png" alt="Speak AI connected in Claude with tools listed" loading="lazy" />
+                <img class="step-img" src="./assets/claude/2.connected.png"
+                  alt="Speak AI connected in Claude with tools listed" loading="lazy" />
               </li>
             </ol>
-            <a class="install-btn" href="https://claude.ai/settings/connectors" target="_blank" rel="noopener" onclick="copyUrl(true)">Install in Claude.ai <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="install-btn" href="https://claude.ai/settings/connectors" target="_blank" rel="noopener"
+              onclick="copyUrl(true)">Install in Claude.ai <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="install-card" id="card-claude-desktop">
@@ -1441,11 +1970,16 @@
             <ol>
               <li>Open Claude Desktop → Settings → Connectors → <strong>Add custom connector</strong></li>
               <li>Paste the URL from the top of this page</li>
-              <li>Click <strong>Add</strong>, sign in to Speak AI, click <strong>Allow</strong> on the permission popup</li>
+              <li>Click <strong>Add</strong>, sign in to Speak AI, click <strong>Allow</strong> on the permission popup
+              </li>
             </ol>
             <details class="dev-alt">
               <summary>Prefer manual setup with an API key?</summary>
-              <p>Expand <strong>Custom headers</strong> in the Add Connector dialog and add <code>Authorization</code> = <code>Bearer &lt;your-key&gt;</code>. Generate a key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a>.</p>
+              <p>Expand <strong>Custom headers</strong> in the Add Connector dialog and add <code>Authorization</code> =
+                <code>Bearer &lt;your-key&gt;</code>. Generate a key at <a
+                  href="https://app.speakai.co/developers/apikeys" target="_blank"
+                  rel="noopener">app.speakai.co/developers/apikeys</a>.
+              </p>
             </details>
           </article>
 
@@ -1453,27 +1987,38 @@
             <h3>ChatGPT</h3>
             <ol>
               <li>Open ChatGPT → Settings → <strong>Apps &amp; Connectors</strong> → <strong>Advanced</strong></li>
-              <li>Turn on <strong>Developer Mode</strong> <em>(required while Speak AI isn't yet listed in ChatGPT's app store)</em></li>
+              <li>Turn on <strong>Developer Mode</strong> <em>(required while Speak AI isn't yet listed in ChatGPT's app
+                  store)</em></li>
               <li>Back on Apps &amp; Connectors, click <strong>Create</strong> and paste the URL above
-                <img class="step-img" src="./assets/openai/1.connect.png" alt="ChatGPT connect screen with Speak AI URL pasted" loading="lazy" />
+                <img class="step-img" src="./assets/openai/1.connect.png"
+                  alt="ChatGPT connect screen with Speak AI URL pasted" loading="lazy" />
               </li>
-              <li>For <strong>Authentication</strong>, choose <strong>OAuth</strong>, then click <strong>Connect</strong>
-                <img class="step-img" src="./assets/openai/2.connect-continue.png" alt="ChatGPT connect continue screen" loading="lazy" />
+              <li>For <strong>Authentication</strong>, choose <strong>OAuth</strong>, then click
+                <strong>Connect</strong>
+                <img class="step-img" src="./assets/openai/2.connect-continue.png" alt="ChatGPT connect continue screen"
+                  loading="lazy" />
               </li>
-              <li>ChatGPT opens a new tab to Speak AI — sign in (or click <strong>Confirm</strong> if already logged in) to authorize
-                <img class="step-img" src="./assets/openai/3.speak-auth.png" alt="Speak AI authorization screen" loading="lazy" />
+              <li>ChatGPT opens a new tab to Speak AI — sign in (or click <strong>Confirm</strong> if already logged in)
+                to authorize
+                <img class="step-img" src="./assets/openai/3.speak-auth.png" alt="Speak AI authorization screen"
+                  loading="lazy" />
               </li>
               <li>Return to ChatGPT — Speak AI is now in your connector list
-                <img class="step-img" src="./assets/openai/4.connected.png" alt="Speak AI connected in ChatGPT" loading="lazy" />
+                <img class="step-img" src="./assets/openai/4.connected.png" alt="Speak AI connected in ChatGPT"
+                  loading="lazy" />
               </li>
-              <li><strong>Per-chat:</strong> open a chat, click the <strong>+</strong> / connector menu, enable Speak AI for that chat</li>
+              <li><strong>Per-chat:</strong> open a chat, click the <strong>+</strong> / connector menu, enable Speak AI
+                for that chat</li>
             </ol>
             <details class="troubleshoot">
               <summary>Trouble connecting?</summary>
               <ul>
-                <li>If the authorization tab lands on the plain Speak AI dashboard with no confirmation message, the authorization still went through — close that tab and return to ChatGPT.</li>
-                <li>If the <strong>Connect</strong> button keeps reopening the dashboard, fully close and reopen ChatGPT, then check Settings → Apps &amp; Connectors. Speak AI should already be listed there.</li>
-                <li>If a chat shows "no actions available," confirm Developer Mode is still on and that Speak AI is enabled in the per-chat connector menu.</li>
+                <li>If the authorization tab lands on the plain Speak AI dashboard with no confirmation message, the
+                  authorization still went through — close that tab and return to ChatGPT.</li>
+                <li>If the <strong>Connect</strong> button keeps reopening the dashboard, fully close and reopen
+                  ChatGPT, then check Settings → Apps &amp; Connectors. Speak AI should already be listed there.</li>
+                <li>If a chat shows "no actions available," confirm Developer Mode is still on and that Speak AI is
+                  enabled in the per-chat connector menu.</li>
                 <li>Still stuck? Email <a href="mailto:accounts@speakai.co">accounts@speakai.co</a>.</li>
               </ul>
             </details>
@@ -1485,7 +2030,9 @@
               <li>Click the button — Cursor registers and opens the permission popup</li>
               <li>Sign in to Speak AI and click <strong>Allow</strong></li>
             </ol>
-            <a class="install-btn" href="cursor://anysphere.cursor-deeplink/mcp/install?name=speakai&config=eyJ1cmwiOiJodHRwczovL2FwaS5zcGVha2FpLmNvL3YxL21jcCJ9">Install in Cursor <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="install-btn"
+              href="cursor://anysphere.cursor-deeplink/mcp/install?name=speakai&config=eyJ1cmwiOiJodHRwczovL2FwaS5zcGVha2FpLmNvL3YxL21jcCJ9">Install
+              in Cursor <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="install-card">
@@ -1494,7 +2041,9 @@
               <li>Click the button — VS Code registers and opens the permission popup</li>
               <li>Sign in to Speak AI and click <strong>Allow</strong></li>
             </ol>
-            <a class="install-btn" href="https://vscode.dev/redirect/mcp/install?name=speakai&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.speakai.co%2Fv1%2Fmcp%22%7D">Install in VS Code <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="install-btn"
+              href="https://vscode.dev/redirect/mcp/install?name=speakai&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.speakai.co%2Fv1%2Fmcp%22%7D">Install
+              in VS Code <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="install-card">
@@ -1523,12 +2072,16 @@
       <div class="container">
         <p class="section-eyebrow">What's inside</p>
         <h2>83 tools across 10 categories.</h2>
-        <p class="lead">Everything Speak AI can do — exposed for your AI assistant to call. You don't memorize them; the AI picks the right one.</p>
+        <p class="lead">Everything Speak AI can do — exposed for your AI assistant to call. You don't memorize them; the
+          AI picks the right one.</p>
         <div class="capabilities-grid">
           <article class="capability" data-cat-id="media">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5a2 2 0 012-2h11a2 2 0 012 2V8l3.5-2v12L18 16v1.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M3 6.5a2 2 0 012-2h11a2 2 0 012 2V8l3.5-2v12L18 16v1.5a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z" />
+                </svg>
               </span>
               <div>
                 <h3>Media library</h3>
@@ -1540,13 +2093,18 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-media">View 16 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-media">View 16 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="magic-prompt">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 11-3.2-6.6L21 3v5h-5"/><path d="M9 11l1.5 1.5L13 10"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M21 12a8.5 8.5 0 11-3.2-6.6L21 3v5h-5" />
+                  <path d="M9 11l1.5 1.5L13 10" />
+                </svg>
               </span>
               <div>
                 <h3>Ask AI (Magic Prompt)</h3>
@@ -1558,13 +2116,18 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-magic-prompt">View 12 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-magic-prompt">View 12 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="search-analytics">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4.5-4.5" />
+                </svg>
               </span>
               <div>
                 <h3>Search &amp; analytics</h3>
@@ -1576,13 +2139,17 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-search-analytics">View 3 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-search-analytics">View 3 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="folders-views">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+                </svg>
               </span>
               <div>
                 <h3>Folders &amp; views</h3>
@@ -1594,13 +2161,19 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-folders-views">View 11 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-folders-views">View 11 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="recorders-surveys">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0"/><path d="M12 18v3"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <rect x="9" y="3" width="6" height="11" rx="3" />
+                  <path d="M5 11a7 7 0 0014 0" />
+                  <path d="M12 18v3" />
+                </svg>
               </span>
               <div>
                 <h3>Recorders &amp; surveys</h3>
@@ -1612,13 +2185,20 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-recorders-surveys">View 10 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-recorders-surveys">View 10 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="clips-exports">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.5 15.5"/><path d="M20 20L8.5 8.5"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="6" cy="6" r="3" />
+                  <circle cx="6" cy="18" r="3" />
+                  <path d="M20 4L8.5 15.5" />
+                  <path d="M20 20L8.5 8.5" />
+                </svg>
               </span>
               <div>
                 <h3>Clips &amp; exports</h3>
@@ -1630,13 +2210,18 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-clips-exports">View 6 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-clips-exports">View 6 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="meeting-bot">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <rect x="3" y="6" width="13" height="12" rx="2" />
+                  <path d="M16 10l5-3v10l-5-3" />
+                </svg>
               </span>
               <div>
                 <h3>Meeting bot</h3>
@@ -1648,13 +2233,17 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-meeting-bot">View 4 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-meeting-bot">View 4 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="automations-webhooks">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                </svg>
               </span>
               <div>
                 <h3>Automations &amp; webhooks</h3>
@@ -1666,13 +2255,19 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-automations-webhooks">View 9 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-automations-webhooks">View 9 tools in detail <span
+                class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="text-fields">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12a2 2 0 01-2 2H4z"/><path d="M16 4v4h4"/><path d="M8 14h8M8 18h5"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M4 4h12l4 4v12a2 2 0 01-2 2H4z" />
+                  <path d="M16 4v4h4" />
+                  <path d="M8 14h8M8 18h5" />
+                </svg>
               </span>
               <div>
                 <h3>Text notes &amp; fields</h3>
@@ -1684,13 +2279,18 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-text-fields">View 8 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-text-fields">View 8 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
 
           <article class="capability" data-cat-id="embed-other">
             <div class="cap-head">
               <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <polyline points="8 6 2 12 8 18" />
+                  <polyline points="16 6 22 12 16 18" />
+                </svg>
               </span>
               <div>
                 <h3>Embed players</h3>
@@ -1702,7 +2302,8 @@
               <summary>Show tools</summary>
               <div class="tool-pills"><span class="pills-loading">Loading…</span></div>
             </details>
-            <a class="cap-link" href="tools.html#category-embed-other">View 4 tools in detail <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="cap-link" href="tools.html#category-embed-other">View 4 tools in detail <span class="arrow"
+                aria-hidden="true">→</span></a>
           </article>
         </div>
         <p class="capability-footer"><a href="tools.html">Browse all 83 tools →</a></p>
@@ -1713,17 +2314,36 @@
       <div class="container">
         <p class="section-eyebrow">What you can ask</p>
         <h2>83 tools. Zero memorization.</h2>
-        <p class="lead">Claude and ChatGPT pick the right ones based on what you ask. Just talk to them like a teammate.</p>
+        <p class="lead">Claude and ChatGPT pick the right ones based on what you ask. Just talk to them like a teammate.
+        </p>
         <div class="examples-grid">
-          <div class="example"><div class="ask">Show me every coaching call this month where my client mentioned imposter syndrome.</div></div>
-          <div class="example"><div class="ask">Summarize the action items from yesterday's standup.</div></div>
-          <div class="example"><div class="ask">What themes have come up across my last 30 customer interviews?</div></div>
-          <div class="example"><div class="ask">Pull every quote from Sarah's recordings about pricing.</div></div>
-          <div class="example"><div class="ask">Schedule the AI to join my 2pm Zoom and summarize it after.</div></div>
-          <div class="example"><div class="ask">Write a follow-up email based on yesterday's discovery call.</div></div>
-          <div class="example"><div class="ask">Make a 30-second clip of the moment Sarah said "this changes everything."</div></div>
-          <div class="example"><div class="ask">Compare the feedback in last quarter's interviews vs this quarter's.</div></div>
-          <div class="example"><div class="ask">Export the transcript from this morning's call as a PDF.</div></div>
+          <div class="example">
+            <div class="ask">Show me every coaching call this month where my client mentioned imposter syndrome.</div>
+          </div>
+          <div class="example">
+            <div class="ask">Summarize the action items from yesterday's standup.</div>
+          </div>
+          <div class="example">
+            <div class="ask">What themes have come up across my last 30 customer interviews?</div>
+          </div>
+          <div class="example">
+            <div class="ask">Pull every quote from Sarah's recordings about pricing.</div>
+          </div>
+          <div class="example">
+            <div class="ask">Schedule the AI to join my 2pm Zoom and summarize it after.</div>
+          </div>
+          <div class="example">
+            <div class="ask">Write a follow-up email based on yesterday's discovery call.</div>
+          </div>
+          <div class="example">
+            <div class="ask">Make a 30-second clip of the moment Sarah said "this changes everything."</div>
+          </div>
+          <div class="example">
+            <div class="ask">Compare the feedback in last quarter's interviews vs this quarter's.</div>
+          </div>
+          <div class="example">
+            <div class="ask">Export the transcript from this morning's call as a PDF.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -1733,9 +2353,11 @@
         <div class="help-card">
           <p class="section-eyebrow" style="margin-bottom: 18px;">Need a hand?</p>
           <h2>You shouldn't have to be technical to use this.</h2>
-          <p>If anything feels confusing or doesn't work, we'll get you set up. You don't need Terminal, you don't need to install anything on your computer, and you don't need to hire a Virtual Assistant.</p>
+          <p>If anything feels confusing or doesn't work, we'll get you set up. You don't need Terminal, you don't need
+            to install anything on your computer, and you don't need to hire a Virtual Assistant.</p>
           <div class="help-actions">
-            <a class="btn primary" href="https://speakai.co/help">Book 15 minutes <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn primary" href="https://speakai.co/help">Book 15 minutes <span class="arrow"
+                aria-hidden="true">→</span></a>
             <a class="btn" href="mailto:accounts@speakai.co">Email accounts@speakai.co</a>
           </div>
         </div>
@@ -1766,43 +2388,80 @@
         <div class="faq-list">
 
           <details>
-            <summary>What does clicking "Allow" (or pasting my API key) actually grant Claude or ChatGPT access to? <span class="chev" aria-hidden="true"></span></summary>
-            <p>Either method grants the AI assistant read AND write access to your full Speak AI workspace — including the ability to view, modify, and delete recordings, folders, and clips. Claude/ChatGPT only access specific data when your AI assistant calls a tool to answer a question you asked. Your recordings stay in your Speak AI workspace; they are not copied or stored by Anthropic or OpenAI.</p>
+            <summary>What does clicking "Allow" (or pasting my API key) actually grant Claude or ChatGPT access to?
+              <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <p>Either method grants the AI assistant read AND write access to your full Speak AI workspace — including
+              the ability to view, modify, and delete recordings, folders, and clips. Claude/ChatGPT only access
+              specific data when your AI assistant calls a tool to answer a question you asked. Your recordings stay in
+              your Speak AI workspace; they are not copied or stored by Anthropic or OpenAI.</p>
           </details>
 
           <details>
-            <summary>Will Claude be able to delete my recordings? <span class="chev" aria-hidden="true"></span></summary>
-            <p>Yes — write access includes delete operations. We recommend always asking your AI assistant to confirm before deleting. MCP (the standard way Claude and ChatGPT connect to apps) marks delete tools as destructive, and most clients (including Claude) prompt you before invoking them.</p>
+            <summary>Will Claude be able to delete my recordings? <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <p>Yes — write access includes delete operations. We recommend always asking your AI assistant to confirm
+              before deleting. MCP (the standard way Claude and ChatGPT connect to apps) marks delete tools as
+              destructive, and most clients (including Claude) prompt you before invoking them.</p>
           </details>
 
           <details>
-            <summary>How do I disconnect Claude/ChatGPT from my Speak AI account? <span class="chev" aria-hidden="true"></span></summary>
-            <p>Three options, all live today: (1) remove the connector inside Claude/ChatGPT itself, (2) for one-click connect installs, revoke the connection at <a href="https://api.speakai.co/v1/oauth/connections">api.speakai.co/v1/oauth/connections</a>, or (3) for API-key installs, rotate or revoke the key at <a href="https://app.speakai.co/developers/apikeys">app.speakai.co/developers/apikeys</a> — any tool using that key loses access immediately.</p>
+            <summary>How do I disconnect Claude/ChatGPT from my Speak AI account? <span class="chev"
+                aria-hidden="true"></span></summary>
+            <p>Three options, all live today: (1) remove the connector inside Claude/ChatGPT itself, (2) for one-click
+              connect installs, revoke the connection at <a
+                href="https://api.speakai.co/v1/oauth/connections">api.speakai.co/v1/oauth/connections</a>, or (3) for
+              API-key installs, rotate or revoke the key at <a
+                href="https://app.speakai.co/developers/apikeys">app.speakai.co/developers/apikeys</a> — any tool using
+              that key loses access immediately.</p>
           </details>
 
           <details>
-            <summary>What's the difference between this and the Speak AI app's built-in AI chat? <span class="chev" aria-hidden="true"></span></summary>
-            <p>Speak AI's built-in Magic Prompt is great for asking questions inside Speak. This connector lets you ask the same kinds of questions inside Claude or ChatGPT, where you might already be doing other work — drafting emails, planning content, debugging code. Use whichever feels more natural for the task.</p>
+            <summary>What's the difference between this and the Speak AI app's built-in AI chat? <span class="chev"
+                aria-hidden="true"></span></summary>
+            <p>Speak AI's built-in Magic Prompt is great for asking questions inside Speak. This connector lets you ask
+              the same kinds of questions inside Claude or ChatGPT, where you might already be doing other work —
+              drafting emails, planning content, debugging code. Use whichever feels more natural for the task.</p>
           </details>
 
           <details>
-            <summary>Do I need to install something on my computer? <span class="chev" aria-hidden="true"></span></summary>
-            <p>No new app required — Speak AI hosts the connector; Claude/ChatGPT contact it directly. The one-click connect install runs entirely in your browser (paste a URL, click Allow on the permission popup). The manual API-key alternative is also paste-only — one URL plus one <code>Authorization: Bearer &lt;your-key&gt;</code> header, no local install. The npm package (<code>@speakai/mcp-server</code>) exists for developers who want to self-host or use a CLI — that's not the path for the average customer.</p>
+            <summary>Do I need to install something on my computer? <span class="chev" aria-hidden="true"></span>
+            </summary>
+            <p>No new app required — Speak AI hosts the connector; Claude/ChatGPT contact it directly. The one-click
+              connect install runs entirely in your browser (paste a URL, click Allow on the permission popup). The
+              manual API-key alternative is also paste-only — one URL plus one
+              <code>Authorization: Bearer &lt;your-key&gt;</code> header, no local install. The npm package
+              (<code>@speakai/mcp-server</code>) exists for developers who want to self-host or use a CLI — that's not
+              the path for the average customer.
+            </p>
           </details>
 
           <details>
-            <summary>I'm a developer — where's the CLI / API documentation? <span class="chev" aria-hidden="true"></span></summary>
-            <p>See the <a href="https://github.com/speakai/speakai-mcp/blob/main/README.md#developer-reference-cli-api-advanced-setup">developer reference</a> in the README on GitHub — it covers the CLI commands, environment variables, REST API auth flow, and stdio-mode setup for clients that don't speak remote HTTP.</p>
+            <summary>I'm a developer — where's the CLI / API documentation? <span class="chev"
+                aria-hidden="true"></span></summary>
+            <p>See the <a
+                href="https://github.com/speakai/speakai-mcp/blob/main/README.md#developer-reference-cli-api-advanced-setup">developer
+                reference</a> in the README on GitHub — it covers the CLI commands, environment variables, REST API auth
+              flow, and stdio-mode setup for clients that don't speak remote HTTP.</p>
           </details>
 
           <details>
-            <summary>I keep getting "connection failed" errors mid-conversation. <span class="chev" aria-hidden="true"></span></summary>
-            <p>Single-attempt failures are usually transient — try the same prompt again. If it persists, the connector may need to be reinstalled: for one-click connect installs, revoke at <a href="https://api.speakai.co/v1/oauth/connections">api.speakai.co/v1/oauth/connections</a> then reinstall; for API-key installs, regenerate your key at <a href="https://app.speakai.co/developers/apikeys">app.speakai.co/developers/apikeys</a> and update the connector. If still broken, email <a href="mailto:accounts@speakai.co">accounts@speakai.co</a>.</p>
+            <summary>I keep getting "connection failed" errors mid-conversation. <span class="chev"
+                aria-hidden="true"></span></summary>
+            <p>Single-attempt failures are usually transient — try the same prompt again. If it persists, the connector
+              may need to be reinstalled: for one-click connect installs, revoke at <a
+                href="https://api.speakai.co/v1/oauth/connections">api.speakai.co/v1/oauth/connections</a> then
+              reinstall; for API-key installs, regenerate your key at <a
+                href="https://app.speakai.co/developers/apikeys">app.speakai.co/developers/apikeys</a> and update the
+              connector. If still broken, email <a href="mailto:accounts@speakai.co">accounts@speakai.co</a>.</p>
           </details>
 
           <details>
-            <summary>My company's IT department is blocking custom connectors. <span class="chev" aria-hidden="true"></span></summary>
-            <p>Some Claude Team / Enterprise workspaces restrict custom connectors via admin policies. Ask your workspace admin to allow <code>https://api.speakai.co/v1/mcp</code> in <strong>Organization Settings → Connectors</strong>.</p>
+            <summary>My company's IT department is blocking custom connectors. <span class="chev"
+                aria-hidden="true"></span></summary>
+            <p>Some Claude Team / Enterprise workspaces restrict custom connectors via admin policies. Ask your
+              workspace admin to allow <code>https://api.speakai.co/v1/mcp</code> in <strong>Organization Settings →
+                Connectors</strong>.</p>
           </details>
 
         </div>
@@ -1816,20 +2475,30 @@
         <p class="lead">The short version of how data flows when you connect.</p>
         <div class="privacy-card">
           <div class="privacy-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/>
-              <path d="M9 12l2 2 4-4"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 2L4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z" />
+              <path d="M9 12l2 2 4-4" />
             </svg>
           </div>
           <div>
             <h3>What you authorize when you click Allow</h3>
-            <p>You're authorizing that AI assistant to read and modify your Speak AI workspace on your behalf — including media files, transcripts, and AI insights.</p>
+            <p>You're authorizing that AI assistant to read and modify your Speak AI workspace on your behalf —
+              including media files, transcripts, and AI insights.</p>
             <ul>
-              <li>Your recordings stay in your Speak AI workspace. They are not copied or stored by Anthropic or OpenAI.</li>
+              <li>Your recordings stay in your Speak AI workspace. They are not copied or stored by Anthropic or OpenAI.
+              </li>
               <li>Claude/ChatGPT only see the specific data your AI assistant requests for the question you asked.</li>
-              <li>You can disconnect at any time — remove the connector inside Claude/ChatGPT, revoke the connection at <a href="https://api.speakai.co/v1/oauth/connections" target="_blank" rel="noopener">api.speakai.co/v1/oauth/connections</a>, or rotate/revoke your API key at <a href="https://app.speakai.co/developers/apikeys" target="_blank" rel="noopener">app.speakai.co/developers/apikeys</a>.</li>
+              <li>You can disconnect at any time — remove the connector inside Claude/ChatGPT, revoke the connection at
+                <a href="https://api.speakai.co/v1/oauth/connections" target="_blank"
+                  rel="noopener">api.speakai.co/v1/oauth/connections</a>, or rotate/revoke your API key at <a
+                  href="https://app.speakai.co/developers/apikeys" target="_blank"
+                  rel="noopener">app.speakai.co/developers/apikeys</a>.
+              </li>
             </ul>
-            <p>For data-handling questions, see <a href="https://speakai.co/privacy" target="_blank" rel="noopener">speakai.co/privacy</a> or email <a href="mailto:privacy@speakai.co">privacy@speakai.co</a>.</p>
+            <p>For data-handling questions, see <a href="https://speakai.co/privacy" target="_blank"
+                rel="noopener">speakai.co/privacy</a> or email <a
+                href="mailto:privacy@speakai.co">privacy@speakai.co</a>.</p>
           </div>
         </div>
       </div>
@@ -1839,7 +2508,8 @@
   <footer>
     <div class="container">
       <div class="brand">
-        <span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-dim);display:inline-block;"></span>
+        <span class="dot"
+          style="width:8px;height:8px;border-radius:50%;background:var(--text-dim);display:inline-block;"></span>
         <span>© Speak AI</span>
       </div>
       <div class="links">
@@ -1984,4 +2654,5 @@
 
   </script>
 </body>
+
 </html>

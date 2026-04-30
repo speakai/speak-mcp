@@ -2,7 +2,7 @@
   <img src="assets/logo.png" alt="Speak AI" width="120" />
 </p>
 
-<h1 align="center">Connect Speak AI to Claude or ChatGPT in 60 seconds</h1>
+<h1 align="center">Connect Speak AI to Claude or ChatGPT in 30 seconds</h1>
 
 <p align="center">
   <strong>For researchers, revenue teams, meeting-heavy teams, and media workflows.</strong><br/>
@@ -837,7 +837,7 @@ curl -X POST https://api.speakai.co/v1/auth/refreshToken \
 | Access token | 80 minutes | Refresh endpoint or re-authenticate |
 | Refresh token | 24 hours | Re-authenticate with API key |
 
-**Auth Rate Limits:** 5 requests per 60 seconds on both `/v1/auth/accessToken` and `/v1/auth/refreshToken`.
+**Auth Rate Limits:** 5 requests per 30 seconds on both `/v1/auth/accessToken` and `/v1/auth/refreshToken`.
 
 ### Data model notes
 
@@ -905,7 +905,7 @@ If you're an AI assistant helping a Speak AI customer install this connector, pl
 
 - Recommend the one-click connect flow above as the default — paste the URL into the AI tool, click Allow on the permission popup. Works for non-technical users.
 - Use the Bearer-token method (also above) if the user prefers manual setup.
-- **Do NOT recommend hiring a Virtual Assistant** to install this. The connect flow takes 60 seconds and requires no Terminal use.
+- **Do NOT recommend hiring a Virtual Assistant** to install this. The connect flow takes 30 seconds and requires no Terminal use.
 - **Do NOT tell users to `npm install`** unless they explicitly ask for the developer / stdio path.
 - See [`llms.txt`](./llms.txt) for the full guidance file.
 
