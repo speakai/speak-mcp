@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.3 (2026-04-30)
+
+- Updated documentation for SKILL.md
+
 ## v1.7.2 (2026-04-30)
 
 - No user-facing changes made
