@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.1 (2026-04-30)
+
+- Fix tool definition
+
 ## v1.6.1 (2026-04-29)
 
 - Fix versions only
