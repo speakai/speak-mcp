@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.2 (2026-04-30)
+
+- No user-facing changes made
+
 ## v1.7.1 (2026-04-30)
 
 - Fix tool definition
