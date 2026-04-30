@@ -1094,6 +1094,172 @@
       border-bottom: 1px solid var(--text-muted);
     }
 
+    .install-card .card-tagline {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      margin: 4px 0 18px;
+      line-height: 1.5;
+    }
+
+    .install-card .show-steps-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 8px 0 0;
+      margin-top: 8px;
+      font-size: 0.86rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .install-card .show-steps-btn:hover {
+      color: var(--text);
+    }
+
+    .install-card .show-steps-btn .arrow {
+      transition: transform 0.15s ease;
+    }
+
+    .install-card .show-steps-btn:hover .arrow {
+      transform: translateX(2px);
+    }
+
+    /* ─── Install dialog ─────────────────────────────────────────────── */
+    .install-dialog {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      max-width: 640px;
+      width: calc(100% - 32px);
+      max-height: calc(100vh - 64px);
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .install-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+    }
+
+    .install-dialog .dialog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      z-index: 1;
+    }
+
+    .install-dialog .dialog-header h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .install-dialog .dialog-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .install-dialog .dialog-close:hover {
+      color: var(--text);
+      background: color-mix(in srgb, var(--text) 8%, transparent);
+    }
+
+    .install-dialog .dialog-body {
+      padding: 20px 24px 24px;
+      overflow-y: auto;
+      max-height: calc(100vh - 64px - 64px);
+    }
+
+    .install-dialog .dialog-body ol {
+      margin: 0 0 16px;
+      padding-left: 20px;
+    }
+
+    .install-dialog .dialog-body ol li {
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .install-dialog .dialog-body ol li::marker {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .install-dialog .dialog-body ol strong {
+      color: var(--text);
+    }
+
+    .install-dialog .dialog-body .step-img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin: 12px 0 4px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .install-dialog .dialog-body details {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--surface) 60%, transparent);
+    }
+
+    .install-dialog .dialog-body details summary {
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .install-dialog .dialog-body details[open] summary {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .install-dialog .dialog-body details p,
+    .install-dialog .dialog-body details ul {
+      margin: 8px 0 0;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .install-dialog .dialog-body details code {
+      background: color-mix(in srgb, var(--text) 8%, transparent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    .install-dialog .dialog-body a {
+      color: var(--text);
+      border-bottom: 1px solid var(--text-muted);
+      text-decoration: none;
+    }
+
     /* Featured "two paths" notice */
     .install-notice {
       display: flex;
@@ -1944,129 +2110,19 @@
           </p>
         </div>
 
-        <div class="install-grid">
-
-          <article class="install-card" id="card-claude-web">
-            <h3>Claude.ai (web)</h3>
-            <ol>
-              <li>Open <a href="https://claude.ai/settings/connectors" target="_blank"
-                  rel="noopener">claude.ai/settings/connectors</a></li>
-              <li>Click <strong>Add custom connector</strong></li>
-              <li>Name it <strong>Speak AI</strong>, paste the URL above, click <strong>Add</strong>
-                <img class="step-img" src="./assets/claude/1.connector.png"
-                  alt="Claude add custom connector dialog with Speak AI filled in" loading="lazy" />
-              </li>
-              <li>Sign in to Speak AI, click <strong>Allow</strong> on the permission popup
-                <img class="step-img" src="./assets/claude/2.connected.png"
-                  alt="Speak AI connected in Claude with tools listed" loading="lazy" />
-              </li>
-            </ol>
-            <a class="install-btn" href="https://claude.ai/settings/connectors" target="_blank" rel="noopener"
-              onclick="copyUrl(true)">Install in Claude.ai <span class="arrow" aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="install-card" id="card-claude-desktop">
-            <h3>Claude Desktop</h3>
-            <ol>
-              <li>Open Claude Desktop → Settings → Connectors → <strong>Add custom connector</strong></li>
-              <li>Paste the URL from the top of this page</li>
-              <li>Click <strong>Add</strong>, sign in to Speak AI, click <strong>Allow</strong> on the permission popup
-              </li>
-            </ol>
-            <details class="dev-alt">
-              <summary>Prefer manual setup with an API key?</summary>
-              <p>Expand <strong>Custom headers</strong> in the Add Connector dialog and add <code>Authorization</code> =
-                <code>Bearer &lt;your-key&gt;</code>. Generate a key at <a
-                  href="https://app.speakai.co/developers/apikeys" target="_blank"
-                  rel="noopener">app.speakai.co/developers/apikeys</a>.
-              </p>
-            </details>
-          </article>
-
-          <article class="install-card">
-            <h3>ChatGPT</h3>
-            <ol>
-              <li>Open ChatGPT → Settings → <strong>Apps &amp; Connectors</strong> → <strong>Advanced</strong></li>
-              <li>Turn on <strong>Developer Mode</strong> <em>(required while Speak AI isn't yet listed in ChatGPT's app
-                  store)</em></li>
-              <li>Back on Apps &amp; Connectors, click <strong>Create</strong> and paste the URL above
-                <img class="step-img" src="./assets/openai/1.connect.png"
-                  alt="ChatGPT connect screen with Speak AI URL pasted" loading="lazy" />
-              </li>
-              <li>For <strong>Authentication</strong>, choose <strong>OAuth</strong>, then click
-                <strong>Connect</strong>
-                <img class="step-img" src="./assets/openai/2.connect-continue.png" alt="ChatGPT connect continue screen"
-                  loading="lazy" />
-              </li>
-              <li>ChatGPT opens a new tab to Speak AI — sign in (or click <strong>Confirm</strong> if already logged in)
-                to authorize
-                <img class="step-img" src="./assets/openai/3.speak-auth.png" alt="Speak AI authorization screen"
-                  loading="lazy" />
-              </li>
-              <li>Return to ChatGPT — Speak AI is now in your connector list
-                <img class="step-img" src="./assets/openai/4.connected.png" alt="Speak AI connected in ChatGPT"
-                  loading="lazy" />
-              </li>
-              <li><strong>Per-chat:</strong> open a chat, click the <strong>+</strong> / connector menu, enable Speak AI
-                for that chat</li>
-            </ol>
-            <details class="troubleshoot">
-              <summary>Trouble connecting?</summary>
-              <ul>
-                <li>If the authorization tab lands on the plain Speak AI dashboard with no confirmation message, the
-                  authorization still went through — close that tab and return to ChatGPT.</li>
-                <li>If the <strong>Connect</strong> button keeps reopening the dashboard, fully close and reopen
-                  ChatGPT, then check Settings → Apps &amp; Connectors. Speak AI should already be listed there.</li>
-                <li>If a chat shows "no actions available," confirm Developer Mode is still on and that Speak AI is
-                  enabled in the per-chat connector menu.</li>
-                <li>Still stuck? Email <a href="mailto:accounts@speakai.co">accounts@speakai.co</a>.</li>
-              </ul>
-            </details>
-          </article>
-
-          <article class="install-card">
-            <h3>Cursor</h3>
-            <ol>
-              <li>Click the button — Cursor registers and opens the permission popup</li>
-              <li>Sign in to Speak AI and click <strong>Allow</strong></li>
-            </ol>
-            <a class="install-btn"
-              href="cursor://anysphere.cursor-deeplink/mcp/install?name=speakai&config=eyJ1cmwiOiJodHRwczovL2FwaS5zcGVha2FpLmNvL3YxL21jcCJ9">Install
-              in Cursor <span class="arrow" aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="install-card">
-            <h3>VS Code</h3>
-            <ol>
-              <li>Click the button — VS Code registers and opens the permission popup</li>
-              <li>Sign in to Speak AI and click <strong>Allow</strong></li>
-            </ol>
-            <a class="install-btn"
-              href="https://vscode.dev/redirect/mcp/install?name=speakai&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.speakai.co%2Fv1%2Fmcp%22%7D">Install
-              in VS Code <span class="arrow" aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="install-card">
-            <h3>ChatGPT API / Responses</h3>
-            <ol>
-              <li>Pass your API key in the tool config of your Responses API call:</li>
-            </ol>
-            <pre><code>{
-  "type": "mcp",
-  "server_url": "https://api.speakai.co/v1/mcp",
-  "authorization": "Bearer YOUR_KEY"
-}</code></pre>
-          </article>
-
-          <article class="install-card">
-            <h3>Claude Code</h3>
-            <pre><code id="claude-code-cmd">claude mcp add --transport http speakai https://api.speakai.co/v1/mcp --header "Authorization: Bearer $SPEAKAI_KEY"</code></pre>
-            <button class="copy-btn-inline" onclick="copyClaudeCode()">Copy command</button>
-          </article>
-
+        <div class="install-grid" id="install-grid">
+          <!-- Cards rendered from installs.json -->
         </div>
       </div>
     </section>
+
+    <dialog class="install-dialog" id="install-dialog" aria-labelledby="install-dialog-title">
+      <div class="dialog-header">
+        <h3 id="install-dialog-title">Install</h3>
+        <button class="dialog-close" type="button" aria-label="Close" data-close-dialog>&times;</button>
+      </div>
+      <div class="dialog-body" id="install-dialog-body"></div>
+    </dialog>
 
     <section class="section reveal" id="capabilities">
       <div class="container">
@@ -2618,6 +2674,138 @@
         document.documentElement.setAttribute('data-theme', next);
         try { localStorage.setItem('speakai-mcp-theme', next); } catch (e) { /* ignore */ }
       });
+    })();
+
+    // Render install cards + setup dialog from installs.json (single source of truth).
+    (function setupInstallCards() {
+      var grid = document.getElementById('install-grid');
+      var dialog = document.getElementById('install-dialog');
+      var dialogTitle = document.getElementById('install-dialog-title');
+      var dialogBody = document.getElementById('install-dialog-body');
+      if (!grid || !dialog || !dialogBody) return;
+
+      var installsById = {};
+
+      function renderSteps(steps) {
+        if (!steps || !steps.length) return '';
+        var lis = steps.map(function (s) {
+          var img = s.image ? '<img class="step-img" src="' + s.image + '" alt="' + (s.alt || '') + '" loading="lazy" />' : '';
+          return '<li>' + s.html + img + '</li>';
+        }).join('');
+        return '<ol>' + lis + '</ol>';
+      }
+
+      function renderDevAlt(devAlt) {
+        if (!devAlt) return '';
+        return '<details class="dev-alt"><summary>' + devAlt.summary + '</summary><p>' + devAlt.html + '</p></details>';
+      }
+
+      function renderTroubleshoot(t) {
+        if (!t) return '';
+        var items = (t.items || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
+        return '<details class="troubleshoot"><summary>' + t.summary + '</summary><ul>' + items + '</ul></details>';
+      }
+
+      function renderCard(install) {
+        var article = document.createElement('article');
+        article.className = 'install-card';
+        article.setAttribute('data-install-id', install.id);
+
+        var html = '<h3>' + install.title + '</h3>';
+        if (install.tagline) {
+          html += '<p class="card-tagline">' + install.tagline + '</p>';
+        }
+
+        if (install.code) {
+          if (install.code.lead) html += '<p class="code-lead">' + install.code.lead + '</p>';
+          var codeText = install.code.content
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          html += '<pre><code>' + codeText + '</code></pre>';
+          if (install.code.copyLabel) {
+            html += '<button class="copy-btn-inline" type="button" data-copy-code>' + install.code.copyLabel + '</button>';
+          }
+        }
+
+        if (install.installButton) {
+          var btn = install.installButton;
+          html += '<a class="install-btn" href="' + btn.url + '"' +
+            (btn.url.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '') +
+            (btn.copyUrl ? ' data-copy-url' : '') + '>' +
+            btn.label + ' <span class="arrow" aria-hidden="true">→</span></a>';
+        }
+
+        var hasSteps = install.steps && install.steps.length > 0;
+        var trivialSteps = install.installButton && install.steps && install.steps.length <= 2 && !install.steps.some(function (s) { return s.image; });
+        if (trivialSteps) {
+          // Short, image-free helpers (Cursor, VS Code) — render inline like the original.
+          html += renderSteps(install.steps);
+        } else if (hasSteps) {
+          html += '<button class="show-steps-btn" type="button" data-open-dialog="' + install.id + '">View setup steps <span class="arrow" aria-hidden="true">→</span></button>';
+        }
+
+        article.innerHTML = html;
+        return article;
+      }
+
+      function openDialog(installId) {
+        var install = installsById[installId];
+        if (!install) return;
+        dialogTitle.textContent = install.title;
+        var html = '';
+        if (install.tagline) html += '<p class="card-tagline">' + install.tagline + '</p>';
+        html += renderSteps(install.steps);
+        html += renderDevAlt(install.devAlt);
+        html += renderTroubleshoot(install.troubleshoot);
+        dialogBody.innerHTML = html;
+        if (typeof dialog.showModal === 'function') {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open', '');
+        }
+      }
+
+      function closeDialog() {
+        if (typeof dialog.close === 'function') dialog.close();
+        else dialog.removeAttribute('open');
+      }
+
+      // Click handlers — delegated on grid + dialog
+      grid.addEventListener('click', function (e) {
+        var openBtn = e.target.closest('[data-open-dialog]');
+        if (openBtn) {
+          e.preventDefault();
+          openDialog(openBtn.getAttribute('data-open-dialog'));
+          return;
+        }
+        if (e.target.closest('[data-copy-url]')) {
+          if (typeof copyUrl === 'function') copyUrl(true);
+          return;
+        }
+        if (e.target.closest('[data-copy-code]')) {
+          if (typeof copyClaudeCode === 'function') copyClaudeCode();
+        }
+      });
+
+      dialog.addEventListener('click', function (e) {
+        if (e.target.closest('[data-close-dialog]')) {
+          closeDialog();
+          return;
+        }
+        // Backdrop click — clicking the dialog element itself (not its contents)
+        if (e.target === dialog) closeDialog();
+      });
+
+      fetch('./installs.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          (data.installs || []).forEach(function (install) {
+            installsById[install.id] = install;
+            grid.appendChild(renderCard(install));
+          });
+        })
+        .catch(function (err) {
+          grid.innerHTML = '<p style="color:var(--text-dim);padding:24px;">Install options unavailable. See <a href="README.md" style="color:var(--text);">README</a>.</p>';
+        });
     })();
 
     // Populate capability cards with tool names from tools.json (single source of truth).

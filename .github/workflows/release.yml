@@ -106,17 +106,19 @@ jobs:
           echo "Detected bump: $BUMP"
           echo "Changelog: $CHANGELOG"
 
+          # Floor: never skip a release. "none" or empty → patch.
           if [ "$BUMP" = "none" ] || [ -z "$BUMP" ]; then
-            echo "should_release=false" >> "$GITHUB_OUTPUT"
-            echo "No user-facing changes — skipping release."
-            exit 0
+            echo "AI returned '$BUMP' — flooring to patch."
+            BUMP="patch"
+            if [ -z "$CHANGELOG" ]; then
+              CHANGELOG="Maintenance release"
+            fi
           fi
 
-          # Validate bump is a valid semver keyword
+          # Validate bump is a valid semver keyword (defensive — also flooring invalid → patch)
           if [[ "$BUMP" != "patch" && "$BUMP" != "minor" && "$BUMP" != "major" ]]; then
-            echo "should_release=false" >> "$GITHUB_OUTPUT"
-            echo "Invalid bump type: $BUMP — skipping release."
-            exit 0
+            echo "Invalid bump type '$BUMP' — flooring to patch."
+            BUMP="patch"
           fi
 
           echo "should_release=true" >> "$GITHUB_OUTPUT"

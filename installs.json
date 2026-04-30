@@ -1,0 +1,144 @@
+{
+  "url": "https://api.speakai.co/v1/mcp",
+  "installs": [
+    {
+      "id": "claude-web",
+      "title": "Claude.ai (web)",
+      "tagline": "Browser-based — works on any computer.",
+      "installButton": {
+        "label": "Install in Claude.ai",
+        "url": "https://claude.ai/settings/connectors",
+        "copyUrl": true
+      },
+      "steps": [
+        {
+          "html": "Open <a href=\"https://claude.ai/settings/connectors\" target=\"_blank\" rel=\"noopener\">claude.ai/settings/connectors</a>"
+        },
+        {
+          "html": "Click <strong>Add custom connector</strong>"
+        },
+        {
+          "html": "Name it <strong>Speak AI</strong>, paste the URL above, click <strong>Add</strong>",
+          "image": "./assets/claude/1.connector.png",
+          "alt": "Claude add custom connector dialog with Speak AI filled in"
+        },
+        {
+          "html": "Sign in to Speak AI, click <strong>Allow</strong> on the permission popup",
+          "image": "./assets/claude/2.connected.png",
+          "alt": "Speak AI connected in Claude with tools listed"
+        }
+      ]
+    },
+    {
+      "id": "claude-desktop",
+      "title": "Claude Desktop",
+      "tagline": "Native macOS / Windows app.",
+      "steps": [
+        { "html": "Open Claude Desktop → Settings → Connectors → <strong>Add custom connector</strong>" },
+        { "html": "Paste the URL from the top of this page" },
+        { "html": "Click <strong>Add</strong>, sign in to Speak AI, click <strong>Allow</strong> on the permission popup" }
+      ],
+      "devAlt": {
+        "summary": "Prefer manual setup with an API key?",
+        "html": "Expand <strong>Custom headers</strong> in the Add Connector dialog and add <code>Authorization</code> = <code>Bearer &lt;your-key&gt;</code>. Generate a key at <a href=\"https://app.speakai.co/developers/apikeys\" target=\"_blank\" rel=\"noopener\">app.speakai.co/developers/apikeys</a>."
+      }
+    },
+    {
+      "id": "chatgpt",
+      "title": "ChatGPT",
+      "tagline": "Web + desktop. Requires Developer Mode.",
+      "steps": [
+        { "html": "Open ChatGPT → Settings → <strong>Apps &amp; Connectors</strong> → <strong>Advanced</strong>" },
+        { "html": "Turn on <strong>Developer Mode</strong> <em>(required while Speak AI isn't yet listed in ChatGPT's app store)</em>" },
+        {
+          "html": "Back on Apps &amp; Connectors, click <strong>Create</strong> and paste the URL above",
+          "image": "./assets/openai/1.connect.png",
+          "alt": "ChatGPT connect screen with Speak AI URL pasted"
+        },
+        {
+          "html": "For <strong>Authentication</strong>, choose <strong>OAuth</strong>, then click <strong>Connect</strong>",
+          "image": "./assets/openai/2.connect-continue.png",
+          "alt": "ChatGPT connect continue screen"
+        },
+        {
+          "html": "ChatGPT opens a new tab to Speak AI — sign in (or click <strong>Confirm</strong> if already logged in) to authorize",
+          "image": "./assets/openai/3.speak-auth.png",
+          "alt": "Speak AI authorization screen"
+        },
+        {
+          "html": "Return to ChatGPT — Speak AI is now in your connector list",
+          "image": "./assets/openai/4.connected.png",
+          "alt": "Speak AI connected in ChatGPT"
+        },
+        { "html": "<strong>Per-chat:</strong> open a chat, click the <strong>+</strong> / connector menu, enable Speak AI for that chat" }
+      ],
+      "troubleshoot": {
+        "summary": "Trouble connecting?",
+        "items": [
+          "If the authorization tab lands on the plain Speak AI dashboard with no confirmation message, the authorization still went through — close that tab and return to ChatGPT.",
+          "If the <strong>Connect</strong> button keeps reopening the dashboard, fully close and reopen ChatGPT, then check Settings → Apps &amp; Connectors. Speak AI should already be listed there.",
+          "If a chat shows \"no actions available,\" confirm Developer Mode is still on and that Speak AI is enabled in the per-chat connector menu.",
+          "Still stuck? Email <a href=\"mailto:accounts@speakai.co\">accounts@speakai.co</a>."
+        ]
+      }
+    },
+    {
+      "id": "cursor",
+      "title": "Cursor",
+      "tagline": "One-click install via deeplink.",
+      "installButton": {
+        "label": "Install in Cursor",
+        "url": "cursor://anysphere.cursor-deeplink/mcp/install?name=speakai&config=eyJ1cmwiOiJodHRwczovL2FwaS5zcGVha2FpLmNvL3YxL21jcCJ9"
+      },
+      "steps": [
+        { "html": "Click the button — Cursor registers and opens the permission popup" },
+        { "html": "Sign in to Speak AI and click <strong>Allow</strong>" }
+      ]
+    },
+    {
+      "id": "vscode",
+      "title": "VS Code",
+      "tagline": "One-click install via deeplink.",
+      "installButton": {
+        "label": "Install in VS Code",
+        "url": "https://vscode.dev/redirect/mcp/install?name=speakai&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fapi.speakai.co%2Fv1%2Fmcp%22%7D"
+      },
+      "steps": [
+        { "html": "Click the button — VS Code registers and opens the permission popup" },
+        { "html": "Sign in to Speak AI and click <strong>Allow</strong>" }
+      ]
+    },
+    {
+      "id": "chatgpt-api",
+      "title": "ChatGPT API / Responses",
+      "tagline": "For developers calling the Responses API directly.",
+      "code": {
+        "content": "{\n  \"type\": \"mcp\",\n  \"server_url\": \"https://api.speakai.co/v1/mcp\",\n  \"authorization\": \"Bearer YOUR_KEY\"\n}",
+        "lead": "Pass your API key in the tool config of your Responses API call:"
+      }
+    },
+    {
+      "id": "claude-code",
+      "title": "Claude Code",
+      "tagline": "Single-line CLI install.",
+      "code": {
+        "content": "claude mcp add --transport http speakai https://api.speakai.co/v1/mcp --header \"Authorization: Bearer $SPEAKAI_KEY\"",
+        "copyLabel": "Copy command"
+      }
+    },
+    {
+      "id": "openclaw",
+      "title": "OpenClaw",
+      "tagline": "Use Speak AI as a skill in OpenClaw-compatible agents.",
+      "installButton": {
+        "label": "View on ClawHub",
+        "url": "https://clawhub.ai/skills/speakai"
+      },
+      "steps": [
+        { "html": "Visit the <a href=\"https://clawhub.ai/skills/speakai\" target=\"_blank\" rel=\"noopener\">Speak AI skill page on ClawHub</a>" },
+        { "html": "Follow the install instructions for your agent — e.g. <code>clawhub install speakai</code> from the ClawHub CLI" },
+        { "html": "Set your <code>SPEAK_API_KEY</code> environment variable. Generate one at <a href=\"https://app.speakai.co/developers/apikeys\" target=\"_blank\" rel=\"noopener\">app.speakai.co/developers/apikeys</a>" }
+      ]
+    }
+  ]
+}

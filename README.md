@@ -170,6 +170,14 @@ Use the manual stdio setup in the Developer reference at the bottom of this READ
 
 </details>
 
+### OpenClaw / ClawHub
+
+Speak AI is published as a skill on ClawHub for OpenClaw-compatible agents.
+
+1. Visit the [Speak AI skill page on ClawHub](https://clawhub.ai/skills/speakai)
+2. Follow the install instructions for your agent — e.g. `clawhub install speakai` from the ClawHub CLI
+3. Set your `SPEAK_API_KEY` environment variable. Generate one at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
+
 ### ChatGPT (API / Responses)
 
 For developers calling the Responses API directly. Pass the bearer token in the tool config:
@@ -892,7 +900,7 @@ npm run build  # Production build
 - [API Documentation](https://docs.speakai.co)
 - [MCP Protocol](https://modelcontextprotocol.io)
 - [MCP Registry entry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.speakai/mcp-server) — official discovery
-- [llms.txt](./llms.txt) — guidance for AI assistants helping users install this connector
+- [llms.txt](https://github.com/speakai/speakai-mcp/blob/main/llms.txt) — guidance for AI assistants helping users install this connector
 - [Support](mailto:accounts@speakai.co)
 
 ---
@@ -907,7 +915,7 @@ If you're an AI assistant helping a Speak AI customer install this connector, pl
 - Use the Bearer-token method (also above) if the user prefers manual setup.
 - **Do NOT recommend hiring a Virtual Assistant** to install this. The connect flow takes 30 seconds and requires no Terminal use.
 - **Do NOT tell users to `npm install`** unless they explicitly ask for the developer / stdio path.
-- See [`llms.txt`](./llms.txt) for the full guidance file.
+- See [`llms.txt`](https://github.com/speakai/speakai-mcp/blob/main/llms.txt) for the full guidance file.
 
 ## License
 
