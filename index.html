@@ -236,6 +236,11 @@
       text-decoration: none;
     }
 
+    .nav nav {
+      display: flex;
+      align-items: center;
+    }
+
     .nav ul {
       list-style: none;
       display: flex;
@@ -256,27 +261,145 @@
     .nav .gh-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 0.85rem;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
       color: var(--text-dim);
-      transition: all 0.2s var(--ease);
+      transition: color 0.2s var(--ease);
     }
 
     .nav .gh-link:hover {
-      border-color: var(--border-strong);
       color: var(--text);
     }
 
-    @media (max-width: 720px) {
+    .nav .signin-link a {
+      font-size: 0.85rem;
+    }
+
+    .nav .cta-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+      transition: opacity 0.2s var(--ease);
+    }
+
+    .nav .cta-link:hover {
+      opacity: 0.85;
+      color: var(--bg);
+    }
+
+    /* ─── Hamburger toggle ────────────────────────────────────────────── */
+    .nav-mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      cursor: pointer;
+      margin-left: 10px;
+      transition: border-color 0.2s var(--ease);
+    }
+
+    .nav-mobile-toggle:hover {
+      border-color: var(--border-strong);
+    }
+
+    .nav-mobile-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-mobile-toggle .icon-close {
+      display: none;
+    }
+
+    .nav-mobile-toggle[aria-expanded="true"] .icon-burger {
+      display: none;
+    }
+
+    .nav-mobile-toggle[aria-expanded="true"] .icon-close {
+      display: block;
+    }
+
+    /* ─── Mobile menu panel ───────────────────────────────────────────── */
+    .nav-mobile-menu {
+      display: none;
+      flex-direction: column;
+      padding: 8px 22px 18px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in srgb, var(--bg) 96%, transparent);
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+    }
+
+    .nav-mobile-menu[data-open="true"] {
+      display: flex;
+    }
+
+    .nav-mobile-menu a {
+      padding: 14px 0;
+      font-size: 1rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-mobile-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .nav-mobile-menu a:hover {
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 880px) {
       .nav ul {
-        gap: 12px;
+        gap: 18px;
       }
 
-      .nav ul .nav-link {
+      .nav .signin-link {
         display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-mobile-toggle {
+        display: inline-flex;
+      }
+
+      .nav .container {
+        position: relative;
+      }
+
+      .nav ul {
+        gap: 10px;
+      }
+
+      .nav ul .nav-link,
+      .nav .gh-link-item {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav .cta-link {
+        padding: 6px 12px;
+        font-size: 0.82rem;
+      }
+
+      .nav ul {
+        gap: 6px;
       }
     }
 
@@ -736,6 +859,14 @@
       animation: heading-dots 1.4s var(--ease) infinite;
     }
 
+    .section h2.no-dots::after,
+    .section h2.no-dots:hover::after {
+      content: none;
+      width: 0;
+      margin-left: 0;
+      animation: none;
+    }
+
     @keyframes heading-dots {
 
       0%,
@@ -1103,17 +1234,22 @@
 
     .install-card .show-steps-btn {
       display: inline-flex;
+      align-self: flex-start;
       align-items: center;
       gap: 6px;
       background: transparent;
       color: var(--text-muted);
       border: none;
       padding: 8px 0 0;
-      margin-top: 8px;
+      margin-top: auto;
       font-size: 0.86rem;
       font-family: inherit;
       cursor: pointer;
       transition: color 0.15s ease;
+    }
+
+    .install-card .install-btn + .show-steps-btn {
+      margin-top: 8px;
     }
 
     .install-card .show-steps-btn:hover {
@@ -2032,6 +2168,9 @@
           <li class="nav-link"><a href="tools.html">Tools</a></li>
           <li class="nav-link"><a href="#examples">Examples</a></li>
           <li class="nav-link"><a href="#help">Help</a></li>
+          <li class="signin-link"><a href="https://app.speakai.co/auth/login">Sign in</a></li>
+          <li class="cta-item"><a class="cta-link" href="https://app.speakai.co/auth/register">Get started</a></li>
+          <li class="gh-link-item"><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener" aria-label="GitHub repository"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.74.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12 0 1.53-.01 2.77-.01 3.14 0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg></a></li>
           <li>
             <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
               <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
@@ -2046,10 +2185,25 @@
               </svg>
             </button>
           </li>
-          <li><a class="gh-link" href="https://github.com/speakai/speakai-mcp" rel="noopener">GitHub <span
-                aria-hidden="true">↗</span></a></li>
         </ul>
+        <button type="button" class="nav-mobile-toggle" id="nav-mobile-toggle" aria-expanded="false" aria-controls="nav-mobile-menu" aria-label="Open menu">
+          <svg class="icon-burger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
       </nav>
+    </div>
+    <div class="nav-mobile-menu" id="nav-mobile-menu" hidden>
+      <a href="#install" data-mobile-link>Install</a>
+      <a href="#capabilities" data-mobile-link>Capabilities</a>
+      <a href="tools.html" data-mobile-link>Tools</a>
+      <a href="#examples" data-mobile-link>Examples</a>
+      <a href="#help" data-mobile-link>Help</a>
+      <a href="https://app.speakai.co/auth/login" data-mobile-link>Sign in</a>
+      <a href="https://github.com/speakai/speakai-mcp" rel="noopener" data-mobile-link>GitHub ↗</a>
     </div>
   </header>
 
@@ -2408,7 +2562,7 @@
       <div class="container">
         <div class="help-card">
           <p class="section-eyebrow" style="margin-bottom: 18px;">Need a hand?</p>
-          <h2>You shouldn't have to be technical to use this.</h2>
+          <h2 class="no-dots">You shouldn't have to be technical to use this.</h2>
           <p>If anything feels confusing or doesn't work, we'll get you set up. You don't need Terminal, you don't need
             to install anything on your computer, and you don't need to hire a Virtual Assistant.</p>
           <div class="help-actions">
@@ -2621,7 +2775,7 @@
         'Draft a follow‑up email from this morning’s discovery call.',
         'Make a 60‑second highlight clip of the strongest moment in Tuesday’s podcast.',
         'Compare the feedback in last quarter’s user research vs this quarter’s.',
-        'Pull every quote from Maya’s sessions about burnout.',
+        'Pull every quote from my sessions about burnout.',
         'Show me the recordings where my client first mentioned wanting to switch careers.',
         'Turn last week’s product review into a one‑page brief with decisions and open questions.'
       ];
@@ -2658,6 +2812,54 @@
       }
       // Start after a short delay so the page settles first.
       setTimeout(tick, 500);
+    })();
+
+    // Mobile menu — hamburger toggles a slide-down panel. Closes on link click,
+    // ESC, click outside, or resize past breakpoint.
+    (function setupMobileMenu() {
+      var toggle = document.getElementById('nav-mobile-toggle');
+      var menu = document.getElementById('nav-mobile-menu');
+      if (!toggle || !menu) return;
+
+      function setOpen(open) {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (open) {
+          menu.removeAttribute('hidden');
+          menu.setAttribute('data-open', 'true');
+        } else {
+          menu.setAttribute('hidden', '');
+          menu.removeAttribute('data-open');
+        }
+      }
+
+      toggle.addEventListener('click', function () {
+        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        setOpen(!isOpen);
+      });
+
+      menu.querySelectorAll('[data-mobile-link]').forEach(function (link) {
+        link.addEventListener('click', function () { setOpen(false); });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (toggle.getAttribute('aria-expanded') !== 'true') return;
+        if (menu.contains(e.target) || toggle.contains(e.target)) return;
+        setOpen(false);
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 720 && toggle.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+        }
+      });
     })();
 
     // Theme toggle — persists choice; falls back to system preference when none.
