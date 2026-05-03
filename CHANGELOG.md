@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.5 (2026-05-03)
+
+- No changes made to the package.
+
 ## v1.7.4 (2026-04-30)
 
 - No user-facing changes made.
