@@ -216,7 +216,7 @@ For questions about data handling, see [speakai.co/privacy](https://speakai.co/p
 **You shouldn't need to be technical to install this.** If anything is confusing or doesn't work:
 
 - Email [success@speakai.co](mailto:success@speakai.co) — we'll respond within 24 hours
-- [Book 15 minutes with us](https://speakai.co/help) and we'll set it up together
+- [Book a demo with us](https://calendly.com/speak-ai/demo) and we'll set it up together
 
 ---
 
