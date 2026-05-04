@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.7 (2026-05-04)
+
+- Email updated
+
 ## v1.7.6 (2026-05-04)
 
 - No user-facing changes made.
