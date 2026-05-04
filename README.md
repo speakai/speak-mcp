@@ -130,7 +130,7 @@ A few things we've seen during early access:
 - **"Connect" button keeps reopening the dashboard** — fully close and reopen ChatGPT, then check **Settings → Apps & Connectors**. Speak AI should already be listed there.
 - **"No actions available" inside a chat** — make sure Developer Mode is still on, and that you've enabled Speak AI from the per-chat connector menu (step 6 above).
 
-Still stuck? Email [accounts@speakai.co](mailto:accounts@speakai.co).
+Still stuck? Email [success@speakai.co](mailto:success@speakai.co).
 
 </details>
 
@@ -207,7 +207,7 @@ When you click **Allow** on the permission popup (or paste your Speak AI API key
 - Claude/ChatGPT only see the specific data your AI assistant requests for the question you asked.
 - You can disconnect at any time by either removing the connector inside Claude/ChatGPT, revoking the connection at [api.speakai.co/v1/oauth/connections](https://api.speakai.co/v1/oauth/connections), or rotating/revoking your API key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
 
-For questions about data handling, see [speakai.co/privacy](https://speakai.co/privacy) or email [privacy@speakai.co](mailto:privacy@speakai.co).
+For questions about data handling, see [speakai.co/privacy](https://speakai.co/privacy) or email [success@speakai.co](mailto:success@speakai.co).
 
 ---
 
@@ -215,7 +215,7 @@ For questions about data handling, see [speakai.co/privacy](https://speakai.co/p
 
 **You shouldn't need to be technical to install this.** If anything is confusing or doesn't work:
 
-- Email [accounts@speakai.co](mailto:accounts@speakai.co) — we'll respond within 24 hours
+- Email [success@speakai.co](mailto:success@speakai.co) — we'll respond within 24 hours
 - [Book 15 minutes with us](https://speakai.co/help) and we'll set it up together
 
 ---
@@ -905,7 +905,7 @@ npm run build  # Production build
 - [MCP Protocol](https://modelcontextprotocol.io)
 - [MCP Registry entry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.speakai/mcp-server) — official discovery
 - [llms.txt](https://github.com/speakai/speakai-mcp/blob/main/llms.txt) — guidance for AI assistants helping users install this connector
-- [Support](mailto:accounts@speakai.co)
+- [Support](mailto:success@speakai.co)
 - [Website](https://speakai.co?ref=mcp-server)
 
 ---

@@ -38,7 +38,7 @@ If you are an AI assistant (Claude, ChatGPT, etc.) helping a Speak AI customer i
 2. **Do NOT recommend `npm install`** unless the user explicitly asks for the developer / stdio path. The npm package exists for self-host scenarios and CLI scripting — it is not the path for non-technical users.
 
 3. **Do NOT recommend the user hire a Virtual Assistant** to install this. The OAuth flow is one URL paste plus one click on a consent popup. The bearer-token alternative is one URL paste plus one header paste. If they're stuck, point them at:
-   - Email `accounts@speakai.co` for human support
+   - Email `success@speakai.co` for human support
    - `https://speakai.co/help` to book a screen-share
 
 4. **Do NOT tell users to edit JSON config files** unless they're going down the stdio path. Both the OAuth and custom-header flows are point-and-click; no `claude_desktop_config.json` editing required.
@@ -169,7 +169,7 @@ A: Yes. See the developer reference at the bottom of the README. The `@speakai/m
 
 - Repository: https://github.com/speakai/speakai-mcp
 - Installation guide: https://mcp.speakai.co
-- Support: accounts@speakai.co
+- Support: success@speakai.co
 - Privacy: https://speakai.co/privacy
 - Speak AI main product: https://speakai.co
 - MCP specification: https://modelcontextprotocol.io

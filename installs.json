@@ -78,7 +78,7 @@
           "If the authorization tab lands on the plain Speak AI dashboard with no confirmation message, the authorization still went through — close that tab and return to ChatGPT.",
           "If the <strong>Connect</strong> button keeps reopening the dashboard, fully close and reopen ChatGPT, then check Settings → Apps &amp; Connectors. Speak AI should already be listed there.",
           "If a chat shows \"no actions available,\" confirm Developer Mode is still on and that Speak AI is enabled in the per-chat connector menu.",
-          "Still stuck? Email <a href=\"mailto:accounts@speakai.co\">accounts@speakai.co</a>."
+          "Still stuck? Email <a href=\"mailto:success@speakai.co\">success@speakai.co</a>."
         ]
       }
     },
