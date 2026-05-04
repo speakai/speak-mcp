@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.8 (2026-05-04)
+
+- Fixed a message typo
+
 ## v1.7.7 (2026-05-04)
 
 - Email updated
