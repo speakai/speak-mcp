@@ -136,14 +136,34 @@ Still stuck? Email [success@speakai.co](mailto:success@speakai.co).
 
 ### Claude Code (terminal)
 
-The sign-in flow (loopback) is supported, but the fastest path on the CLI is pasting an API key as a header:
+**Recommended — install from the official Claude Code plugin marketplace:**
+
+1. Add the official marketplace (one-time): `/plugin marketplace add claude-plugins-official`
+2. Install the plugin: `/plugin install speakai@claude-plugins-official`
+3. Activate it: `/reload-plugins`
+4. Run the `getting-started` skill and paste your Speak AI API key. Generate one at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
+
+If `/plugin install` doesn't find Speak AI, refresh the local catalog with `/plugin marketplace update claude-plugins-official` and retry.
+
+<details>
+<summary>Developer alternative — manual HTTP transport</summary>
+
+Skip the plugin and add the connector directly:
 
 ```sh
-claude mcp add --transport http speakai https://api.speakai.co/v1/mcp \
+claude mcp add speakai --transport http --url https://api.speakai.co/v1/mcp
+```
+
+Claude Code will open an OAuth window for sign-in. To bypass OAuth and pass a Bearer token instead:
+
+```sh
+claude mcp add speakai --transport http --url https://api.speakai.co/v1/mcp \
   --header "Authorization: Bearer $SPEAKAI_KEY"
 ```
 
-(Set `SPEAKAI_KEY` in your shell first, or paste your key inline.)
+Set `SPEAKAI_KEY` in your shell first, or paste your key inline. Generate a key at [app.speakai.co/developers/apikeys](https://app.speakai.co/developers/apikeys).
+
+</details>
 
 ### Cursor
 

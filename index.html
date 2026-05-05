@@ -2743,7 +2743,6 @@
 
   <script>
     const MCP_URL = 'https://api.speakai.co/v1/mcp';
-    const CLAUDE_CODE_CMD = 'claude mcp add --transport http speakai https://api.speakai.co/v1/mcp --header "Authorization: Bearer $SPEAKAI_KEY"';
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -2762,12 +2761,6 @@
           setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
         }
         showToast('URL copied — switch to your AI tool tab and paste it');
-      });
-    }
-
-    function copyClaudeCode() {
-      navigator.clipboard.writeText(CLAUDE_CODE_CMD).then(() => {
-        showToast('Command copied — paste it in your terminal');
       });
     }
 
@@ -2990,9 +2983,6 @@
         if (e.target.closest('[data-copy-url]')) {
           if (typeof copyUrl === 'function') copyUrl(true);
           return;
-        }
-        if (e.target.closest('[data-copy-code]')) {
-          if (typeof copyClaudeCode === 'function') copyClaudeCode();
         }
       });
 

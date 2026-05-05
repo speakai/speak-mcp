@@ -120,10 +120,24 @@
     {
       "id": "claude-code",
       "title": "Claude Code",
-      "tagline": "Single-line CLI install.",
-      "code": {
-        "content": "claude mcp add --transport http speakai https://api.speakai.co/v1/mcp --header \"Authorization: Bearer $SPEAKAI_KEY\"",
-        "copyLabel": "Copy command"
+      "tagline": "Recommended — install via the official Claude Code plugin marketplace.",
+      "steps": [
+        { "html": "Add the official marketplace (one-time): <code>/plugin marketplace add claude-plugins-official</code>" },
+        { "html": "Install the plugin: <code>/plugin install speakai@claude-plugins-official</code>" },
+        { "html": "Activate it: <code>/reload-plugins</code>" },
+        { "html": "Run the <code>getting-started</code> skill and paste your Speak AI API key. Generate one at <a href=\"https://app.speakai.co/developers/apikeys\" target=\"_blank\" rel=\"noopener\">app.speakai.co/developers/apikeys</a>" }
+      ],
+      "devAlt": {
+        "summary": "Prefer the manual HTTP transport?",
+        "html": "Skip the plugin and add the connector directly:<br><br><code>claude mcp add speakai --transport http --url https://api.speakai.co/v1/mcp</code><br><br>Claude Code will open an OAuth window for sign-in. To bypass OAuth and pass a Bearer token instead, append <code>--header \"Authorization: Bearer $SPEAKAI_KEY\"</code>."
+      },
+      "troubleshoot": {
+        "summary": "Plugin install didn't find Speak AI?",
+        "items": [
+          "Refresh the local marketplace catalog with <code>/plugin marketplace update claude-plugins-official</code>, then retry <code>/plugin install speakai@claude-plugins-official</code>.",
+          "If <code>/reload-plugins</code> doesn't surface the plugin, restart Claude Code.",
+          "Still stuck? Email <a href=\"mailto:success@speakai.co\">success@speakai.co</a>."
+        ]
       }
     },
     {
