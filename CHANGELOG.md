@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.9 (2026-05-05)
+
+- Updated claude plugin
+
 ## v1.7.8 (2026-05-04)
 
 - Fixed a message typo
