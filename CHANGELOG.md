@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7.10 (2026-05-05)
+
+- No changes made since the last release.
+
 ## v1.7.9 (2026-05-05)
 
 - Updated claude plugin
